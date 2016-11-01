@@ -1,14 +1,67 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
 <title>
 Till60 - Login
 </title>
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/login/login.css" rel="stylesheet">
+
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
-<div align="center">
+<div class="col-md-12 container-fluid main-container text-center">
+<br />
+<br />
 <img src="images/till60_logo.jpg">
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pr-wrap">
+                <div class="pass-reset">
+                    <label>Enter the email you signed up with</label>
+                    <input type="email" placeholder="Email" />
+                    <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+                </div>
+            </div>
+            <div class="wrap">
+            	<p class="social-btn">
+            	
+				</p>
+                <p class="form-title">
+                <a class="btn btn-default social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+				<a class="btn btn-default social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
+				<a class="btn btn-default social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>
+				<a class="btn btn-default social-login-btn social-google" href="/auth/google"><i class="fa fa-google-plus"></i></a>
+				<br />
+				<br />
+                Sign In
+                </p>
+                <form class="login">
+                <input type="text" placeholder="Username" />
+                <input type="password" placeholder="Password" />
+                <input type="submit" value="Sign In" class="btn btn-default btn-sm" />
+                <div class="remember-forgot">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label><input type="checkbox" />Remember Me</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 forgot-pass-content">
+                            <a href="javascription:void(0)" class="forgot-pass">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
