@@ -21,13 +21,13 @@ p.form-title
     letter-spacing: 4px;
 }
 
-form
+.login
 {
     width: 250px;
     margin: 0 auto;
 }
 
-form.login input[type="text"], form.login input[type="password"]
+div.login input[type="text"], div.login input[type="password"]
 {
     width: 100%;
     margin: 0;
@@ -45,7 +45,7 @@ form.login input[type="text"], form.login input[type="password"]
     outline: 0;
 }
 
-form.login input[type="submit"]
+div.login input[type="button"]
 {
     width: 100%;
     font-size: 14px;
@@ -57,36 +57,36 @@ form.login input[type="submit"]
     letter-spacing: 1px;
 }
 
-form.login input[type="submit"]:hover
+div.login input[type="button"]:hover
 {
     transition: background-color 0.5s ease;
 }
 
-form.login .remember-forgot
+div.login .remember-forgot
 {
     float: left;
     width: 100%;
     margin: 10px 0 0 0;
 }
-form.login .forgot-pass-content
+div.login .forgot-pass-content
 {
     min-height: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-form.login label, form.login a
+div.login label, div.login a
 {
     font-size: 12px;
     font-weight: 400;
     color: #000;
 }
 
-form.login a
+div.login a
 {
     transition: color 0.5s ease;
 }
 
-form.login a:hover
+div.login a:hover
 {
     color: #2ecc71;
 }
