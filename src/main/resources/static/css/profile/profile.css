@@ -106,6 +106,18 @@ div.button-group
     font-size:20px;
 }
 
+@media (max-width:1024px)
+{
+	.contens
+	{
+		display: inline-block;
+		vertical-align: top;
+		/* border: #f00 solid 1px; */
+		margin: 20px 0px 0px 35px;
+		width: 65%;
+	}
+}
+
 /* @media (max-width:768px)
 {
 
