@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+body
+{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.fb-profile img.fb-image-lg
+{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+    border-bottom: #000 solid 1px;
+}
+
+div.button-bar 
+{
+    width: 100%;  
+    padding-top: 10px;
+    background-color: #eee;
+	border-top: #000 solid 1px;
+	border-bottom: #000 solid 1px;
+}
+
+div.button-group
+{
+	margin-bottom: 7px;
+	margin-left: 330px;
+	color: #000;
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 40px;
+    z-index: 9;
+    width: 250px; 
+    height: 250px;
+}
+  
+.fb-profile-text {
+	width: 100%;
+	border: #000 solid 1px;
+	vertical-align: top;
+}
+
+.fb-profile-text-sub {
+	display: inline-block;
+	margin: 160px 0px 0px -260px;
+	width: 250px;
+	text-align: left;
+	border: #0ff solid 1px;
+}
+
+.contens
+{
+	display: inline-block;
+	vertical-align: top;
+	border: #00f solid 1px;
+	margin: 20px 0px 0px 35px;
+}
+
+/* @media (max-width:768px)
+{
+
+.fb-profile-text>h1{
+    font-weight: 700;
+    font-size:16px;
+}
+
+.fb-image-profile
+{
+    margin: -45px 10px 0px 20px;
+    z-index: 9;
+    width: 15%; 
+}
+} */
