@@ -11,14 +11,14 @@ body
 {
     z-index: 0;
     width: 100%;  
-    margin-bottom: 10px;
-    border-bottom: #000 solid 1px;
 }
 
 div.button-bar 
 {
+	position: relative;
+	z-index: 0;
+	display: inline-block;
     width: 100%;  
-    padding-top: 10px;
     background-color: #eee;
 	border-top: #000 solid 1px;
 	border-bottom: #000 solid 1px;
@@ -26,13 +26,30 @@ div.button-bar
 
 div.button-group
 {
-	margin-bottom: 7px;
+	display: table;
+	height: 50px;
 	margin-left: 330px;
 	color: #000;
+	vertical-align: middle;
+}
+
+div.button-group>.btn-main
+{
+	display: table-cell;
+	width: 70px;
+	height: 50px;
+	color: #000;
+	vertical-align: middle;
+}
+
+div.button-group>.btn-main:hover
+{
+	border-bottom: #00f solid 3px;
 }
 
 .fb-image-profile
 {
+	position: relative;
     margin: -90px 10px 0px 40px;
     z-index: 9;
     width: 250px; 
@@ -66,9 +83,14 @@ div.button-group
 	margin-top: 5px;
 }
 
-.btn-goal
+.btn-goal,  .btn-element
 {
 	width: 100%;
+}
+
+.btn-element
+{
+	text-align: left;
 }
 
 .contents-sub
