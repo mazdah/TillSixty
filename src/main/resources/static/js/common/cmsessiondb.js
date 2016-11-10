@@ -121,4 +121,44 @@ function selectRow() {
 		alert("총 " + cnt + "건의 데이터가 조회되었습니다.\n" + JSON.stringify(resultArr));
 	}
 }
+
+function deleteRow() {
+	var col = document.getElementById('column').value;
+	var val = document.getElementById('val').value;
+	var tblNm2 = document.getElementById('tblNm2').value;
+
+	if (tblNm2 == undefined || '' == tblNm2 || val == undefined || '' == val || col == undefined || '' == col) {
+		alert('Table 이름과 컬럼 이름과 컬럼 값은 필수입니다.');
+		return;
+	}
+
+	var tableObj = JSON.parse(window.sessionStorage[tblNm2]);
+	var tableArr = tableObj.table;
+	var rowCnt = tableArr.length;
+	var cnt = 0;
+	var resultArr = [];
+
+//	for (var obj in tableArr) {		//이렇게 하면 obj에 id만 들어감!!!
+	for (i = 0; i < rowCnt; i++) {
+		var obj = tableArr[i];
+
+		alert('i = ' + i + ' : col = ' + col + ' : obj = ' + JSON.stringify(obj));
+
+		if (obj[col] == val) {
+			tableArr.splice(i, 1);
+			rowCnt--;
+			cnt++;
+			resultArr.push(obj);
+		}
+	};
+
+	tableObj.table = tableArr;
+	window.sessionStorage[tblNm2] = JSON.stringify(tableObj);
+
+	if (cnt == 0) {
+		alert("삭제 조건에 맞는 데이터가 없습니다.");
+	} else {
+		alert("총 " + cnt + "건의 데이터가 삭제되었습니다.\n" + JSON.stringify(resultArr) + "\n\n" + window.sessionStorage[tblNm2]);
+	}
+}
 */
