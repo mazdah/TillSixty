@@ -60,28 +60,15 @@ div.button-group
 	width: 70%;
 }
 
-.tab1, .tab2, .tab3
-{
-	z-index: 1;
-	width: 80px;
-	height: 30px;
-	display: inline-block;
-	text-align: center;
-	border-top: #000 solid 1px;
-	border-left: #000 solid 1px;
-	border-right: #000 solid 1px;
-	border-bottom: #fff solid 1px;
-}
-
-.tab2, .tab3
-{
-	border-bottom: #000 solid 1px;
-}
-
 .btn-span
 {
 	display: block;
 	margin-top: 5px;
+}
+
+.btn-goal
+{
+	width: 100%;
 }
 
 .contents-sub
