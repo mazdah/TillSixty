@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>
 Till60 - Sign Up
 </title>
@@ -10,6 +12,8 @@ Till60 - Sign Up
 
 <script src="../../js/jQuery/jquery-3.1.1.js"></script>
 <script src="../../js/Bootstrap/bootstrap.js"></script>
+<script src="../../js/common/cmsessiondb.js"></script>
+<script src="../../js/account/accountEdit.js"></script>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
 </head>
@@ -32,11 +36,12 @@ Till60 - Sign Up
             <div class="wrap">
             	<p class="form-title">Sign Up</p>
                 <div class="login">
-                <input type="text" placeholder="Username" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Password confirm" />
-                <input type="text" placeholder="E-mail" />
-                <input type="button" value="Sign Up" class="btn btn-default btn-sm" />
+                <input type="text" placeholder="Username" id="_user-name"/>
+                <input type="text" placeholder="ID" id="_user-id"/>
+                <input type="password" placeholder="Password" id="_password"/>
+                <input type="password" placeholder="Password confirm" id="_password-confirm"/>
+                <input type="text" placeholder="E-mail" id="_email"/>
+                <input type="button" value="Sign Up" class="btn btn-default btn-sm _sign-up" />
                 </div>
             </div>
         </div>

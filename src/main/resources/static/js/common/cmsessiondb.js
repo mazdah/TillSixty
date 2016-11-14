@@ -141,7 +141,7 @@ var SessionDB = function () {
 	*	@ parameter : tblNm String (테이블 이름, 문자열), rowData String (JSON 포맷의 문자열)
 	*	@ return : 0 - insert 실패, 1 - insert 성공
 	*/
-	var _insertRow = function(tblNm, rowData) {
+	var _insertRow = function(tblNm, rowData, flag = true) {
 		if (tblNm == undefined || '' == tblNm) {
 			alert('Table 이름은 필수입니다.');
 			return 0;
@@ -153,12 +153,17 @@ var SessionDB = function () {
 		}
 
 		if (StrorageDB[tblNm] == undefined) {
-			if (confirm('테이블이 존재하지 않습니다. 테이블을 생성하여 진행하시겠습니까?')) {
+			if (flag) {
 				_createTable(tblNm);
 			} else {
-				return 0;
+				if (confirm('테이블이 존재하지 않습니다. 테이블을 생성하여 진행하시겠습니까?')) {
+					_createTable(tblNm);
+				} else {
+					return 0;
+				}
 			}
 		}
+		
 
 		var tableObj = JSON.parse(StrorageDB[tblNm]);
 		var rowObj = JSON.parse(rowData);
