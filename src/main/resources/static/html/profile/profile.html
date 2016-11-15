@@ -10,8 +10,31 @@
 <link href="../../css/profile/profile.css" rel="stylesheet">
 <script src="../../js/jQuery/jquery-3.1.1.js"></script>
 <script src="../../js/Bootstrap/bootstrap.js"></script>
+<script src="../../js/common/cmsessiondb.js"></script>
+<script src="../../js/profile/profile.js"></script>
 </head>
 <body>
+<!-- Modal Frame -->
+<div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-goal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">목표 추가</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group col-xs-12 _insert-cols" style="margin-bottom: 10px;">
+        </div>
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-sm btn-primary" id="_save-goal" data-dismiss="modal">저 장</button>
+        <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Frame -->
+
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <div class="container">
     <div class="fb-profile">
@@ -24,40 +47,47 @@
         <img align="left" class="fb-image-profile img-rounded" src="../../images/profile/profile_img.png" alt="Profile image example"/>
         <div class="fb-profile-text">
         	<div class="fb-profile-text-sub">
-	            <p class="main-title">Eli Macy</p>
-	            <small class="small-font">@mazdah</small>
+	            <p class="main-title _user-name">Eli Macy</p>
+	            <small class="small-font _user-id">@mazdah</small>
 	            <br />
 	            <p>
 	            테스트를 위한 계정
 	            어떤 식으로 보여줄지
 	            Mockup 구성 중
 	            </p>
-	            <button class="btn btn-default btn-goal" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 
-	            														aria-expanded="false" aria-controls="collapseExample">
-				  목표 1
-				</button>
-				<div class="collapse" id="collapseExample">
-					<div class="list-group">
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Idea</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Resource</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">11</span>Info</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">2</span>Mentor</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Risk</button>
+	            <div class="_container-goal-list">
+		            <!-- 
+		            <button class="btn btn-default btn-goal" id="_goal1" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 
+		            														aria-expanded="false" aria-controls="collapseExample">
+					  목표 1
+					</button>
+					<div class="collapse" id="collapseExample">
+						<div class="list-group">
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Idea</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Resource</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">11</span>Info</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">2</span>Mentor</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Risk</button>
+						</div>
 					</div>
-				</div>
-				<button class="btn btn-default btn-goal" type="button" data-toggle="collapse" data-target="#collapseExample2" 
-	            														aria-expanded="false" aria-controls="collapseExample2">
-				  목표 2
-				</button>
-				<div class="collapse" id="collapseExample2">
-				  	<div class="list-group">
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Idea</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Resource</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">6</span>Info</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Mentor</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Risk</button>
+					<button class="btn btn-default btn-goal" id="_goal2" type="button" data-toggle="collapse" data-target="#collapseExample2" 
+		            														aria-expanded="false" aria-controls="collapseExample2">
+					  목표 2
+					</button>
+					<div class="collapse" id="collapseExample2">
+					  	<div class="list-group">
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Idea</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Resource</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">6</span>Info</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Mentor</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Risk</button>
+						</div>
 					</div>
+					 -->
 				</div>
+				<button class="btn btn-default btn-goal _add-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
+				  목표 추가
+				</button>
             </div>
             <div class="contens">
 	        	 <ul class="nav nav-tabs">

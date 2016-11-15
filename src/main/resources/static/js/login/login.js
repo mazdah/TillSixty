@@ -17,6 +17,7 @@ $('document').ready(function () {
 		var resultArr = SessionDB.selectRow('UserTable', param);
 		
 		if (resultArr != null) {
+			SessionDB.setSessionStorage("userInfo", JSON.stringify(resultArr[0]));
 			window.location.href = "/html/profile/profile.html";
 		} else {
 			alert("User ID 또는 Password가 일치하지 않습니다.")

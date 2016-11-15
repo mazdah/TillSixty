@@ -6,6 +6,20 @@
 
 var SessionDB = function () {
 	var StrorageDB;
+	
+	var _setSessionStorage = function (key, value) {
+		if (window.sessionStorage[key]) {
+			if (confirm("이미 존재하는 key입니다. 값을 덮어쓰시겠습니까?")) {
+				window.sessionStorage[key] = value;
+			}
+		} else {
+			window.sessionStorage[key] = value;
+		}
+	};
+	
+	var _getSessionStorage = function (key) {
+		return window.sessionStorage[key];
+	};
 
 	/**
 	*	@ SessionDB 초기화 : sessionStorage를 사용할 것인지, localStorage를 사용할 것인지 설정
@@ -211,12 +225,17 @@ var SessionDB = function () {
 	var _selectRow = function(tblNm, param) {
 		if (tblNm == undefined || '' == tblNm) {
 			alert('Table 이름은 필수입니다.');
-			return;
+			return null;
 		}
 
 		if (param == undefined) {
 			alert("조건이 정확하지 않습니다.");
-			return;
+			return null;
+		}
+		
+		if (StrorageDB[tblNm] == undefined) {
+			alert('존재하지 않는 테이블입니다.');
+			return null;
 		}
 		
 		var tableObj = JSON.parse(StrorageDB[tblNm]);
@@ -356,16 +375,18 @@ var SessionDB = function () {
 	};
 
 	return {
-		init			: _init,
-		createTable		: _createTable,
-		getTableList	: _getTableList,
-		dropTable		: _dropTable,
-		importTable		: _importTable,
-		insertRow		: _insertRow,
-		getTable 		: _getTable,
-		selectRow		: _selectRow,
-		deleteRow		: _deleteRow,
-		updateRow		: _updateRow
+		setSessionStorage	: _setSessionStorage,
+		getSessionStorage	: _getSessionStorage,
+		init				: _init,
+		createTable			: _createTable,
+		getTableList		: _getTableList,
+		dropTable			: _dropTable,
+		importTable			: _importTable,
+		insertRow			: _insertRow,
+		getTable 			: _getTable,
+		selectRow			: _selectRow,
+		deleteRow			: _deleteRow,
+		updateRow			: _updateRow
 	}
 }();
 SessionDB.init('session');

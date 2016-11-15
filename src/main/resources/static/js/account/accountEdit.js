@@ -34,7 +34,7 @@ $('document').ready(function () {
 		}
 		
 		var param = {};
-		param.id = userid;
+		param.id = userId;
 		
 		if (SessionDB.selectRow('UserTable', param) != null) {
 			alert("사용하실 수 없는 ID 입니다. 이미 등록된 ID 입니다.");
