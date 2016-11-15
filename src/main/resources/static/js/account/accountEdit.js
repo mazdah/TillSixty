@@ -33,6 +33,21 @@ $('document').ready(function () {
 			return;
 		}
 		
+		var param = {};
+		param.id = userid;
+		
+		if (SessionDB.selectRow('UserTable', param) != null) {
+			alert("사용하실 수 없는 ID 입니다. 이미 등록된 ID 입니다.");
+			return;
+		}
+		
+		param = {};
+		param.email = email;
+		if (SessionDB.selectRow('UserTable', param) != null) {
+			alert("사용하실 수 없는 Email 입니다. 이미 등록된 Email 입니다.");
+			return;
+		}
+		
 		var rowDataObj = {};
 		rowDataObj.name = userName;
 		rowDataObj.id = userId;
