@@ -7,9 +7,13 @@
 <title>Till60 - MyPage</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../../css/Bootstrap/bootstrap.css" rel="stylesheet">
+<link href="../../css/Bootstrap/datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+
 <link href="../../css/profile/profile.css" rel="stylesheet">
 <script src="../../js/jQuery/jquery-3.1.1.js"></script>
 <script src="../../js/Bootstrap/bootstrap.js"></script>
+<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.ko.min.js"></script>
 <script src="../../js/common/cmsessiondb.js"></script>
 <script src="../../js/profile/profile.js"></script>
 </head>
@@ -22,13 +26,21 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">목표 추가</h4>
       </div>
-      <div class="modal-body">
-        <div class="form-group col-xs-12 _insert-cols" style="margin-bottom: 10px;">
+      <div class="modal-body text-center">
+      	<div class="form-box col-xs-12">
+        	<label for="_goal-title">목표</label><input type="text" class="form-control" id="_goal-title" value="">
         </div>
-      </div>
-      <div class="modal-footer">
-      	<button type="button" class="btn btn-sm btn-primary" id="_save-goal" data-dismiss="modal">저 장</button>
-        <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-start-date">시작일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+	        </div>
+	        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-end-date">종료일</label><input type="text" class="form-control" id="_goal-end-date" value="">
+	        </div>
+        <div class="form-box  col-xs-12">
+        	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
+        </div>
+        <button type="button" class="btn btn-sm btn-primary" id="_save-goal" data-dismiss="modal">저 장</button>
+	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -47,14 +59,20 @@
         <img align="left" class="fb-image-profile img-rounded" src="../../images/profile/profile_img.png" alt="Profile image example"/>
         <div class="fb-profile-text">
         	<div class="fb-profile-text-sub">
-	            <p class="main-title _user-name">Eli Macy</p>
-	            <small class="small-font _user-id">@mazdah</small>
-	            <br />
-	            <p>
-	            테스트를 위한 계정
-	            어떤 식으로 보여줄지
-	            Mockup 구성 중
-	            </p>
+        		<div class="profile-box">
+		            <p class="main-title _user-name">Eli Macy</p>
+		            <small class="small-font _user-id">@mazdah</small>
+		            <br />
+		            <p>
+		            테스트를 위한 계정
+		            어떤 식으로 보여줄지
+		            Mockup 구성 중
+		            </p>
+		            <br>
+		            <a herf="#" class="btn btn-sm btn-default pull-right" type="button">Edit Profile</a>
+		            <br>
+		            <br>
+	            </div>
 	            <div class="_container-goal-list">
 		            <!-- 
 		            <button class="btn btn-default btn-goal" id="_goal1" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 

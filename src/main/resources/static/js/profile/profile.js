@@ -1,6 +1,28 @@
 $('document').ready(function () {
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 	
+	$('#_goal-start-date').datepicker(
+			{
+				format: "yyyy-mm-dd",
+				language: "ko",
+				todayBtn: true,
+				todayHighlight: true,
+				toggleActive: true,
+				autoclose: true
+			}
+	);
+	
+	$('#_goal-end-date').datepicker(
+			{
+				format: "yyyy-mm-dd",
+				language: "ko",
+				todayBtn: true,
+				todayHighlight: true,
+				toggleActive: true,
+				autoclose: true
+			}	
+	);
+	
 	if (userInfoStr == undefined) {
 		window.location.href = "/";
 	}
