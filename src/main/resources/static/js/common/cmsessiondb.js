@@ -93,8 +93,7 @@ var SessionDB = function () {
 	*/
 	var _dropTable = function (tblNm)  {
 		if (StrorageDB[tblNm] == undefined) {
-			alert('존재하 않는 테이블입니다.');
-			return;
+			return false;
 		}
 		
 		if (confirm("테이블과 테이블 내의 모든 데이터가 지워집니다.\n계속하시겠습니까?")) {
@@ -106,8 +105,7 @@ var SessionDB = function () {
 			tableArr.splice(tableArr.indexOf(tblNm), 1);
 			StrorageDB.tableList = JSON.stringify(tableArr);
 
-
-			alert(tblNm + " 테이블을 삭제하였습니다.");
+			return true;
 		}
 	};
 
@@ -211,8 +209,7 @@ var SessionDB = function () {
 	*/
 	var _getTable = function(tblNm) {
 		if (tblNm == undefined || '' == tblNm || StrorageDB[tblNm] == undefined) {
-			alert("존재하지 않는 테이블입니다.");
-			return;
+			return null;
 		}
 		return StrorageDB[tblNm];
 	};
