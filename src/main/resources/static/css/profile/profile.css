@@ -27,7 +27,7 @@ div.button-bar
 div.button-group
 {
 	display: table;
-	height: 50px;
+	height: 30px;
 	margin-left: 330px;
 	color: #000;
 	vertical-align: middle;
@@ -40,6 +40,7 @@ div.button-group>.btn-main
 	height: 50px;
 	color: #000;
 	vertical-align: middle;
+	text-align: center;
 }
 
 div.button-group>.btn-main:hover
@@ -86,6 +87,7 @@ div.button-group>.btn-main:hover
 .btn-goal,  .btn-element
 {
 	width: 100%;
+	margin-bottom: 3px;
 }
 
 .btn-element
@@ -134,6 +136,36 @@ div.button-group>.btn-main:hover
 	display: inline;
 }
 
+.social-login-btn {
+  width: 15px;
+  font-size: 80%;
+}
+
+.social-twitter {
+  background-color: #3997ba;
+  border-color: #347b95;
+  color: #FFF;
+}
+
+.ico-twitter {
+	margin-left: -3px;
+}
+
+.social-facebook {
+  background-color: #47618d;
+  border-color: #3c5173;
+  color: #FFF;
+}
+
+._link-area
+{
+	display: inline-block;
+	width: 100%;
+	text-overflow:ellipsis;
+	overflow:hidden; 
+	white-space:nowrap;
+}
+
 @media (max-width:1024px)
 {
 	.contens
@@ -145,6 +177,7 @@ div.button-group>.btn-main:hover
 		width: 65%;
 	}
 }
+
 
 /* @media (max-width:768px)
 {
