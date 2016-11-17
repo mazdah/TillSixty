@@ -6,6 +6,16 @@ $('document').ready(function () {
 	});
 	
 	$('._sigin_in').click(function () {
+		controller.checkUserAccount();
+	});
+});
+
+var controller = function () {
+	var _init = function () {
+		
+	};
+	
+	var _checkUserAccount = function () {
 		var userid = $('#_userid').val();
 		var password = $('#_password').val();
 		
@@ -22,5 +32,11 @@ $('document').ready(function () {
 		} else {
 			alert("User ID 또는 Password가 일치하지 않습니다.")
 		}
-	})
-});
+	};
+	
+	return {
+		init				: _init,
+		checkUserAccount	: _checkUserAccount
+	};
+}();
+controller.init();

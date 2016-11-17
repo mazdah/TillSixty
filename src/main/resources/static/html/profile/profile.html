@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../../css/Bootstrap/bootstrap.css" rel="stylesheet">
 <link href="../../css/Bootstrap/datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
-
 <link href="../../css/profile/profile.css" rel="stylesheet">
+
 <script src="../../js/jQuery/jquery-3.1.1.js"></script>
 <script src="../../js/Bootstrap/bootstrap.js"></script>
 <script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.min.js"></script>
@@ -39,7 +39,7 @@
         <div class="form-box  col-xs-12">
         	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
         </div>
-        <button type="button" class="btn btn-sm btn-primary" id="_save-goal" data-dismiss="modal">저 장</button>
+        <button type="button" class="btn btn-sm btn-primary" id="_save-goal">저 장</button>
 	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
       </div>
     </div><!-- /.modal-content -->
@@ -73,39 +73,26 @@
 		            <br>
 		            <br>
 	            </div>
-	            <div class="_container-goal-list">
-		            <!-- 
-		            <button class="btn btn-default btn-goal" id="_goal1" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 
+	            <div class="_container-goal-list hide">
+		            <button class="btn btn-default btn-goal" id="_goal-item" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 
 		            														aria-expanded="false" aria-controls="collapseExample">
 					  목표 1
 					</button>
 					<div class="collapse" id="collapseExample">
 						<div class="list-group">
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Idea</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Resource</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">11</span>Info</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">2</span>Mentor</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Risk</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Idea</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Resource</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Info</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Mentor</button>
+							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Risk</button>
 						</div>
 					</div>
-					<button class="btn btn-default btn-goal" id="_goal2" type="button" data-toggle="collapse" data-target="#collapseExample2" 
-		            														aria-expanded="false" aria-controls="collapseExample2">
-					  목표 2
-					</button>
-					<div class="collapse" id="collapseExample2">
-					  	<div class="list-group">
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">5</span>Idea</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">3</span>Resource</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">6</span>Info</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Mentor</button>
-							<button type="button" class="list-group-item btn-element"><span class="badge bg-red">1</span>Risk</button>
-						</div>
-					</div>
-					 -->
 				</div>
-				<button class="btn btn-default btn-goal _add-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
-				  목표 추가
-				</button>
+				<div class="_container-add-goal">
+					<button class="btn btn-default btn-goal _add-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
+					  목표 추가
+					</button>
+				</div>
             </div>
             <div class="contens">
 	        	 <ul class="nav nav-tabs">

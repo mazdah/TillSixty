@@ -54,12 +54,7 @@ $('document').ready(function () {
 		rowDataObj.password = password;
 		rowDataObj.email = email;
 		
-		var result = SessionDB.insertRow('UserTable', JSON.stringify(rowDataObj));
-		
-		if (result == 1) {
-			alert("사용자 등록을 성공적으로 마쳤습니다. 로그인 화면으로 이동합니다.");
-			window.location.href = "/";
-		}
+		controller.addUserInfo(rowDataObj);
 	});
 	
 	$('#_password-confirm').on('blur', function() {
@@ -73,3 +68,40 @@ $('document').ready(function () {
 		}
 	});
 });
+
+var controller = function () {
+	var _init = function () {
+		
+	};
+	
+	var _addUserInfo = function (param) {
+		var reqParam = param;
+		
+		if (!reqParam) {
+			reqParam = {};
+			
+			var userName = $('#_user-name').val();
+			var userId = $('#_user-id').val();
+			var password = $('#_password').val();
+			var email = $('#_email').val();
+			
+			reqParam.name = userName;
+			reqParam.id = userId;
+			reqParam.password = password;
+			reqParam.email = email;
+		}
+		
+		var result = SessionDB.insertRow('UserTable', JSON.stringify(reqParam));
+		
+		if (result == 1) {
+			alert("사용자 등록을 성공적으로 마쳤습니다. 로그인 화면으로 이동합니다.");
+			window.location.href = "/";
+		}
+	}
+	
+	return {
+		init		: _init,
+		addUserInfo	: _addUserInfo
+	}
+}();
+controller.init();
