@@ -59,16 +59,16 @@
       </div>
       <div class="modal-body text-center">
       	<div class="form-box col-xs-12">
-        	<label for="_profile-link">Link</label><input type="text" class="form-control" id="_profile-link" value="">
+        	<label for="_frm-profile-link">Link</label><input type="text" class="form-control" id="_frm-profile-link" value="">
         </div>
 		<div class="form-box col-xs-12">
-        	<label for="_profile-facebook">Facebook</label><input type="text" class="form-control" id="_profile-facebook" value="">
+        	<label for="_frm-profile-facebook">Facebook</label><input type="text" class="form-control" id="_frm-profile-facebook" value="">
         </div>
         <div class="form-box col-xs-12">
-        	<label for="_profile-twitter">Twitter</label><input type="text" class="form-control" id="_profile-twitter" value="">
+        	<label for="_frm-profile-twitter">Twitter</label><input type="text" class="form-control" id="_frm-profile-twitter" value="">
         </div>
         <div class="form-box  col-xs-12">
-        	<label for="_profile-description">자기 소개</label><textarea id="_profile-description" class="form-control"></textarea>
+        	<label for="_frm-profile-description">자기 소개</label><textarea id="_frm-profile-description" class="form-control"></textarea>
         </div>
         <button type="button" class="btn btn-sm btn-primary" id="_save-profile">저 장</button>
 	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
@@ -94,28 +94,19 @@
 		            <p class="main-title _user-name">Eli Macy</p>
 		            <small class="small-font _user-id">@mazdah</small>
 		            <br />
-		            <p stryle="white-space: wrap">
-					테스트를 위한 계정 블라블라블블라블라블블라블라블블라블라블블라블라블블라블라블블라블라블
-					어떤 식으로 보여줄지
-					Mockup 구성 중
-					블라블라블
-					블라블라블
-					블라블라블
-					블라블라블
-					블라블라블
-					블라블라블
+		            <p stryle="white-space: wrap" class="_profile-description">
 		            </p>
-		            <p>
-		            	<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
+		            <p class="_profile_facebook">
+		            	
 		            </p>
-		            <p>
-		            	<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> @mazdah70
+		            <p class="_profile_twitter">
+		            	
 		            </p>
-		            <p>
-		            	<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; http://mazdah.tistory.com/</div>
+		            <p class="_profile_link">
+		            	
 		            </p>
 		            <br>
-		            <a herf="#" class="btn btn-sm btn-default pull-right" type="button" data-toggle="modal" data-target="#_modal-add-profile">Edit Profile</a>
+		            <a herf="#" class="btn btn-sm btn-default pull-right _pop-edit-profile" type="button" data-toggle="modal" data-target="#_modal-add-profile">Edit Profile</a>
 		            <br>
 		            <br>
 	            </div>

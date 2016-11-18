@@ -231,7 +231,6 @@ var SessionDB = function () {
 		}
 		
 		if (StrorageDB[tblNm] == undefined) {
-			alert('존재하지 않는 테이블입니다.');
 			return null;
 		}
 		
