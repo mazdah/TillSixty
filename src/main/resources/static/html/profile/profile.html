@@ -83,7 +83,30 @@
     <div class="fb-profile">
         <img align="left" class="fb-image-lg" src="../../images/till60_logo.jpg" alt="Profile image example"/>
         <div class="button-bar">
-        	<div class="button-group">
+        	<div class="button-group">   
+        		<div class="_container-add-goal add-goal">
+					<a herf="#" class="btn btn-goal _add-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
+					  목표 추가
+					</a>
+				</div>
+	        	<div class="goal-title bg-danger">   
+	        		<a href="#" id="_goal-item"></a> 	
+				</div>
+				<div class="btn-main hide">
+					<a herf="#" class="btn btn-element" id="_idea-item" type="button"><span class="label label-primary pull-right label-badge">0</span>Idea</a>
+				</div>
+				<div class="btn-main hide">
+					<a herf="#" class="btn btn-element" id="_resource-item" type="button"><span class="label label-warning pull-right label-badge">0</span>Resource</a>
+				</div>
+				<div class="btn-main hide">
+					<a herf="#" class="btn btn-element" id="_info-item" type="button"><span class="label label-info pull-right label-badge">0</span>Info</a>
+				</div>
+				<div class="btn-main hide">
+					<a herf="#" class="btn btn-element" id="_mentor-item" type="button"><span class="label label-success pull-right label-badge">0</span>Mentor</a>
+				</div>
+				<div class="btn-main hide">
+					<a herf="#" class="btn btn-element" id="_risk-item" type="button"><span class="label label-danger pull-right label-badge">0</span>Risk</a>
+				</div>
         		<!--  div class="btn-main">Chart</div><div class="btn-main">Timeline</div><div class="btn-main">Elements</div -->
         	</div>
         </div>
@@ -110,30 +133,13 @@
 		            <br>
 		            <br>
 	            </div>
-	            <div class="_container-goal-list hide">
-		            <button class="btn btn-danger btn-goal" id="_goal-item" type="button" data-parent="#accordion" data-toggle="collapse" data-target="#collapseExample" 
-		            														aria-expanded="false" aria-controls="collapseExample">
-					  목표 1
-					</button>
-					<div class="list-group">
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Idea</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Resource</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Info</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Mentor</button>
-						<button type="button" class="list-group-item btn-element"><span class="badge bg-red">0</span>Risk</button>
-					</div>
-				</div>
-				<div class="_container-add-goal">
-					<button class="btn btn-default btn-goal _add-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
-					  목표 추가
-					</button>
-				</div>
             </div>
-            <div class="contens">
+            <div class="contens _dashboard-contents">
 	        	 <ul class="nav nav-tabs">
 				    <li class="active"><a data-toggle="tab" href="#home">Chart</a></li>
 				    <li><a data-toggle="tab" href="#menu1">Timeline</a></li>
 				    <li><a data-toggle="tab" href="#menu2">Elements</a></li>
+				    <li><a data-toggle="tab" href="#menu3">New</a></li>
 				  </ul>
 	        	 <div class="tab-content">
 				    <div id="home" class="tab-pane fade in active">
@@ -148,7 +154,26 @@
 				      <h3>Menu 2</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				    </div>
+				    <div id="menu3" class="tab-pane fade">
+				      <h3>Menu 3</h3>
+				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+				    </div>
 				  </div>
+	        </div>
+	        <div class="contens _idea-contents hide">
+	        	<h1>Idea Contents</h1>
+	        </div>
+	        <div class="contens _resource-contents hide">
+	        	<h1>Resource Contents</h1>
+	        </div>
+	        <div class="contens _info-contents hide">
+	        	<h1>Info Contents</h1>
+	        </div>
+	        <div class="contens _mentor-contents hide">
+	        	<h1>Mentor Contents</h1>
+	        </div>
+	        <div class="contens _risk-contents hide">
+	        	<h1>Risk Contents</h1>
 	        </div>
         </div>
     </div>

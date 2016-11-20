@@ -1,6 +1,11 @@
 var userInfo;
+var prevRsourceBtn;
+var prevContents;
+
 $('document').ready(function () {
 	SessionDB.init('local');
+	prevContents = $('._dashboard-contents');
+	$('.goal-title').hide();
 	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 
@@ -136,6 +141,62 @@ $('document').ready(function () {
 		$('#_modal-add-profile').modal('hide');
 	});
 	
+	$('#_idea-item').click(function (){
+		view.setPrev();
+		
+		prevRsourceBtn = $('#_idea-item');
+		$('#_idea-item').parent().addClass('btn-active');
+		
+		prevContents = $('._idea-contents');
+		$('._idea-contents').removeClass('hide');
+	});
+	
+	$('#_resource-item').click(function (){
+		view.setPrev();
+		
+		prevRsourceBtn = $('#_resource-item');
+		$('#_resource-item').parent().addClass('btn-active');
+		
+		prevContents = $('._resource-contents');
+		prevContents.removeClass('hide');
+	});
+
+	$('#_info-item').click(function (){
+		view.setPrev();
+		
+		prevRsourceBtn = $('#_info-item');
+		$('#_info-item').parent().addClass('btn-active');
+		
+		prevContents = $('._info-contents');
+		prevContents.removeClass('hide');
+	});
+	
+	$('#_mentor-item').click(function (){
+		view.setPrev();
+		
+		prevRsourceBtn = $('#_mentor-item');
+		$('#_mentor-item').parent().addClass('btn-active');
+		
+		prevContents = $('._mentor-contents');
+		prevContents.removeClass('hide');
+	});
+
+	$('#_risk-item').click(function (){
+		view.setPrev();
+		
+		prevRsourceBtn = $('#_risk-item');
+		$('#_risk-item').parent().addClass('btn-active');
+		
+		prevContents = $('._risk-contents');
+		prevContents.removeClass('hide');
+	});
+	
+	$('#_goal-item').click(function (){
+		view.setPrev();
+		prevContents = $('._dashboard-contents');
+		prevContents.removeClass('hide');
+	});
+	
 	view.setProfile();
 	view.setGoal();
 });
@@ -207,15 +268,27 @@ var view = function () {
 			return;
 		}
 		
-		$('._container-add-goal').addClass('hide');
-		$('._container-goal-list').removeClass('hide');
+		$('._container-add-goal').hide();
+		$('.btn-main').removeClass('hide');
+		$('.goal-title').show();
 		$('#_goal-item').text(goalInfoArr[0].goalTitle);
 	}
+	
+	var _setPrev = function () {
+		if (prevRsourceBtn) {
+			prevRsourceBtn.parent().removeClass('btn-active');
+		}
+		
+		if (prevContents) {
+			prevContents.addClass('hide');
+		}
+	};
 	
 	return {
 		init		: _init,
 		setProfile	: _setProfile,
-		setGoal		: _setGoal
+		setGoal		: _setGoal,
+		setPrev	: _setPrev
 	}
 }();
 view.init();
