@@ -8,15 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../../css/Bootstrap/bootstrap.css" rel="stylesheet">
 <link href="../../css/Bootstrap/datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+<link href="../../css/d3/nv.d3.min.css" rel="stylesheet">
 <link href="../../css/profile/profile.css" rel="stylesheet">
-
-<script src="../../js/jQuery/jquery-3.1.1.js"></script>
-<script src="../../js/Bootstrap/bootstrap.js"></script>
-<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.min.js"></script>
-<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.ko.min.js"></script>
-<script src="../../js/common/cmsessiondb.js"></script>
-<script src="../../js/profile/profile.js"></script>
-
+<link href="../../css/profile/chart.css" rel="stylesheet">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
@@ -142,9 +136,32 @@
 				    <li><a data-toggle="tab" href="#menu3">New</a></li>
 				  </ul>
 	        	 <div class="tab-content">
-				    <div id="home" class="tab-pane fade in active">
-				      <h3>HOME</h3>
-				      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				    <div id="home" class="tab-pane fade in active _chart-container">
+			    	  <div class="_chart-goal-process">
+			      		<div class="progress _goal-process-container">
+						  <div class="progress-bar _goal-process" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
+						    10%
+						  </div>
+						</div>
+			      	  </div>
+				      <div class="radarChart _chart-radar"></div>
+				      <div class="_chart-container-sub">
+				      	<div class="_chart-all-stat">오늘 상태
+				      		<div id="_today-chart">
+							  <svg></svg>
+							</div>
+				      	</div>
+				      	<div class="_chart-elements-stat">요소별 상태
+				      		<div id="_elements-chart">
+							  <svg></svg>
+							</div>
+				      	</div>
+				      	<div class="_chart-today-stat">기간별 상태
+				      		<div id="_range_chart">
+							  <svg></svg>
+							</div>
+				      	</div>
+				      </div>
 				    </div>
 				    <div id="menu1" class="tab-pane fade">
 				      <h3>Menu 1</h3>
@@ -178,6 +195,16 @@
         </div>
     </div>
 </div> <!-- /container -->  
+<script src="../../js/jQuery/jquery-3.1.1.js"></script>
+<script src="../../js/Bootstrap/bootstrap.js"></script>
+<!-- script src="../../js/d3/d3.min.js"></script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="../../js/d3/nv.d3.min.js"></script>
+<script src="../../js/d3/radarChart.js"></script>
+<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.ko.min.js"></script>
+<script src="../../js/common/cmsessiondb.js"></script>
+<script src="../../js/profile/profile.js"></script>
 <script type="text/javascript">
 
 </script>

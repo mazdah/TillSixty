@@ -1,0 +1,43 @@
+._chart-container
+{
+	display: table;
+	padding-top: 15px;
+	vertical-align: top;
+}
+
+._chart-radar, ._chart-container-sub
+{
+	display: table-cell;
+}
+
+._chart-radar
+{
+	border-right: #aaa solid 1px;
+	border-bottom: #aaa solid 1px;
+}
+
+._chart-goal-process
+{
+	padding-top: 20px;
+	height: 120px !important;	
+	border-bottom: #aaa solid 1px;
+}
+
+._goal-process-container
+{
+	height: 50px !important;	
+}
+
+._chart-container-sub
+{
+	width: 440px;
+	height: 420px;
+	vertical-align: top;
+}
+
+._chart-elements-stat, ._chart-today-stat, ._chart-all-stat
+{
+	padding: 5px 10px 5px 10px;
+	height: 150px;
+	border-bottom: #aaa solid 1px;
+}

@@ -11,6 +11,7 @@ body
 {
     z-index: 0;
     width: 1200px;  
+    height: 250px;
 }
 
 div.button-bar 
