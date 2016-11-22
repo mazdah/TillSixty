@@ -365,7 +365,7 @@ var SessionDB = function () {
 			alert("Update 조건에 맞는 데이터가 없습니다.");
 			return 0;
 		} else {
-			alert("총 " + cnt + "건의 데이터가 Update 되었습니다.\n" + JSON.stringify(resultArr) + "\n\n" + StrorageDB[tblNm]);
+//			alert("총 " + cnt + "건의 데이터가 Update 되었습니다.\n" + JSON.stringify(resultArr) + "\n\n" + StrorageDB[tblNm]);
 			return resultArr.length;
 		}
 	};

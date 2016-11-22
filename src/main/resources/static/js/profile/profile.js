@@ -1,6 +1,7 @@
 var userInfo;
 var prevRsourceBtn;
 var prevContents;
+var mode;
 
 $('document').ready(function () {
 	SessionDB.init('local');
@@ -191,11 +192,30 @@ $('document').ready(function () {
 		prevContents.removeClass('hide');
 	});
 	
+	$('#_action-item').click(function (){
+		view.setPrev();
+		prevContents = $('._action-contents');
+		prevContents.removeClass('hide');
+	});
+	
 	$('#_goal-item').click(function (){
 		view.setPrev();
 		prevContents = $('._dashboard-contents');
 		prevContents.removeClass('hide');
 	});
+	
+	$('._add-goal').click(function (){
+		mode = 'A';
+	});
+	
+	$('._edit-goal').click(function (){
+		mode = 'E';
+		var param = {};
+		param.owner = userInfo.id;
+		
+		controller.selectData('GoalTable', param);
+	});
+	
 	
 	view.setProfile();
 	view.setGoal();
@@ -241,7 +261,7 @@ var view = function () {
 		  w: width,
 		  h: height,
 		  margin: margin,
-		  maxValue: 1,
+		  maxValue: 10,
 		  levels: 5,
 		  roundStrokes: true,
 		  color: color
@@ -293,7 +313,8 @@ var view = function () {
 		      	            .duration(250)
 		      	            ;
 
-		      	        //chart.yAxis.tickFormat(d3.format(',.0%'));
+		      	        chart.yAxis.tickFormat(d3.format('d'));
+		      	        chart.valueFormat(d3.format('d'));
 		      	        
 		      	        d3.select('#_today-chart svg')
 		      	            .datum(historicalBarChart)
@@ -347,7 +368,8 @@ var view = function () {
 	            .duration(250)
 	            ;
 
-	        //chart.yAxis.tickFormat(d3.format(',.0%'));
+	        chart.yAxis.tickFormat(d3.format('d'));
+  	        chart.valueFormat(d3.format('d'));
 	        
 	        d3.select('#_elements-chart svg')
 	            .datum(historicalBarChart)
@@ -362,54 +384,45 @@ var view = function () {
 		var data = [
 		             {
 		                key: "Idea",
-		                values: [ [ 1083297600000 , -2.974623048543] , [ 1085976000000 , -1.7740300785979] , [ 1088568000000 , 4.4681318138177] , [ 1091246400000 , 7.0242541001353] , [ 1093924800000 , 7.5709603667586] , [ 1096516800000 , 20.612245065736] , [ 1099195200000 , 21.698065237316] , [ 1101790800000 , 40.501189458018] , [ 1104469200000 , 50.464679413194]]
-		                ,
-		                mean: 250
+		                values: [ { x:1083297600000 , y:1} , { x:1085976000000 , y:1} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:2} , { x:1096516800000 , y:0} , { x:1099195200000 , y:0} , { x:1101790800000 , y:0} , { x:1104469200000 , y:1}]
 		            },
 		            {
 		                key: "Resource",
-		                values: [ [ 1083297600000 , -0.77078283705125] , [ 1085976000000 , -1.8356366650335] , [ 1088568000000 , -5.3121322073127] , [ 1091246400000 , -4.9320975829662] , [ 1093924800000 , -3.9835408823225] , [ 1096516800000 , -6.8694685316805] , [ 1099195200000 , -8.4854877428545] , [ 1101790800000 , -15.933627197384] , [ 1104469200000 , -15.920980069544]]
-		                ,
-		                mean: -60
+		                values: [ { x:1083297600000 , y:0} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:1} , { x:1096516800000 , y:1} , { x:1099195200000 , y:0} , { x:1101790800000 , y:1} , { x:1104469200000 , y:0}]
 		            },
 		            {
 		                key: "Info",
-		                mean: 125,
-		                values: [ [ 1083297600000 , -3.7454058855943] , [ 1085976000000 , -3.6096667436314] , [ 1088568000000 , -0.8440003934950] , [ 1091246400000 , 2.0921565171691] , [ 1093924800000 , 3.5874194844361] , [ 1096516800000 , 13.742776534056] , [ 1099195200000 , 13.212577494462] , [ 1101790800000 , 24.567562260634] , [ 1104469200000 , 34.543699343650]]
+		                values: [ { x:1083297600000 , y:2} , { x:1085976000000 , y:0} , { x:1088568000000 , y:1} , { x:1091246400000 , y:1} , { x:1093924800000 , y:0} , { x:1096516800000 , y:1} , { x:1099195200000 , y:0} , { x:1101790800000 , y:1} , { x:1104469200000 , y:1}]
 		            },
 		            {
 		                key: "Mentor",
-		                values: [ [ 1083297600000 , -1.7798428181819] , [ 1085976000000 , -0.36883324836999] , [ 1088568000000 , 1.7312581046040] , [ 1091246400000 , -1.8356125950460] , [ 1093924800000 , -1.5396564170877] , [ 1096516800000 , -0.16867791409247] , [ 1099195200000 , 1.3754263993413] , [ 1101790800000 , 5.8171640898041] , [ 1104469200000 , 9.4350145241608]]
+		                values: [ { x:1083297600000 , y:1} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:0} , { x:1096516800000 , y:0} , { x:1099195200000 , y:0} , { x:1101790800000 , y:0} , { x:1104469200000 , y:0}]
 		            },
 		            {
 		                key: "Risk",
-		                values: [ [ 1083297600000 , 1.7798428181819] , [ 1085976000000 , 0.36883324836999] , [ 1088568000000 , 2.7312581046040] , [ 1091246400000 , 3.8356125950460] , [ 1093924800000 , 4.5396564170877] , [ 1096516800000 , 5.16867791409247] , [ 1099195200000 , 5.3754263993413] , [ 1101790800000 , 5.8171640898041] , [ 1104469200000 , 9.4350145241608]]
+		                values: [ { x:1083297600000 , y:0} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:0} , { x:1096516800000 , y:0} , { x:1099195200000 , y:1} , { x:1101790800000 , y:1} , { x:1104469200000 , y:0}]
 		            },
 		            {
 		                key: "Action",
-		                values: [ [ 1083297600000 , 2.7798428181819] , [ 1085976000000 , 0.36883324836999] , [ 1088568000000 , 4.7312581046040] , [ 1091246400000 , 5.8356125950460] , [ 1093924800000 , 6.5396564170877] , [ 1096516800000 , 7.16867791409247] , [ 1099195200000 , 10.3754263993413] , [ 1101790800000 , 12.8171640898041] , [ 1104469200000 , 15.4350145241608]]
+		                values: [ { x:1083297600000 , y:2} , { x:1085976000000 , y:2} , { x:1088568000000 , y:3} , { x:1091246400000 , y:1} , { x:1093924800000 , y:1} , { x:1096516800000 , y:2} , { x:1099195200000 , y:3} , { x:1101790800000 , y:0} , { x:1104469200000 , y:1}]
 		            }
 		        ];
 		
-		nv.addGraph(function() {
-	        var chart = nv.models.cumulativeLineChart()
-	            .useInteractiveGuideline(true)
-	            .x(function(d) { return d[0] })
-	            .y(function(d) { return d[1]/100 })
-	            .color(d3.scale.category10().range())
-	            .average(function(d) { return d.mean/100; })
-	            .duration(300)
-	            .clipVoronoi(false)
-	            .showControls(false);
-	        chart.dispatch.on('renderEnd', function() {
-	            console.log('render complete: cumulative line with guide line');
-	        });
+			nv.addGraph(function() {
+				var chart = nv.models.lineChart()
+//	            .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+	            .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+//	            .transitionDuration(350)  //how fast do you want the lines to transition?
+	            .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+	            .showYAxis(true)        //Show the y-axis
+	            .showXAxis(true)        //Show the x-axis
+	        ;
 
 	        chart.xAxis.tickFormat(function(d) {
-	            return d3.time.format('%m/%d/%y')(new Date(d))
+	            return d3.time.format('%y/%m/%d')(new Date(d))
 	        });
 
-	        chart.yAxis.tickFormat(d3.format(',.0%'));
+	        chart.yAxis.tickFormat(d3.format('d'));
 
 	        d3.select('#_range_chart svg')
 	            .datum(data)
@@ -417,11 +430,6 @@ var view = function () {
 
 	        //TODO: Figure out a good way to do this automatically
 	        nv.utils.windowResize(chart.update);
-
-	        chart.dispatch.on('stateChange', function(e) { nv.log('New State:', JSON.stringify(e)); });
-	        chart.state.dispatch.on('change', function(state){
-	            nv.log('state', JSON.stringify(state));
-	        });
 
 	        return chart;
 	    });
@@ -493,7 +501,20 @@ var view = function () {
 		$('.btn-main').removeClass('hide');
 		$('.goal-title').show();
 		$('#_goal-item').text(goalInfoArr[0].goalTitle);
+		$('._startday-label').text(goalInfoArr[0].startDate);
+		$('._endday-label').text(goalInfoArr[0].endDate);
+		
+		var today = new Date();
+		$('._today-label').text(today.formattedDate('-'));
 	}
+	
+	var _setGoalEdit = function (dataArr) {
+		$('#_goal-title').val(dataArr[0].goalTitle);
+		$('#_goal-start-date').val(dataArr[0].startDate);
+		$('#_goal-end-date').val(dataArr[0].endDate);
+		$('#_goal-description').val(dataArr[0].goalDescription);
+		$('#_goal-id').val(dataArr[0]._id);
+	};
 	
 	var _setPrev = function () {
 		if (prevRsourceBtn) {
@@ -513,6 +534,7 @@ var view = function () {
 		setRangeStatChart		: _setRangeStatChart,
 		setProfile				: _setProfile,
 		setGoal					: _setGoal,
+		setGoalEdit			: _setGoalEdit,
 		setPrev					: _setPrev
 	}
 }();
@@ -524,13 +546,26 @@ var controller = function () {
 	};
 	
 	var _addGoalInfo = function (param) {
-		var result = SessionDB.insertRow('GoalTable', JSON.stringify(param));
-		
-		if (result > 0) {
-			view.setGoal();
-		} else {
-			alert("목표 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+		if (mode != undefined && mode == 'A') {
+			var result = SessionDB.insertRow('GoalTable', JSON.stringify(param));
+			
+			if (result > 0) {
+				view.setGoal();
+			} else {
+				alert("목표 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+			}
+		} else if (mode != undefined && mode == 'E') {			
+			var result = SessionDB.updateRow('GoalTable', "_id", $('#_goal-id').val(), param);
+			
+			if (result > 0) {
+				$('#_goal-item').text(param.goalTitle);
+				$('._startday-label').text(param.startDate);
+				$('._endday-label').text(param.endDate);
+			} else {
+				alert("목표 수장에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+			}
 		}
+		
 	};
 	
 	var _addProfileInfo = function (param) {
@@ -548,7 +583,14 @@ var controller = function () {
 	};
 	
 	var _selectData = function (tblNm, param) {
-		return SessionDB.selectRow(tblNm, param);
+		var dataArr = SessionDB.selectRow(tblNm, param);
+		
+		if (mode != undefined && mode == 'E') {
+			view.setGoalEdit(dataArr);
+			return;
+		}
+		
+		return dataArr;
 	};
 	
 	return {

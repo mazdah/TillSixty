@@ -11,7 +11,7 @@ body
 {
     z-index: 0;
     width: 1200px;  
-    height: 250px;
+    height: 200px;
 }
 
 div.button-bar 
@@ -219,3 +219,38 @@ div.button-group
     width: 15%; 
 }
 } */
+
+/* ==========================================================================
+   Elements custom styles
+   ========================================================================== */
+._elements-add-pane
+{
+	margin: 0px 0px 0px 4px;
+}
+
+._elements-card
+{
+	display: table;
+	margin: 15px 5px 0px 5px;
+	width: 100%;
+	hieght: 150px;
+	box-shadow: 1px 1px 2px #888888;
+	border-radius: 5px;
+}
+
+._elements-card-image, ._elements-card-text
+{
+	display: table-cell;
+	border: #000 solid 1px;
+	height: 150px;
+}
+
+._elements-card-image
+{
+	width: 30%;
+}
+
+._elements-card-text
+{
+	width: 70%;
+}

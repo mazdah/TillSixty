@@ -35,6 +35,7 @@
         <div class="form-box  col-xs-12">
         	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
         </div>
+        <input type="hidden" id="_goal-id" value="">
         <button type="button" class="btn btn-sm btn-primary" id="_save-goal">저 장</button>
 	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
       </div>
@@ -72,6 +73,36 @@
 </div><!-- /.modal -->
 <!-- Modal Frame -->
 
+<!-- Modal Frame -->
+<div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-elements">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">목표 추가</h4>
+      </div>
+      <div class="modal-body text-center">
+      	<div class="form-box col-xs-12">
+        	<label for="_goal-title">목표</label><input type="text" class="form-control" id="_goal-title" value="">
+        </div>
+        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-start-date">시작일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+	        </div>
+	        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-end-date">종료일</label><input type="text" class="form-control" id="_goal-end-date" value="">
+	        </div>
+        <div class="form-box  col-xs-12">
+        	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
+        </div>
+        <input type="hidden" id="_goal-id" value="">
+        <button type="button" class="btn btn-sm btn-primary" id="_save-goal">저 장</button>
+	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Frame -->
+
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <div class="container">
     <div class="fb-profile">
@@ -85,6 +116,9 @@
 				</div>
 	        	<div class="goal-title bg-danger">   
 	        		<a href="#" id="_goal-item"></a> 	
+	        		<a herf="#" class="btn btn-xs btn-danger pull-right _edit-goal" type="button" data-toggle="modal" data-target="#_modal-add-goal">
+					  목표 수정
+					</a>
 				</div>
 				<div class="btn-main hide">
 					<a herf="#" class="btn btn-element" id="_idea-item" type="button"><span class="label label-primary pull-right label-badge">0</span>Idea</a>
@@ -133,18 +167,24 @@
             </div>
             <div class="contens _dashboard-contents">
 	        	 <ul class="nav nav-tabs">
-				    <li class="active"><a data-toggle="tab" href="#home">Chart</a></li>
-				    <li><a data-toggle="tab" href="#menu1">Timeline</a></li>
-				    <li><a data-toggle="tab" href="#menu2">Elements</a></li>
-				    <li><a data-toggle="tab" href="#menu3">New</a></li>
+				    <li class="active"><a data-toggle="tab" href="#chart">Chart</a></li>
+				    <li><a data-toggle="tab" href="#calendar">Calendar</a></li>
+				    <li><a data-toggle="tab" href="#timeline">Timeline</a></li>
+				    <li><a data-toggle="tab" href="#news">New</a></li>
 				  </ul>
 	        	 <div class="tab-content">
-				    <div id="home" class="tab-pane fade in active _chart-container">
+				    <div id="chart" class="tab-pane fade in active _chart-container">
+				    진행 일 수
 			    	  <div class="_chart-goal-process">
 			      		<div class="progress _goal-process-container">
 						  <div class="progress-bar _goal-process" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">
 						    10%
 						  </div>
+						</div>
+						<div class="_progressbar-label">
+						  	<div class="_startday-label pull-left"></div>
+						  	<div class="_today-label col-xs-2 col-xs-offset-4 text-center"></div>
+						  	<div class="_endday-label pull-right"></div>
 						</div>
 			      	  </div>
 				      <div class="radarChart _chart-radar"></div>
@@ -166,34 +206,65 @@
 				      	</div>
 				      </div>
 				    </div>
-				    <div id="menu1" class="tab-pane fade">
-				      <h3>Menu 1</h3>
+				    <div id="calendar" class="tab-pane fade">
+				      <h3>Calendar</h3>
 				      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				    </div>
-				    <div id="menu2" class="tab-pane fade">
-				      <h3>Menu 2</h3>
+				    <div id="timeline" class="tab-pane fade">
+				      <h3>Timeline</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				    </div>
-				    <div id="menu3" class="tab-pane fade">
-				      <h3>Menu 3</h3>
+				    <div id="news" class="tab-pane fade">
+				      <h3>News</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				    </div>
 				  </div>
 	        </div>
 	        <div class="contens _idea-contents hide">
-	        	<h1>Idea Contents</h1>
+	        	<div class="row _elements-add-pane">
+					<a herf="#" class="btn btn-primary _add-idea pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Idea 추가
+					</a>
+				</div>
+				<div class="row _elements-card">
+					<div class="_elements-card-image">IMG</div>
+					<div class="_elements-card-text">TEXT</div>
+				</div>
 	        </div>
 	        <div class="contens _resource-contents hide">
-	        	<h1>Resource Contents</h1>
+	        	<div>
+					<a herf="#" class="btn btn-warning _add-resource pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Resource 추가
+					</a>
+				</div>
 	        </div>
 	        <div class="contens _info-contents hide">
-	        	<h1>Info Contents</h1>
+	        	<div>
+					<a herf="#" class="btn btn-info _add-info pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Info 추가
+					</a>
+				</div>
 	        </div>
 	        <div class="contens _mentor-contents hide">
-	        	<h1>Mentor Contents</h1>
+	        	<div>
+					<a herf="#" class="btn btn-success _add-mentor pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Mentor 추가
+					</a>
+				</div>
 	        </div>
 	        <div class="contens _risk-contents hide">
-	        	<h1>Risk Contents</h1>
+	        	<div>
+					<a herf="#" class="btn btn-danger _add-risk pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Risk 추가
+					</a>
+				</div>
+	        </div>
+	        <div class="contens _action-contents hide">
+	        	<div>
+					<a herf="#" class="btn btn-default _add-action pull-right" type="button" data-toggle="modal" data-target="#_modal-add-elements">
+					  Action 추가
+					</a>
+				</div>
 	        </div>
         </div>
     </div>
@@ -208,6 +279,7 @@
 <script src="../../js/Bootstrap/datepicker/bootstrap-datepicker.ko.min.js"></script>
 <script src="../../js/common/cmsessiondb.js"></script>
 <script src="../../js/profile/profile.js"></script>
+<script src="../../js/common/util.js"></script>
 <script type="text/javascript">
 
 </script>

@@ -18,14 +18,8 @@
 
 ._chart-goal-process
 {
-	padding-top: 20px;
 	height: 120px !important;	
 	border-bottom: #aaa solid 1px;
-}
-
-._goal-process-container
-{
-	height: 50px !important;	
 }
 
 ._chart-container-sub
@@ -40,4 +34,33 @@
 	padding: 5px 10px 5px 10px;
 	height: 150px;
 	border-bottom: #aaa solid 1px;
+}
+
+._goal-process-container
+{
+	height: 50px !important;	
+}
+
+/* ._progressbar-label
+{
+	display: table;
+}
+ */
+._startday-label, ._today-label, ._endday-label 
+{
+	display: inline-block;	
+	border: #999 solid 1px;
+	border-radius: 5px;
+}
+
+._startday-label, ._endday-label
+{
+	background-color: rgba(0, 0, 255, 0.2);
+}
+
+._today-label
+{
+	background-color: rgba(200, 50, 50, 0.2);
+	font-weight: bolder;
+	font-size: 16px;
 }
