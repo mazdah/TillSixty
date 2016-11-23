@@ -1,7 +1,9 @@
 var userInfo;
+var goalInfo;
 var prevRsourceBtn;
 var prevContents;
 var mode;
+var elementType;
 
 $('document').ready(function () {
 	SessionDB.init('local');
@@ -21,6 +23,14 @@ $('document').ready(function () {
 	$('._user-name').empty();
 	$('._user-id').text("@" + userInfo.id);
 	$('._user-name').text(userInfo.name);
+	
+	$("#_frm-profile-image").fileinput({
+		showUpload: false,
+		showCaption: false,
+		browseClass: "btn btn-primary btn-sm",
+		fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+	});
 	
 	$('#_goal-start-date').datepicker(
 			{
@@ -106,8 +116,13 @@ $('document').ready(function () {
 		param.endDate = endDate;
 		param.goalDescription = goalDescription;
 		param.owner = userInfo.id;
-		param.status = "O"; // O : ongoing, D : Drop, H : Hold
 		
+		if (mode == 'E') {
+			param.status = $("#_goal-status option:selected").val();
+		} else {
+			param.status = "O"; // O : ongoing, D : Drop, H : Hold
+		}
+
 		controller.addGoalInfo(param);
 		
 		$('#_modal-add-goal').modal('hide');
@@ -118,6 +133,10 @@ $('document').ready(function () {
 		var twitter = $('#_frm-profile-twitter').val();
 		var link = $('#_frm-profile-link').val();
 		var description = $('#_frm-profile-description').val();
+		var image = $("#_frm-profile-image").fileinput('getFileStack'); //$('#_frm-profile-image').val();
+		
+		alert("image path = " + image[0].value);
+		return;
 		
 		if ((facebook == undefined || facebook == '') &&
 				(twitter == undefined || twitter == '') &&
@@ -210,10 +229,78 @@ $('document').ready(function () {
 	
 	$('._edit-goal').click(function (){
 		mode = 'E';
+		$('._goal-stat-pane').removeClass('hide');
+		
 		var param = {};
 		param.owner = userInfo.id;
 		
 		controller.selectData('GoalTable', param);
+	});
+	
+	var _metorHide = function () {
+		$('._elements-name-pane').addClass('hidden');
+		$('._elements-email-pane').addClass('hidden');
+	};
+	
+	$('._add-idea').click(function () {
+		elementType = 'I';
+		_metorHide();
+	});
+	
+	$('._add-resource').click(function () {
+		elementType = 'R';
+		_metorHide();
+	});
+	
+	$('._add-info').click(function () {
+		elementType = 'IN';
+		_metorHide();
+	});
+	
+	$('._add-mentor').click(function () {
+		elementType = 'M';
+		$('._elements-name-pane').removeClass('hidden');
+		$('._elements-email-pane').removeClass('hidden');
+	});
+	
+	$('._add-risk').click(function () {
+		elementType = 'R';
+		_metorHide();
+	});
+	
+	$('._add-action').click(function () {
+		elementType = 'A';
+		_metorHide();
+	});
+	
+	$('#_save-elements').click(function () {
+		var title = $('#_elements-title').val();
+		var description = $('#_elements-description').val();
+		
+		if (title == undefined || title == '' || description == undefined || description == '') {
+			alert('제목과 내용을 입력해주세요.');
+			return;
+		}
+				
+		var param = {};
+		
+		param.userid = userInfo.id;
+		
+		alert(goalInfo._id);
+		param.goal = goalInfo._id;
+		param.elementtype = elementType;
+		param.title = title;
+		param.description = description;
+		
+		var today = new Date();		
+		param.createdate = today.formattedDate('-');
+		
+		if (elementType == 'M') {
+			param.name = $('#_elements-name').val();
+			param.email = $('#_elements-email').val();
+		}
+		
+		controller.addElementsInfo(param);
 	});
 	
 	
@@ -497,6 +584,8 @@ var view = function () {
 			return;
 		}
 		
+		goalInfo = goalInfoArr[0];
+		
 		$('._container-add-goal').hide();
 		$('.btn-main').removeClass('hide');
 		$('.goal-title').show();
@@ -514,6 +603,7 @@ var view = function () {
 		$('#_goal-end-date').val(dataArr[0].endDate);
 		$('#_goal-description').val(dataArr[0].goalDescription);
 		$('#_goal-id').val(dataArr[0]._id);
+		$("#_goal-status option:selected").val(dataArr[0].status);
 	};
 	
 	var _setPrev = function () {
@@ -526,6 +616,24 @@ var view = function () {
 		}
 	};
 	
+	var _setElements = function () {
+		var elementsPanel;
+		
+		if (elementType == 'I') {
+			
+		} else if () {
+			
+		} else if () {
+			
+		} else if () {
+			
+		} else if () {
+			
+		} else if () {
+			
+		}
+	};
+	
 	return {
 		init					: _init,
 		setTodayStatChart		: _setTodayStatChart,
@@ -534,8 +642,9 @@ var view = function () {
 		setRangeStatChart		: _setRangeStatChart,
 		setProfile				: _setProfile,
 		setGoal					: _setGoal,
-		setGoalEdit			: _setGoalEdit,
-		setPrev					: _setPrev
+		setGoalEdit				: _setGoalEdit,
+		setPrev					: _setPrev,
+		setElements				: _setElements
 	}
 }();
 view.init();
@@ -578,6 +687,19 @@ var controller = function () {
 		}
 	};
 	
+	var _addElementsInfo = function (param) {
+//		alert(JSON.stringify(param));
+//		return;
+		
+		var result = SessionDB.insertRow('ElementsTable', JSON.stringify(param));
+		
+		if (result > 0) {
+			view.setElements();
+		} else {
+			alert("요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+		}
+	};
+	
 	var _getTable = function (tblNm) {
 		return SessionDB.getTable(tblNm);
 	};
@@ -597,6 +719,7 @@ var controller = function () {
 		init			: _init,
 		addGoalInfo		: _addGoalInfo,
 		addProfileInfo	: _addProfileInfo,
+		addElementsInfo	: _addElementsInfo,
 		getTable		: _getTable,
 		selectData		: _selectData
 	}
