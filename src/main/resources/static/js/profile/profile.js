@@ -162,7 +162,7 @@ $('document').ready(function () {
 	});
 	
 	$('#_idea-item').click(function (){
-		view.setPrev();
+		view.changeElements('I');
 		
 		prevRsourceBtn = $('#_idea-item');
 		$('#_idea-item').parent().addClass('btn-active');
@@ -172,7 +172,7 @@ $('document').ready(function () {
 	});
 	
 	$('#_resource-item').click(function (){
-		view.setPrev();
+		view.changeElements('R');
 		
 		prevRsourceBtn = $('#_resource-item');
 		$('#_resource-item').parent().addClass('btn-active');
@@ -182,7 +182,7 @@ $('document').ready(function () {
 	});
 
 	$('#_info-item').click(function (){
-		view.setPrev();
+		view.changeElements('IN');
 		
 		prevRsourceBtn = $('#_info-item');
 		$('#_info-item').parent().addClass('btn-active');
@@ -192,7 +192,7 @@ $('document').ready(function () {
 	});
 	
 	$('#_mentor-item').click(function (){
-		view.setPrev();
+		view.changeElements('M');
 		
 		prevRsourceBtn = $('#_mentor-item');
 		$('#_mentor-item').parent().addClass('btn-active');
@@ -202,7 +202,7 @@ $('document').ready(function () {
 	});
 
 	$('#_risk-item').click(function (){
-		view.setPrev();
+		view.changeElements('RI');
 		
 		prevRsourceBtn = $('#_risk-item');
 		$('#_risk-item').parent().addClass('btn-active');
@@ -212,13 +212,17 @@ $('document').ready(function () {
 	});
 	
 	$('#_action-item').click(function (){
-		view.setPrev();
+		view.changeElements('A');
+		
+		prevRsourceBtn = $('#_action-item');
+		$('#_action-item').parent().addClass('btn-active');
+		
 		prevContents = $('._action-contents');
 		prevContents.removeClass('hide');
 	});
 	
 	$('#_goal-item').click(function (){
-		view.setPrev();
+		view.changeElements();
 		prevContents = $('._dashboard-contents');
 		prevContents.removeClass('hide');
 	});
@@ -264,7 +268,7 @@ $('document').ready(function () {
 	});
 	
 	$('._add-risk').click(function () {
-		elementType = 'R';
+		elementType = 'RI';
 		_metorHide();
 	});
 	
@@ -606,7 +610,10 @@ var view = function () {
 		$("#_goal-status option:selected").val(dataArr[0].status);
 	};
 	
-	var _setPrev = function () {
+	var _changeElements = function (elType) {
+		mode = 'EL';
+		elementType = elType;
+		
 		if (prevRsourceBtn) {
 			prevRsourceBtn.parent().removeClass('btn-active');
 		}
@@ -614,25 +621,89 @@ var view = function () {
 		if (prevContents) {
 			prevContents.addClass('hide');
 		}
+		
+		var param = {};
+		param.goal = goalInfo._id;
+		param.elementtype = elementType;
+		controller.selectData('ElementsTable', param);
 	};
 	
-	var _setElements = function () {
-		var elementsPanel;
+	var _setElements = function (dataArr) {
+		
+		var elementsContainer;
+		var bgStyle;
 		
 		if (elementType == 'I') {
-			
-		} else if () {
-			
-		} else if () {
-			
-		} else if () {
-			
-		} else if () {
-			
-		} else if () {
-			
+			elementsContainer = $('._idea-container');
+			bgStyle = 'panel-primary';
+		} else if (elementType == 'R') {
+			elementsContainer = $('._resource-container');
+			bgStyle = 'panel-warning';
+		} else if (elementType == 'IN') {
+			elementsContainer = $('._info-container');
+			bgStyle = 'panel-info';
+		} else if (elementType == 'M') {
+			elementsContainer = $('._mentor-container');
+			bgStyle = 'panel-success';
+		} else if (elementType == 'RI') {
+			elementsContainer = $('._risk-container');
+			bgStyle = 'panel-danger';
+		} else if (elementType == 'A') {
+			elementsContainer = $('._action-container');
+			bgStyle = 'panel-default';
 		}
+		
+		var cnt = dataArr.length;
+		var appendStr = "";
+		for (i = (cnt - 1); i == 0; i--) {
+			appendStr += "<div class='panel " + bgStyle + "'>" +
+					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createdate + "</small></div>" +
+					  	 "<div class='panel-body'>" +
+					  	 dataArr[i].description +
+					  	 "</div>" +
+					  	 "</div>";
+		}
+		
+		alert(appendStr);
+		
+		elementsContainer.empty();
+		elementsContainer.append(appendStr);
 	};
+	
+	var _addElements = function (dataArr) {
+		var elementsObj = [0];
+		var elementsContainer;
+		var bgStyle;
+		
+		if (elementType == 'I') {
+			elementsContainer = $('._idea-container');
+			bgStyle = 'panel-primary';
+		} else if (elementType == 'R') {
+			elementsContainer = $('._resource-container');
+			bgStyle = 'panel-warning';
+		} else if (elementType == 'IN') {
+			elementsContainer = $('._info-container');
+			bgStyle = 'panel-info';
+		} else if (elementType == 'M') {
+			elementsContainer = $('._mentor-container');
+			bgStyle = 'panel-success';
+		} else if (elementType == 'RI') {
+			elementsContainer = $('._risk-container');
+			bgStyle = 'panel-danger';
+		} else if (elementType == 'A') {
+			elementsContainer = $('._action-container');
+			bgStyle = 'panel-default';
+		}
+		
+		var prependStr = "<div class='panel " + bgStyle + "'>" +
+					  	 "<div class='panel-heading'>" + elementsObj.title + "<small class='pull-right'>" + elementsObj.createdate + "</small></div>" +
+					  	 "<div class='panel-body'>" +
+					  	 elementsObj.description +
+					  	 "</div>" +
+					  	 "</div>";
+		
+		elementsContainer.prepend(prependStr);
+	}
 	
 	return {
 		init					: _init,
@@ -643,8 +714,9 @@ var view = function () {
 		setProfile				: _setProfile,
 		setGoal					: _setGoal,
 		setGoalEdit				: _setGoalEdit,
-		setPrev					: _setPrev,
-		setElements				: _setElements
+		changeElements			: _changeElements,
+		setElements				: _setElements,
+		addElements				: _addElements
 	}
 }();
 view.init();
@@ -694,7 +766,8 @@ var controller = function () {
 		var result = SessionDB.insertRow('ElementsTable', JSON.stringify(param));
 		
 		if (result > 0) {
-			view.setElements();
+			var elementsArr = [param];
+			view.addElements(elementsArr);
 		} else {
 			alert("요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
 		}
@@ -709,6 +782,12 @@ var controller = function () {
 		
 		if (mode != undefined && mode == 'E') {
 			view.setGoalEdit(dataArr);
+			return;
+		} else if (mode != undefined && mode == 'EL') {
+			if (dataArr != null) {
+				view.setElements(dataArr);
+			}
+			
 			return;
 		}
 		
