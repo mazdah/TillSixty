@@ -603,7 +603,6 @@ var view = function () {
 		}
 		elementsContainer.empty();
 		elementsContainer.append(appendStr);
-		_setElementsCount();
 	};
 	
 	var _addElements = function (dataArr) {
@@ -648,8 +647,10 @@ var view = function () {
 		
 		elementsContainer.prepend(prependStr);
 		
-		var elCnt = Number(elCntObj.text()) + 1;
-		elCntObj.text(elCnt);
+//		var elCnt = Number(elCntObj.text()) + 1;
+//		elCntObj.text(elCnt);
+		
+		_setElementsCount();
 	}
 	
 	var _setElementsCount = function () {
@@ -709,7 +710,7 @@ var view = function () {
 						todayMentorCnt++;
 					}
 				} else if (eltype == 'RI') {
-					riskcnt++;
+					riskCnt++;
 					
 					if (createdate == todayStr) {
 						todayRiskCnt++;
