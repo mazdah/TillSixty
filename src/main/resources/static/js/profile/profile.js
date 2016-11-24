@@ -125,6 +125,10 @@ $('document').ready(function () {
 
 		controller.addGoalInfo(param);
 		
+		$('#_goal-title').val('');
+		$('#_goal-start-date').val('');
+		$('#_goal-end-date').val('');
+		$('#_goal-description').val('');
 		$('#_modal-add-goal').modal('hide');
 	});
 	
@@ -135,7 +139,7 @@ $('document').ready(function () {
 		var description = $('#_frm-profile-description').val();
 		var image = $("#_frm-profile-image").fileinput('getFileStack'); //$('#_frm-profile-image').val();
 		
-		alert("image path = " + image[0].value);
+		//alert("image path = " + image[0].value);
 		return;
 		
 		if ((facebook == undefined || facebook == '') &&
@@ -158,6 +162,10 @@ $('document').ready(function () {
 		
 		controller.addProfileInfo(param);
 		
+		$('#_frm-profile-facebook').val('');
+		$('#_frm-profile-twitter').val('');
+		$('#_frm-profile-link').val('');
+		$('#_frm-profile-description').val('');
 		$('#_modal-add-profile').modal('hide');
 	});
 	
@@ -289,8 +297,6 @@ $('document').ready(function () {
 		var param = {};
 		
 		param.userid = userInfo.id;
-		
-		alert(goalInfo._id);
 		param.goal = goalInfo._id;
 		param.elementtype = elementType;
 		param.title = title;
@@ -305,23 +311,37 @@ $('document').ready(function () {
 		}
 		
 		controller.addElementsInfo(param);
+		$('#_elements-title').val('');
+		$('#_elements-description').val('');
+		$('#_modal-add-elements').modal('hide');
 	});
 	
 	
 	view.setProfile();
 	view.setGoal();
-	view.setRadarChart();
-	view.setTodayStatChart();
-	view.setElementsStatChart();
-	view.setRangeStatChart();
+	view.setElementsCount();
+//	view.setChart();
+//	view.setRadarChart();
+//	view.setTodayStatChart();
+//	view.setElementsStatChart();
+//	view.setRangeStatChart();
 });
 
 var view = function () {
 	var _init = function () {
-		
+
 	};
 	
-	var _setRadarChart = function () {
+//	var _setChart = function () {
+//		mode = "";
+//		
+//		var param = {};
+//		param.userid = userInfo.id;
+//		param.goal = goalInfo._id;
+//		var dataArr = controller.selectData('ElementsTable', param);
+//	};
+	
+	var _setRadarChart = function (data, maxCnt) {
 		//////////////////////////////////////////////////////////////
 		//////////////////////// Set-Up ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 
@@ -331,19 +351,6 @@ var view = function () {
 				
 		//alert(width + ' : ' + height);
 		////////////////////////////////////////////////////////////// 
-		////////////////////////// Data ////////////////////////////// 
-		////////////////////////////////////////////////////////////// 
-		var data = [
-				  [//iPhone
-					{axis:"Idea",value:10},
-					{axis:"Info",value:7},
-					{axis:"Resource",value:5},
-					{axis:"Mentor",value:2},
-					{axis:"Risk",value:3},
-					{axis:"action",value:15}
-				  ]
-				];
-		////////////////////////////////////////////////////////////// 
 		//////////////////// Draw the Chart ////////////////////////// 
 		////////////////////////////////////////////////////////////// 
 		var color = d3.scale.ordinal().range(["#EDC951","#CC333F","#00A0B0"]);
@@ -352,7 +359,7 @@ var view = function () {
 		  w: width,
 		  h: height,
 		  margin: margin,
-		  maxValue: 10,
+		  maxValue: maxCnt + 2,
 		  levels: 5,
 		  roundStrokes: true,
 		  color: color
@@ -361,94 +368,30 @@ var view = function () {
 		RadarChart(".radarChart", data, radarChartOptions);
 	};
 	
-	var _setTodayStatChart = function () {
-		var historicalBarChart = [
-		      		            {
-		      		                key: "Cumulative Return",
-		      		                values: [
-		      		                  { 
-		      		                    "label" : "Idea" ,
-		      		                    "value" : 1
-		      		                  } , 
-		      		                  { 
-		      		                    "label" : "Resource" , 
-		      		                    "value" : 0
-		      		                  } , 
-		      		                  { 
-		      		                    "label" : "Info" , 
-		      		                    "value" : 2
-		      		                  } , 
-		      		                  { 
-		      		                    "label" : "Mentor" , 
-		      		                    "value" : 0
-		      		                  } , 
-		      		                  { 
-		      		                    "label" : "Risk" ,
-		      		                    "value" : 0
-		      		                  } , 
-		      		                  { 
-			      		                    "label" : "Action" ,
-			      		                    "value" : 2
-			      		                  }
-		      		                ]
-		      		              }
-		      		            ]
-		      		
-		      		nv.addGraph(function() {
-		      	        var chart = nv.models.discreteBarChart()
-		      	            .x(function(d) { return d.label })
-		      	            .y(function(d) { return d.value })
-		      	            .staggerLabels(false)
-		      	            //.staggerLabels(historicalBarChart[0].values.length > 8)
-		      	            .showValues(true)
-		      	            .duration(250)
-		      	            ;
+	var _setTodayStatChart = function (data) {
+  		nv.addGraph(function() {
+  	        var chart = nv.models.discreteBarChart()
+  	            .x(function(d) { return d.label })
+  	            .y(function(d) { return d.value })
+  	            .staggerLabels(false)
+  	            //.staggerLabels(historicalBarChart[0].values.length > 8)
+  	            .showValues(true)
+  	            .duration(250)
+  	            ;
 
-		      	        chart.yAxis.tickFormat(d3.format('d'));
-		      	        chart.valueFormat(d3.format('d'));
-		      	        
-		      	        d3.select('#_today-chart svg')
-		      	            .datum(historicalBarChart)
-		      	            .call(chart);
+  	        chart.yAxis.tickFormat(d3.format('d'));
+  	        chart.valueFormat(d3.format('d'));
+  	        
+  	        d3.select('#_today-chart svg')
+  	            .datum(data)
+  	            .call(chart);
 
-		      	        nv.utils.windowResize(chart.update);
-		      	        return chart;
-		      	    });
+  	        nv.utils.windowResize(chart.update);
+  	        return chart;
+  	    });
 	};
 	
-	var _setElementsStatChart = function () {
-		var historicalBarChart = [
-		            {
-		                key: "Cumulative Return",
-		                values: [
-		                  { 
-		                    "label" : "Idea" ,
-		                    "value" : 5
-		                  } , 
-		                  { 
-		                    "label" : "Resource" , 
-		                    "value" : 3
-		                  } , 
-		                  { 
-		                    "label" : "Info" , 
-		                    "value" : 7
-		                  } , 
-		                  { 
-		                    "label" : "Mentor" , 
-		                    "value" : 1
-		                  } , 
-		                  { 
-		                    "label" : "Risk" ,
-		                    "value" : 2
-		                  } , 
-		                  { 
-			                    "label" : "action" ,
-			                    "value" : 15
-			                  }
-		                ]
-		              }
-		            ]
-		
+	var _setElementsStatChart = function (data) {
 		nv.addGraph(function() {
 	        var chart = nv.models.discreteBarChart()
 	            .x(function(d) { return d.label })
@@ -463,7 +406,7 @@ var view = function () {
   	        chart.valueFormat(d3.format('d'));
 	        
 	        d3.select('#_elements-chart svg')
-	            .datum(historicalBarChart)
+	            .datum(data)
 	            .call(chart);
 
 	        nv.utils.windowResize(chart.update);
@@ -471,33 +414,7 @@ var view = function () {
 	    });
 	};
 	
-	var _setRangeStatChart = function () {
-		var data = [
-		             {
-		                key: "Idea",
-		                values: [ { x:1083297600000 , y:1} , { x:1085976000000 , y:1} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:2} , { x:1096516800000 , y:0} , { x:1099195200000 , y:0} , { x:1101790800000 , y:0} , { x:1104469200000 , y:1}]
-		            },
-		            {
-		                key: "Resource",
-		                values: [ { x:1083297600000 , y:0} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:1} , { x:1096516800000 , y:1} , { x:1099195200000 , y:0} , { x:1101790800000 , y:1} , { x:1104469200000 , y:0}]
-		            },
-		            {
-		                key: "Info",
-		                values: [ { x:1083297600000 , y:2} , { x:1085976000000 , y:0} , { x:1088568000000 , y:1} , { x:1091246400000 , y:1} , { x:1093924800000 , y:0} , { x:1096516800000 , y:1} , { x:1099195200000 , y:0} , { x:1101790800000 , y:1} , { x:1104469200000 , y:1}]
-		            },
-		            {
-		                key: "Mentor",
-		                values: [ { x:1083297600000 , y:1} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:0} , { x:1096516800000 , y:0} , { x:1099195200000 , y:0} , { x:1101790800000 , y:0} , { x:1104469200000 , y:0}]
-		            },
-		            {
-		                key: "Risk",
-		                values: [ { x:1083297600000 , y:0} , { x:1085976000000 , y:0} , { x:1088568000000 , y:0} , { x:1091246400000 , y:0} , { x:1093924800000 , y:0} , { x:1096516800000 , y:0} , { x:1099195200000 , y:1} , { x:1101790800000 , y:1} , { x:1104469200000 , y:0}]
-		            },
-		            {
-		                key: "Action",
-		                values: [ { x:1083297600000 , y:2} , { x:1085976000000 , y:2} , { x:1088568000000 , y:3} , { x:1091246400000 , y:1} , { x:1093924800000 , y:1} , { x:1096516800000 , y:2} , { x:1099195200000 , y:3} , { x:1101790800000 , y:0} , { x:1104469200000 , y:1}]
-		            }
-		        ];
+	var _setRangeStatChart = function (data) {
 		
 			nv.addGraph(function() {
 				var chart = nv.models.lineChart()
@@ -599,6 +516,24 @@ var view = function () {
 		
 		var today = new Date();
 		$('._today-label').text(today.formattedDate('-'));
+		
+		var startDate = new Date(goalInfoArr[0].startDate);
+		var endDate = new Date(goalInfoArr[0].endDate);
+		var currDate = new Date();
+		var currDay = 24 * 60 * 60 * 1000;
+		
+		var totdiff = endDate - startDate;
+		var currdiff = currDate - startDate;
+		
+		var intTotdiff = parseInt(totdiff/currDay);
+		var intCurrdiff = parseInt(currdiff/currDay);
+		
+//		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
+//		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
+		var percent = parseInt(intCurrdiff / intTotdiff * 100);
+		
+		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
+		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
 	}
 	
 	var _setGoalEdit = function (dataArr) {
@@ -656,54 +591,429 @@ var view = function () {
 		var cnt = dataArr.length;
 		var appendStr = "";
 		for (i = (cnt - 1); i == 0; i--) {
+			var description = dataArr[i].description.replace(/\n/gi, '<br>')
 			appendStr += "<div class='panel " + bgStyle + "'>" +
 					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createdate + "</small></div>" +
 					  	 "<div class='panel-body'>" +
-					  	 dataArr[i].description +
+					  	 description +
 					  	 "</div>" +
 					  	 "</div>";
 		}
-		
-		alert(appendStr);
-		
 		elementsContainer.empty();
 		elementsContainer.append(appendStr);
 	};
 	
 	var _addElements = function (dataArr) {
-		var elementsObj = [0];
+		var elementsObj = dataArr[0];
 		var elementsContainer;
 		var bgStyle;
+		var elCntObj;
 		
 		if (elementType == 'I') {
 			elementsContainer = $('._idea-container');
 			bgStyle = 'panel-primary';
+			elCntObj = $('._label-iead');
 		} else if (elementType == 'R') {
 			elementsContainer = $('._resource-container');
 			bgStyle = 'panel-warning';
+			elCntObj = $('._label-resource');
 		} else if (elementType == 'IN') {
 			elementsContainer = $('._info-container');
 			bgStyle = 'panel-info';
+			elCntObj = $('._label-info');
 		} else if (elementType == 'M') {
 			elementsContainer = $('._mentor-container');
 			bgStyle = 'panel-success';
+			elCntObj = $('._label-mentor');
 		} else if (elementType == 'RI') {
 			elementsContainer = $('._risk-container');
 			bgStyle = 'panel-danger';
+			elCntObj = $('._label-risk');
 		} else if (elementType == 'A') {
 			elementsContainer = $('._action-container');
 			bgStyle = 'panel-default';
+			elCntObj = $('._label-action');
 		}
 		
+		var description = elementsObj.description.replace(/\n/gi, '<br>')
 		var prependStr = "<div class='panel " + bgStyle + "'>" +
 					  	 "<div class='panel-heading'>" + elementsObj.title + "<small class='pull-right'>" + elementsObj.createdate + "</small></div>" +
 					  	 "<div class='panel-body'>" +
-					  	 elementsObj.description +
+					  	 description +
 					  	 "</div>" +
 					  	 "</div>";
 		
 		elementsContainer.prepend(prependStr);
+		
+		var elCnt = Number(elCntObj.text()) + 1;
+		elCntObj.text(elCnt);
 	}
+	
+	var _setElementsCount = function () {
+		mode = "";
+		
+		var param = {};
+		param.userid = userInfo.id;
+		param.goal = goalInfo._id;
+		var dataArr = controller.selectData('ElementsTable', param);
+		
+		var ideaCnt = 0;
+		var resourceCnt = 0;
+		var infoCnt = 0;
+		var mentorCnt = 0;
+		var riskCnt = 0;
+		var actionCnt = 0;
+				
+		var todayIdeaCnt = 0;
+		var todayResourceCnt = 0;
+		var todayInfoCnt = 0;
+		var todayMentorCnt = 0;
+		var todayRiskCnt = 0;
+		var todayActionCnt = 0;
+		
+		var today = new Date();
+		var todayStr = today.formattedDate('-');
+		
+		if (dataArr != null) {
+			var cnt = dataArr.length;
+			
+			for (i = 0; i < cnt; i++) {
+				var eltype = dataArr[i].elementtype;
+				var createdate = dataArr[i].createdate;
+				
+				if (eltype == 'I') {
+					ideaCnt++;
+					
+					if (createdate == todayStr) {
+						todayIdeaCnt++;
+					}
+				} else if (eltype == 'R') {
+					resourceCnt++;
+					
+					if (createdate == todayStr) {
+						todayResourceCnt++;
+					}
+				} else if (eltype == 'IN') {
+					infoCnt++;
+					
+					if (createdate == todayStr) {
+						todayInfoCnt++;
+					}
+				} else if (eltype == 'M') {
+					mentorCnt++;
+					
+					if (createdate == todayStr) {
+						todayMentorCnt++;
+					}
+				} else if (eltype == 'RI') {
+					riskcnt++;
+					
+					if (createdate == todayStr) {
+						todayRiskCnt++;
+					}
+				} else if (eltype == 'A') {
+					actionCnt++;
+					
+					if (createdate == todayStr) {
+						todayActionCnt++;
+					}
+				}
+			}
+		}
+
+		$('._label-idea').text(ideaCnt);
+		$('._label-resource').text(resourceCnt);
+		$('._label-info').text(infoCnt);
+		$('._label-mentor').text(mentorCnt);
+		$('._label-risk').text(riskCnt);
+		$('._label-action').text(actionCnt);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Radar chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
+		
+		var rcdata = [
+				  [//iPhone
+					{axis:"Idea",value:ideaCnt},
+					{axis:"Info",value:infoCnt},
+					{axis:"Resource",value:resourceCnt},
+					{axis:"Mentor",value:mentorCnt},
+					{axis:"Risk",value:riskCnt},
+					{axis:"action",value:actionCnt}
+				  ]
+				];
+		
+		_setRadarChart(rcdata, maxCnt);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Today bar chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var todayBarChart = [
+			      		            {
+			      		                key: "Cumulative Return",
+			      		                values: [
+			      		                  { 
+			      		                    "label" : "Idea" ,
+			      		                    "value" : todayIdeaCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Resource" , 
+			      		                    "value" : todayResourceCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Info" , 
+			      		                    "value" : todayInfoCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Mentor" , 
+			      		                    "value" : todayMentorCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Risk" ,
+			      		                    "value" : todayRiskCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Action" ,
+			      		                    "value" : todayActionCnt
+			      		                  }
+			      		                ]
+			      		              }
+			      		            ]
+		
+		_setTodayStatChart(todayBarChart);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Total elements chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var elementsBarChart = [
+			      		            {
+			      		                key: "Cumulative Return",
+			      		                values: [
+			      		                  { 
+			      		                    "label" : "Idea" ,
+			      		                    "value" : ideaCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Resource" , 
+			      		                    "value" : resourceCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Info" , 
+			      		                    "value" : infoCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Mentor" , 
+			      		                    "value" : mentorCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Risk" ,
+			      		                    "value" : riskCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Action" ,
+			      		                    "value" : actionCnt
+			      		                  }
+			      		                ]
+			      		              }
+			      		            ]
+		
+		_setElementsStatChart(elementsBarChart);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Range elements chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 	
+//		alert(testDate.otherFormattedDate('y', 3));
+		
+		if (dataArr == null) {
+			var rangeData = [
+//				             {
+//				                key: "Idea",
+//				                values: [ { x:1083297600000 , y:1} , 
+//				                          { x:1085976000000 , y:1} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:2} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:1}]
+//				            },
+//				            {
+//				                key: "Resource",
+//				                values: [ { x:1083297600000 , y:0} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:1} , 
+//				                          { x:1096516800000 , y:1} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				                key: "Info",
+//				                values: [ { x:1083297600000 , y:2} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:1} , 
+//				                          { x:1091246400000 , y:1} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:1} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:1}]
+//				            },
+//				            {
+//				                key: "Mentor",
+//				                values: [ { x:1083297600000 , y:1} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				                key: "Risk",
+//				                values: [ { x:1083297600000 , y:0} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:1} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				            	key: "Action",
+//				                values: [ { x:1083297600000 , y:2} , 
+//				                          { x:1085976000000 , y:2} , 
+//				                          { x:1088568000000 , y:3} , 
+//				                          { x:1091246400000 , y:1} , 
+//				                          { x:1093924800000 , y:1} , 
+//				                          { x:1096516800000 , y:2} , 
+//				                          { x:1099195200000 , y:3} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:1}]
+//				             }
+				        ];
+				
+				_setRangeStatChart(rangeData);
+				return;
+		}
+		
+		var startDate = new Date(goalInfo.startDate);
+		var currDate = new Date();
+		var currDay = 24 * 60 * 60 * 1000;
+
+		var currdiff = currDate - startDate;
+		var intCurrdiff = parseInt(currdiff/currDay);
+		
+		var data = [];
+		var ideaItem = {};
+		var resourceItem = {};
+		var infoItem = {};
+		var mentorItem = {};
+		var riskItem = {};
+		var actionItem = {};
+		
+		ideaItem.key = "Idea";
+		resourceItem.key = "Resource";
+		infoItem.key = "Info";
+		mentorItem.key = "Mentor";
+		riskItem.key = "Risk";
+		actionItem.key = "Action";
+		
+		ideaItem.values = [];
+		resourceItem.values = [];
+		infoItem.values = [];
+		mentorItem.values = [];
+		riskItem.values = [];
+		actionItem.values = [];
+//		dataItem.values = [];
+		
+		if (intCurrdiff < 7) {
+			for (i = intCurrdiff; i >= 0; i--) {
+				var otherDate = new Date();
+				otherDate.setDate(currDate.getDate() - i);
+			}
+		} else {
+			for (i = 7; i >= 0; i--) {
+				var ideaArr = [];
+				var resourceArr = [];
+				var infoArr = [];
+				var mentorArr = [];
+				var riskArr = [];
+				var actionArr = [];			
+				
+				var otherDate = new Date();
+				otherDate.setDate(currDate.getDate() - i);
+				var otherDateTime = otherDate.getTime();
+				var otherDateStr = otherDate.formattedDate('-');
+				alert(otherDate.getTime());
+				
+				var cnt = dataArr.length;
+				
+				var otherIdeaCnt = 0;
+				var otherResourceCnt = 0;
+				var otherInfoCnt = 0;
+				var otherMentorCnt = 0;
+				var otherRiskCnt = 0;
+				var otherActionCnt = 0;
+				
+				for (j = 0; j < cnt; j++) {
+					var eltype = dataArr[j].elementtype;
+					var createdate = dataArr[j].createdate;
+					
+					if (eltype == 'I') {
+						if (createdate == otherDateStr) {
+							otherIdeaCnt++;
+						}
+					} else if (eltype == 'R') {
+						if (createdate == otherDateStr) {
+							otherResourceCnt++;
+						}
+					} else if (eltype == 'IN') {
+						if (createdate == otherDateStr) {
+							otherInfoCnt++;
+						}
+					} else if (eltype == 'M') {
+						if (createdate == otherDateStr) {
+							otherMentorCnt++;
+						}
+					} else if (eltype == 'RI') {
+						if (createdate == otherDateStr) {
+							otherRiskCnt++;
+						}
+					} else if (eltype == 'A') {
+						if (createdate == otherDateStr) {
+							otherActionCnt++;
+						}
+					}
+				}
+				
+				ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
+				resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
+				infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
+				mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
+				riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
+				actionItem.values.push({x:otherDateTime, y:otherActionCnt});
+			}
+			
+			data.push(ideaItem);
+			data.push(resourceItem);
+			data.push(infoItem);
+			data.push(mentorItem);
+			data.push(riskItem);
+			data.push(actionItem);
+			
+			_setRangeStatChart(data);
+		}
+		
+	};
 	
 	return {
 		init					: _init,
@@ -716,7 +1026,8 @@ var view = function () {
 		setGoalEdit				: _setGoalEdit,
 		changeElements			: _changeElements,
 		setElements				: _setElements,
-		addElements				: _addElements
+		addElements				: _addElements,
+		setElementsCount		: _setElementsCount
 	}
 }();
 view.init();
@@ -795,12 +1106,12 @@ var controller = function () {
 	};
 	
 	return {
-		init			: _init,
-		addGoalInfo		: _addGoalInfo,
-		addProfileInfo	: _addProfileInfo,
-		addElementsInfo	: _addElementsInfo,
-		getTable		: _getTable,
-		selectData		: _selectData
+		init				: _init,
+		addGoalInfo			: _addGoalInfo,
+		addProfileInfo		: _addProfileInfo,
+		addElementsInfo		: _addElementsInfo,
+		getTable			: _getTable,
+		selectData			: _selectData
 	}
 }();
 controller.init();
