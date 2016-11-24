@@ -617,8 +617,8 @@ var view = function () {
 		var currdiff = currDate - startDate;
 		
 		var intTotdiff = parseInt(totdiff/currDay);
-		var intCurrdiff = parseInt(currdiff/currDay);
-		
+		var intCurrdiff = Math.ceil(currdiff/currDay);
+
 //		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
 		var percent = parseInt(intCurrdiff / intTotdiff * 100);
