@@ -590,7 +590,8 @@ var view = function () {
 		
 		var cnt = dataArr.length;
 		var appendStr = "";
-		for (i = (cnt - 1); i == 0; i--) {
+		
+		for (i = (cnt - 1); i >= 0; i--) {
 			var description = dataArr[i].description.replace(/\n/gi, '<br>')
 			appendStr += "<div class='panel " + bgStyle + "'>" +
 					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createdate + "</small></div>" +
@@ -935,83 +936,82 @@ var view = function () {
 		actionItem.values = [];
 //		dataItem.values = [];
 		
-		if (intCurrdiff < 7) {
-			for (i = intCurrdiff; i >= 0; i--) {
-				var otherDate = new Date();
-				otherDate.setDate(currDate.getDate() - i);
-			}
-		} else {
-			for (i = 7; i >= 0; i--) {
-				var ideaArr = [];
-				var resourceArr = [];
-				var infoArr = [];
-				var mentorArr = [];
-				var riskArr = [];
-				var actionArr = [];			
+		
+		
+		if (intCurrdiff >= 7) {
+			intCurrdiff = 7;
+		}
+		
+		for (i = intCurrdiff; i >= 0; i--) {
+			var ideaArr = [];
+			var resourceArr = [];
+			var infoArr = [];
+			var mentorArr = [];
+			var riskArr = [];
+			var actionArr = [];			
+			
+			var otherDate = new Date();
+			otherDate.setDate(currDate.getDate() - i);
+			var otherDateTime = otherDate.getTime();
+			var otherDateStr = otherDate.formattedDate('-');
+			
+			var cnt = dataArr.length;
+			
+			var otherIdeaCnt = 0;
+			var otherResourceCnt = 0;
+			var otherInfoCnt = 0;
+			var otherMentorCnt = 0;
+			var otherRiskCnt = 0;
+			var otherActionCnt = 0;
+			
+			for (j = 0; j < cnt; j++) {
+				var eltype = dataArr[j].elementtype;
+				var createdate = dataArr[j].createdate;
 				
-				var otherDate = new Date();
-				otherDate.setDate(currDate.getDate() - i);
-				var otherDateTime = otherDate.getTime();
-				var otherDateStr = otherDate.formattedDate('-');
-				alert(otherDate.getTime());
-				
-				var cnt = dataArr.length;
-				
-				var otherIdeaCnt = 0;
-				var otherResourceCnt = 0;
-				var otherInfoCnt = 0;
-				var otherMentorCnt = 0;
-				var otherRiskCnt = 0;
-				var otherActionCnt = 0;
-				
-				for (j = 0; j < cnt; j++) {
-					var eltype = dataArr[j].elementtype;
-					var createdate = dataArr[j].createdate;
-					
-					if (eltype == 'I') {
-						if (createdate == otherDateStr) {
-							otherIdeaCnt++;
-						}
-					} else if (eltype == 'R') {
-						if (createdate == otherDateStr) {
-							otherResourceCnt++;
-						}
-					} else if (eltype == 'IN') {
-						if (createdate == otherDateStr) {
-							otherInfoCnt++;
-						}
-					} else if (eltype == 'M') {
-						if (createdate == otherDateStr) {
-							otherMentorCnt++;
-						}
-					} else if (eltype == 'RI') {
-						if (createdate == otherDateStr) {
-							otherRiskCnt++;
-						}
-					} else if (eltype == 'A') {
-						if (createdate == otherDateStr) {
-							otherActionCnt++;
-						}
+				if (eltype == 'I') {
+					if (createdate == otherDateStr) {
+						otherIdeaCnt++;
+					}
+				} else if (eltype == 'R') {
+					if (createdate == otherDateStr) {
+						otherResourceCnt++;
+					}
+				} else if (eltype == 'IN') {
+					if (createdate == otherDateStr) {
+						otherInfoCnt++;
+					}
+				} else if (eltype == 'M') {
+					if (createdate == otherDateStr) {
+						otherMentorCnt++;
+					}
+				} else if (eltype == 'RI') {
+					if (createdate == otherDateStr) {
+						otherRiskCnt++;
+					}
+				} else if (eltype == 'A') {
+					if (createdate == otherDateStr) {
+						otherActionCnt++;
 					}
 				}
-				
-				ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
-				resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
-				infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
-				mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
-				riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
-				actionItem.values.push({x:otherDateTime, y:otherActionCnt});
 			}
 			
-			data.push(ideaItem);
-			data.push(resourceItem);
-			data.push(infoItem);
-			data.push(mentorItem);
-			data.push(riskItem);
-			data.push(actionItem);
-			
-			_setRangeStatChart(data);
+			ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
+			resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
+			infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
+			mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
+			riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
+			actionItem.values.push({x:otherDateTime, y:otherActionCnt});
 		}
+		
+		data.push(ideaItem);
+		data.push(resourceItem);
+		data.push(infoItem);
+		data.push(mentorItem);
+		data.push(riskItem);
+		data.push(actionItem);
+		
+		_setRangeStatChart(data);
+
 		
 	};
 	
