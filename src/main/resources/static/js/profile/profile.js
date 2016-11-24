@@ -286,6 +286,7 @@ $('document').ready(function () {
 	});
 	
 	$('#_save-elements').click(function () {
+		mode = 'EL';
 		var title = $('#_elements-title').val();
 		var description = $('#_elements-description').val();
 		
@@ -602,6 +603,7 @@ var view = function () {
 		}
 		elementsContainer.empty();
 		elementsContainer.append(appendStr);
+		_setElementsCount();
 	};
 	
 	var _addElements = function (dataArr) {
