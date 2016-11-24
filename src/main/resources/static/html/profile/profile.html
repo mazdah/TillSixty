@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="../../css/Bootstrap/bootstrap.css" rel="stylesheet">
 <link href="../../css/fileinput/fileinput.min.css" rel="stylesheet">
+<link href="../../css/fullcalendar/fullcalendar.min.css" rel="stylesheet">
 <link href="../../css/Bootstrap/datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="../../css/d3/nv.d3.min.css" rel="stylesheet">
 <link href="../../css/profile/profile.css" rel="stylesheet">
@@ -181,13 +182,13 @@
             </div>
             <div class="contens _dashboard-contents">
 	        	 <ul class="nav nav-tabs">
-				    <li class="active"><a data-toggle="tab" href="#chart">Chart</a></li>
-				    <li><a data-toggle="tab" href="#calendar">Calendar</a></li>
-				    <li><a data-toggle="tab" href="#timeline">Timeline</a></li>
-				    <li><a data-toggle="tab" href="#news">News</a></li>
+				    <li class="active"><a data-toggle="tab" href="#chart-container">Chart</a></li>
+				    <li><a data-toggle="tab" href="#calendar-container" class="_link-calendar">Calendar</a></li>
+				    <li><a data-toggle="tab" href="#timeline-container">Timeline</a></li>
+				    <li><a data-toggle="tab" href="#news-container">News</a></li>
 				  </ul>
 	        	 <div class="tab-content">
-				    <div id="chart" class="tab-pane fade in active _chart-container">
+				    <div id="chart-container" class="tab-pane fade in active _chart-container">
 				    진행 일 수
 			    	  <div class="_chart-goal-process">
 			      		<div class="progress _goal-process-container">
@@ -220,15 +221,14 @@
 				      	</div>
 				      </div>
 				    </div>
-				    <div id="calendar" class="tab-pane fade">
-				      <h3>Calendar</h3>
-				      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				    <div id="calendar-container" class="tab-pane fade">
+				      <div id='calendar'></div>
 				    </div>
-				    <div id="timeline" class="tab-pane fade">
+				    <div id="timeline-container" class="tab-pane fade">
 				      <h3>Timeline</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				    </div>
-				    <div id="news" class="tab-pane fade">
+				    <div id="news-container" class="tab-pane fade">
 				      <h3>News</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
 				    </div>
@@ -335,6 +335,9 @@
 </div> <!-- /container -->  
 <script src="../../js/jQuery/jquery-3.1.1.js"></script>
 <script src="../../js/Bootstrap/bootstrap.js"></script>
+<script src="../../js/fullcalendar/moment.min.js"></script>
+<script src="../../js/fullcalendar/fullcalendar.min.js"></script>
+<script src="../../js/fullcalendar/locale-all.js"></script>
 <script src="../../js/fileinput/fileinput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 <script src="../../js/d3/nv.d3.min.js"></script>

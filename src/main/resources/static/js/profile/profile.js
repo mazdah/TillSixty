@@ -24,6 +24,88 @@ $('document').ready(function () {
 	$('._user-id').text("@" + userInfo.id);
 	$('._user-name').text(userInfo.name);
 	
+	var initialLocaleCode = 'ko';
+	var today = new Date();
+	var todayStr = today.formattedDate('-');
+
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay,listMonth'
+		},
+		defaultDate: todayStr,
+		locale: initialLocaleCode,
+		buttonIcons: false, // show the prev/next text
+		weekNumbers: true,
+		navLinks: true, // can click day/week names to navigate views
+		editable: true,
+		eventLimit: true // allow "more" link when too many events
+//		events: [
+//			{
+//				title: 'All Day Event',
+//				start: '2016-09-01'
+//			},
+//			{
+//				title: 'Long Event',
+//				start: '2016-09-07',
+//				end: '2016-09-10'
+//			},
+//			{
+//				id: 999,
+//				title: 'Repeating Event',
+//				start: '2016-09-09T16:00:00'
+//			},
+//			{
+//				id: 999,
+//				title: 'Repeating Event',
+//				start: '2016-09-16T16:00:00'
+//			},
+//			{
+//				title: 'Conference',
+//				start: '2016-09-11',
+//				end: '2016-09-13'
+//			},
+//			{
+//				title: 'Meeting',
+//				start: '2016-09-12T10:30:00',
+//				end: '2016-09-12T12:30:00'
+//			},
+//			{
+//				title: 'Lunch',
+//				start: '2016-09-12T12:00:00'
+//			},
+//			{
+//				title: 'Meeting',
+//				start: '2016-09-12T14:30:00'
+//			},
+//			{
+//				title: 'Happy Hour',
+//				start: '2016-09-12T17:30:00'
+//			},
+//			{
+//				title: 'Dinner',
+//				start: '2016-09-12T20:00:00'
+//			},
+//			{
+//				title: 'Birthday Party',
+//				start: '2016-09-13T07:00:00'
+//			},
+//			{
+//				title: 'Click for Google',
+//				url: 'http://google.com/',
+//				start: '2016-09-28'
+//			}
+//		]
+	});
+	
+	$('._link-calendar').click(function () {
+		setTimeout(function () {
+			$('#calendar').fullCalendar('render');
+		}, 200);
+	})
+	
+	
 	$("#_frm-profile-image").fileinput({
 		showUpload: false,
 		showCaption: false,
@@ -378,6 +460,9 @@ var view = function () {
   	            //.staggerLabels(historicalBarChart[0].values.length > 8)
   	            .showValues(true)
   	            .duration(250)
+  	            .width(440)
+	        	.height(160)
+//	        	.margin({top: -5}) 
   	            ;
 
   	        chart.yAxis.tickFormat(d3.format('d'));
@@ -401,6 +486,9 @@ var view = function () {
 	            //.staggerLabels(historicalBarChart[0].values.length > 8)
 	            .showValues(true)
 	            .duration(250)
+	            .width(440)
+	        	.height(160)
+//	        	.margin({top: -5}) 
 	            ;
 
 	        chart.yAxis.tickFormat(d3.format('d'));
@@ -419,12 +507,14 @@ var view = function () {
 		
 			nv.addGraph(function() {
 				var chart = nv.models.lineChart()
-//	            .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+//	            .margin({top: -5})  //Adjust chart margins to give the x-axis some breathing room.
 	            .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 //	            .transitionDuration(350)  //how fast do you want the lines to transition?
 	            .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
 	            .showYAxis(true)        //Show the y-axis
 	            .showXAxis(true)        //Show the x-axis
+	            .width(440)
+	        	.height(155)
 	        ;
 
 	        chart.xAxis.tickFormat(function(d) {
