@@ -768,6 +768,27 @@ var view = function () {
 		var today = new Date();
 		var todayStr = today.formattedDate('-');
 		
+//		$('#calendar').fullCalendar({
+//		    events: [
+//		        {
+//		            title  : 'event1',
+//		            start  : '2010-01-01'
+//		        },
+//		        {
+//		            title  : 'event2',
+//		            start  : '2010-01-05',
+//		            end    : '2010-01-07'
+//		        },
+//		        {
+//		            title  : 'event3',
+//		            start  : '2010-01-09T12:30:00',
+//		            allDay : false // will make the time show
+//		        }
+//		    ]
+//		});
+		
+		var calEvents = [];
+		
 		if (dataArr != null) {
 			var cnt = dataArr.length;
 			
@@ -775,46 +796,71 @@ var view = function () {
 				var eltype = dataArr[i].elementtype;
 				var createdate = dataArr[i].createdate;
 				
+				var event = {title: dataArr[i].title, start: createdate, allDay: false};
+				
+				
 				if (eltype == 'I') {
+					event.backgroundColor = "#337ab7";
+					event.className = "#286090";
+					event.textColor = "#ffffff";
 					ideaCnt++;
 					
 					if (createdate == todayStr) {
 						todayIdeaCnt++;
 					}
 				} else if (eltype == 'R') {
+					event.backgroundColor = "#fcf8e3";
+					event.className = "#f7ecb5";
+					event.textColor = "#000000";
 					resourceCnt++;
 					
 					if (createdate == todayStr) {
 						todayResourceCnt++;
 					}
 				} else if (eltype == 'IN') {
+					event.backgroundColor = "#d9edf7";
+					event.className = "#afd9ee";
+					event.textColor = "#000000";
 					infoCnt++;
 					
 					if (createdate == todayStr) {
 						todayInfoCnt++;
 					}
 				} else if (eltype == 'M') {
+					event.backgroundColor = "#dff0d8";
+					event.className = "#c1e2b3";
+					event.textColor = "#000000";
 					mentorCnt++;
 					
 					if (createdate == todayStr) {
 						todayMentorCnt++;
 					}
 				} else if (eltype == 'RI') {
+					event.backgroundColor = "#f2dede";
+					event.className = "#e4b9b9";
+					event.textColor = "#000000";
 					riskCnt++;
 					
 					if (createdate == todayStr) {
 						todayRiskCnt++;
 					}
 				} else if (eltype == 'A') {
+					event.backgroundColor = "#dddddd";
+					event.className = "#aaaaaa";
+					event.textColor = "#000000";
 					actionCnt++;
 					
 					if (createdate == todayStr) {
 						todayActionCnt++;
 					}
 				}
+				
+				calEvents.push(event);
 			}
 		}
-
+		
+		$('#calendar').fullCalendar('addEventSource', calEvents);
+		
 		$('._label-idea').text(ideaCnt);
 		$('._label-resource').text(resourceCnt);
 		$('._label-info').text(infoCnt);
