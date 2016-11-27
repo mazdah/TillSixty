@@ -151,6 +151,10 @@ $('document').ready(function () {
 		}
 	});
 	
+	$('._go-timeline').click(function () {
+		window.location.href = '/html/timeline/timeline.html';
+	});
+	
 	$('#_save-goal').click(function() {
 		var goalTitle = $('#_goal-title').val();
 		var startDate = $('#_goal-start-date').val();
@@ -391,6 +395,9 @@ $('document').ready(function () {
 		if (elementType == 'M') {
 			param.name = $('#_elements-name').val();
 			param.email = $('#_elements-email').val();
+		} else {
+			param.name = "";
+			param.email = "";
 		}
 		
 		controller.addElementsInfo(param);
@@ -622,7 +629,7 @@ var view = function () {
 //		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
 		var percent = parseInt(intCurrdiff / intTotdiff * 100);
-		
+		if (percent < 0) percent = 0;
 		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
 		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
 	}
@@ -746,6 +753,13 @@ var view = function () {
 	var _setElementsCount = function () {
 		mode = "";
 		
+		if (goalInfo == undefined) {
+			$('._dashboard-contents').hide();
+			return;
+		}
+		
+		$('._dashboard-contents').show();
+		
 		var param = {};
 		param.userid = userInfo.id;
 		param.goal = goalInfo._id;
@@ -853,6 +867,11 @@ var view = function () {
 					if (createdate == todayStr) {
 						todayActionCnt++;
 					}
+				} else if (eltype == 'G') {
+					event.title = "목표 등록 : " + event.title;
+					event.backgroundColor = "#dddddd";
+					event.className = "#aaaaaa";
+					event.textColor = "#000000";
 				}
 				
 				calEvents.push(event);

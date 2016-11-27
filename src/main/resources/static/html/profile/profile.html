@@ -17,7 +17,7 @@
 </head>
 <body>
 <!-- Modal Frame -->
-<div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-goal">
+<div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-goal" data-backdrop="static">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -156,7 +156,7 @@
         		<!--  div class="btn-main">Chart</div><div class="btn-main">Timeline</div><div class="btn-main">Elements</div -->
         	</div>
         </div>
-        <img align="left" class="fb-image-profile img-rounded" src="../../images/profile/profile_img.png" alt="Profile image example"/>
+        <img align="left" class="fb-image-profile img-rounded" src="../../images/profile/profile-icon.jpg" alt="Profile image example"/>
         <div class="fb-profile-text">
         	<div class="fb-profile-text-sub">
         		<div class="profile-box">
@@ -175,6 +175,7 @@
 		            	
 		            </p>
 		            <br>
+		            <a herf="#" class="btn btn-sm btn-default pull-left _go-timeline" type="button">Timeline</a>
 		            <a herf="#" class="btn btn-sm btn-default pull-right _pop-edit-profile" type="button" data-toggle="modal" data-target="#_modal-add-profile">Edit Profile</a>
 		            <br>
 		            <br>
@@ -184,7 +185,7 @@
 	        	 <ul class="nav nav-tabs">
 				    <li class="active"><a data-toggle="tab" href="#chart-container">Chart</a></li>
 				    <li><a data-toggle="tab" href="#calendar-container" class="_link-calendar">Calendar</a></li>
-				    <li><a data-toggle="tab" href="#timeline-container">Timeline</a></li>
+				    <!--  li><a data-toggle="tab" href="#timeline-container">Timeline</a></li -->
 				    <li><a data-toggle="tab" href="#news-container">News</a></li>
 				  </ul>
 	        	 <div class="tab-content">
@@ -224,10 +225,10 @@
 				    <div id="calendar-container" class="tab-pane fade">
 				      <div id='calendar'></div>
 				    </div>
-				    <div id="timeline-container" class="tab-pane fade">
+				    <!-- div id="timeline-container" class="tab-pane fade">
 				      <h3>Timeline</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-				    </div>
+				    </div -->
 				    <div id="news-container" class="tab-pane fade">
 				      <h3>News</h3>
 				      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
