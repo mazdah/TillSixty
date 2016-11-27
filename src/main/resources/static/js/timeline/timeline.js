@@ -299,6 +299,8 @@ var view = function () {
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
 		var percent = parseInt(intCurrdiff / intTotdiff * 100);
 		
+		if (percent < 0) percent = 0;
+		
 		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
 		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
 	}
@@ -422,6 +424,15 @@ var view = function () {
 	var _setElementsCount = function () {
 		mode = "";
 		
+		if (goalInfo == undefined) {
+			$('._chart-goal-process').hide();
+			$('._timeline-pane').hide();
+			return;
+		}
+		
+		$('._chart-goal-process').show();
+		$('._timeline-pane').show();
+		
 		var param = {};
 		param.userid = userInfo.id;
 		param.goal = goalInfo._id;
@@ -464,24 +475,38 @@ var view = function () {
 				}
 
 				var prependStr = '';
-				if ((i % 2) == 1) {
-					prependStr += '<li class="timeline-inverted">';			      
+				
+				
+				if (elementType == 'G') {
+					prependStr += '<li><div style="border: #999 solid 3px; border-radius: 10px; background-color: #fff">' +
+								  '<div class="text-center">' + prevDate + '</div>' +
+								  '<div class="text-center"><h3>최초 목표 등록<h3></div>' +
+								  '<div class="text-center"><h4>' + dataArr[i].title + '</h4></div>' +
+								  '<div class="text-center">' + 
+								  '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
+								  '</div>' +
+								  '</div></li>';
 				} else {
-					prependStr += '<li>';
+					if ((i % 2) == 1) {
+						prependStr += '<li class="timeline-inverted">';			      
+					} else {
+						prependStr += '<li>';
+					}
+					
+					prependStr += '<div class="tl-circ"></div>' +
+				      '<div class="timeline-panel">' +
+				        '<div class="tl-heading">' +
+				          '<h4>' + dataArr[i].title + '</h4>' +
+				          '<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> ' + createDate + '</small><br>' + 
+				          '<i class="glyphicon glyphicon-star"></i> ' + elTyleStr + '</small></p>' +
+				        '</div>' +
+				        '<div class="tl-body">' +
+				        '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
+				        '</div>' +
+				      '</div>' +
+				    '</li>';
 				}
 				
-				prependStr += '<div class="tl-circ"></div>' +
-			      '<div class="timeline-panel">' +
-			        '<div class="tl-heading">' +
-			          '<h4>' + dataArr[i].title + '</h4>' +
-			          '<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> ' + createDate + '</small><br>' + 
-			          '<i class="glyphicon glyphicon-star"></i> ' + elTyleStr + '</small></p>' +
-			        '</div>' +
-			        '<div class="tl-body">' +
-			        '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
-			        '</div>' +
-			      '</div>' +
-			    '</li>';
 				
 				tlul.prepend(prependStr);
 			}
