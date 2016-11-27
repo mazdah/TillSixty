@@ -20,6 +20,10 @@ var SessionDB = function () {
 	var _getSessionStorage = function (key) {
 		return window.sessionStorage[key];
 	};
+	
+	var _removeSessionStorage = function (key) {
+		return window.sessionStorage.removeItem(key);
+	};
 
 	/**
 	*	@ SessionDB 초기화 : sessionStorage를 사용할 것인지, localStorage를 사용할 것인지 설정
@@ -371,18 +375,19 @@ var SessionDB = function () {
 	};
 
 	return {
-		setSessionStorage	: _setSessionStorage,
-		getSessionStorage	: _getSessionStorage,
-		init				: _init,
-		createTable			: _createTable,
-		getTableList		: _getTableList,
-		dropTable			: _dropTable,
-		importTable			: _importTable,
-		insertRow			: _insertRow,
-		getTable 			: _getTable,
-		selectRow			: _selectRow,
-		deleteRow			: _deleteRow,
-		updateRow			: _updateRow
+		setSessionStorage		: _setSessionStorage,
+		getSessionStorage		: _getSessionStorage,
+		removeSessionStorage	: _removeSessionStorage,
+		init					: _init,
+		createTable				: _createTable,
+		getTableList			: _getTableList,
+		dropTable				: _dropTable,
+		importTable				: _importTable,
+		insertRow				: _insertRow,
+		getTable 				: _getTable,
+		selectRow				: _selectRow,
+		deleteRow				: _deleteRow,
+		updateRow				: _updateRow
 	}
 }();
 SessionDB.init('session');
