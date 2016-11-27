@@ -1,4 +1,4 @@
-body { background: #333; margin: 0 auto; width: 1100px;}
+body { background: #333; margin: 0 auto; width: 100%;}
 
 img { border: 0; max-width: 100%; }
 
@@ -10,19 +10,25 @@ img { border: 0; max-width: 100%; }
 ._profile-pane, _timeline-pane
 {
 	display: table-cell;
+	vertical-align: top;
 	color: white;
 }
 
 ._goal-range
 {
 	margin-top: 2px;
-	width: 1100px;	
+	width: 100%;	
 }
 
 ._elements-pane
 {
+	width: 100%;
 	height: 32px;
+	background: black;
 	margin-bottom: 5px;
+	border-bottom: #aaa solid 1px;
+	box-shadow : 0 0 10px black;
+	color: white;
 }
 
 ._profile-pane
@@ -32,8 +38,12 @@ img { border: 0; max-width: 100%; }
 
 ._timeline-pane
 {
-	margin-top: -20px;
-	width: 840px;
+	margin-left: 20px;
+	width: 880px;
+}
+
+.page-header {
+	margin: 0 auto;	
 }
 
 .page-header h1 {
@@ -46,7 +56,7 @@ img { border: 0; max-width: 100%; }
 /** timeline box structure **/
 .timeline {
   list-style: none;
-  padding: 20px 0 20px;
+  padding: 20px 0 10px;
   position: relative;
 }
 
@@ -284,8 +294,10 @@ img { border: 0; max-width: 100%; }
    ========================================================================== */
 ._chart-goal-process
 {
+	width: 1100px;
 	height: 120px !important;	
 	border-bottom: #aaa solid 1px;
+	margin: 0 auto;
 }
 
 ._goal-process-container
