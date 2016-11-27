@@ -8,16 +8,426 @@ Till60 - Login
 </title>
 
 <link href="css/Bootstrap/bootstrap.css" rel="stylesheet">
+<link href="../css/Bootstrap/datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
 <link href="css/login/login.css" rel="stylesheet">
 
 <script src="js/jQuery/jquery-3.1.1.js"></script>
 <script src="js/Bootstrap/bootstrap.js"></script>
+<script src="../js/Bootstrap/datepicker/bootstrap-datepicker.min.js"></script>
+<script src="../js/Bootstrap/datepicker/bootstrap-datepicker.ko.min.js"></script>
 <script src="js/common/cmsessiondb.js"></script>
 <script src="js/login/login.js"></script>
+<script src="../js/common/util.js"></script>
 
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
+<!-- Modal Frame -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="_modal-tutorial" data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tutorial</h4>
+      </div>
+      <div class="modal-body text-center">
+      	<!-- Wiazrd Start ---------------------------------------------------------------------->
+      	<div class="container">
+			<div class="row">
+		    <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+		        <div id="wid-id-0">
+		            <!-- widget div-->
+		            <div role="content">
+		                <!-- widget content -->
+		                <div class="widget-body">
+		
+		                    <div class="row">
+		                        <form id="wizard-1" novalidate="novalidate">
+		                            <div id="bootstrap-wizard-1" class="col-sm-12">
+		                                <div class="form-bootstrapWizard">
+		                                    <ul class="bootstrapWizard form-wizard">
+		                                        <li class="active _tab1">
+		                                            <a href="#" class="active _tab1"> <span class="step">1</span> <span class="title">Till60란?</span> </a>
+		                                        </li>
+		                                        <li class="_tab2">
+		                                            <a href="#" class="_tab2"> <span class="step">2</span> <span class="title">Idea</span> </a>
+		                                        </li>
+		                                        <li class="_tab3">
+		                                            <a href="#" class="_tab3"> <span class="step">3</span> <span class="title">Resource</span> </a>
+		                                        </li>
+		                                        <li class="_tab4">
+		                                            <a href="#" class="_tab4"> <span class="step">4</span> <span class="title">Info</span> </a>
+		                                        </li>
+		                                        <li class="_tab5">
+		                                            <a href="#" class="_tab5"> <span class="step">5</span> <span class="title">Mentor</span> </a>
+		                                        </li>
+		                                        <li class="_tab6">
+		                                            <a href="#" class="_tab6"> <span class="step">6</span> <span class="title">Risk</span> </a>
+		                                        </li>
+		                                        <li class="_tab7">
+		                                            <a href="#" class="_tab7"> <span class="step">7</span> <span class="title">Action</span> </a>
+		                                        </li>
+		                                        <li class="_tab8">
+		                                            <a href="#" class="_tab8"> <span class="step">8</span> <span class="title">목표 등록</span> </a>
+		                                        </li>
+		                                        <li class="_tab9">
+		                                            <a href="#" class="_tab9"> <span class="step">9</span> <span class="title">완료</span> </a>
+		                                        </li>
+		                                    </ul>
+		                                    <div class="clearfix"></div>
+		                                </div>
+		                                <div class="tab-content">
+		                                    <div class="tab-pane active" id="tab1">
+		                                        <br>
+		                                        <h3><strong>Step 1 </strong> - Till60란?</h3>
+		                                        <br>
+												<p>
+												동양에서는 10간 12지를 이용하여 60개의 간지를 만들고<br>
+												각각의 간지를 년,월,일마다 배치하였다. 그리고 이 중<br>
+												각각의 년에 배치한 간지를 계산하여 자신이 태어난 해와<br>
+												동일한 간지가 돌아오는 해를 환갑이라 하여 잔치를 벌이곤<br>
+												하였다.<br>
+												</p>
+												<p>
+												이렇듯 60이라는 나이는 동양에서는 상징성이 있는 나이이다.<br>
+												예전에는 오래 살았다는 의미를 가졌지만 이제는 60개의 간지가<br>
+												한바퀴를 돌아 <strong>새롭게 시작한다</strong>는 의미를 가져도 좋을 것이다.<br>
+												</p>
+												<P>
+												<strong>
+												새롭게 시작하기 위한 삶의 목표로써 60세 까지 무엇인가<br>
+												이루고자 하는 목표를 정하고 그를 목표를 이루도록 도움을<br>
+												주고자 만들어 진 것이 바로 이 Till60이다. <br>
+												</strong>
+												</p>
+												<br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous disabled hide">
+		                                                            <a href="#" class="btn btn-lg txt-color-darken btn-default _btn-prev"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab2" class="btn btn-lg txt-color-darken btn-default _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="tab-pane" id="tab2">
+		                                        <br>
+		                                        <h3><strong>Step 2</strong> - Idea</h3>
+		                                        <br>
+												<p>
+												우리는 어떤 목표를 설정하고 그 것을 이루기 위해<br>
+												많은 생각을 합니다. <br>
+												</p>
+												<p>
+												이렇게 목표와 관련하여 떠오른 새로운 생각들을<br>
+												빠짐없이 기록을 해두세요. 분명 도움이 될 것입니다.<br>
+												</p>
+												<br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab1" class="btn btn-lg txt-color-darken btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab3" class="btn btn-lg txt-color-darken btn-default _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="tab-pane" id="tab3">
+		                                        <br>
+		                                        <h3><strong>Step 3</strong> - Resource</h3>
+		                                        <br>
+		                                        <p>
+												목표를 이루기 위해서는 물질적인 요소들도 필요합니다.<br>
+												장소와 시간 그리고 돈 등...<br>
+												</p>
+												<p>
+												다른 요소들과 달리 이러한 물질적 자원들은 한 번<br>
+												잃게 되면 되돌리기가 힘듭니다. 그만큼 더욱 신경써서<br>
+												관리를 하면 좋을 것입니다.<br>
+												</p>
+												<br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab2" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab4" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    <div class="tab-pane" id="tab4">
+		                                        <br>
+		                                        <h3><strong>Step 4</strong> - Info</h3>
+		                                        <br>
+		                                        <p>
+												인터넷을 통해, 혹은 각종 매체를 통해 많은 정보들을<br>
+												얻을 수 있을 것입니다.<br>
+												</p>
+												<p>
+												수많은 정보의 홍수 속에서 자신의 목표에 필요한 정보만을<br>
+												잘 관리하는 것도 목표를 이루는데 필수적인 요소일 것입니다.<br>
+												꼭 필요한 정보를 모아 관리해보세요.<br>
+												</p>
+		                                        <br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab3" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab5" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="tab-pane" id="tab5">
+		                                        <br>
+		                                        <h3><strong>Step 5</strong> - Mentor</h3>
+		                                        <br>
+		                                        <p>
+												목표를 이루기 위해서는 자신의 힘만으로는 어려운 일들이<br>
+												있을 것입니다. 또한 많은 사람들의 의견을 들어야 할 때도<br>
+												있습니다.<br>
+												</p>
+												<p>
+												목표를 위해 도움을 줄 수 있는 사람들을 기억하세요.<br>
+												자신에게 조력과 조언을 아끼지 않을 소중한 사람들을...<br>
+												</p>
+		                                        <br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab4" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab6" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="tab-pane" id="tab6">
+		                                        <br>
+		                                        <h3><strong>Step 6</strong> - Risk</h3>
+		                                        <br>
+		                                        <p>
+												목표를 이루기 위해서는 얻어야 할 것도 있지만<br>
+												버려야 할 것들도 있습니다. 그리고 항상 좋은 순간만<br>
+												있을 수는 없습니다.<br>
+												</p>
+												<p>
+												목표를 이루는데 장애가 되는 요소들을 찾아보세요.<br>
+												그리고 그 것을 제거하기 위해 최선을 다해야 할 것입니다.<br>
+												</p>
+		                                        <br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab5" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab7" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="tab-pane" id="tab7">
+		                                        <br>
+		                                        <h3><strong>Step 7</strong> - Action</h3>
+		                                        <br>
+		                                       	<p>
+												많은 요소들을 모으고 또 많은 위험들을 제거하기 위해서는<br>
+												실질적인 행동이 필요할 것입니다. 물론 목표 자체를 위한<br>
+												활동도 필요합니다.<br>
+												</p>
+												<p>
+												목표를 이루기 위해 오늘은 무엇을 햇는지 하나 하나<br>
+												정리를 해보세요. 무엇보다 중요한 것은 실천입니다.<br>
+												</p>
+		                                        <br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab6" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next">
+		                                                            <a href="#tab8" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="tab-pane" id="tab8">
+		                                        <br>
+		                                        <h3><strong>Step 8</strong> - 목표 등록</h3>
+		                                        <br>
+		                                        <p>
+												이제 목표를 등록하고 시작해봅시다!
+												</p>
+		                                        <br>
+		                                        <br>
+		                                        <!-- 목표 등록 폼 시작  ------------------------------------------------------------------------------>
+		                                        <div class="_regist-goal-form block-center">
+		                                        <div class="form-box col-xs-12">
+										        	<label for="_goal-title">목표</label><input type="text" class="form-control" id="_goal-title" value="">
+										        </div>
+										        <div class="form-box-inline col-xs-6">
+											        	<label for="_goal-start-date">시작일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+											        </div>
+											        <div class="form-box-inline col-xs-6">
+											        	<label for="_goal-end-date">종료일</label><input type="text" class="form-control" id="_goal-end-date" value="">
+											        </div>
+										        <div class="form-box  col-xs-12">
+										        	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
+										        </div>
+										        <div class="form-box col-xs-12 _goal-stat-pane hide">
+										        	<label for="_goal-description">상태 수정</label>
+										        	<select id="_goal-status" class="form-control">
+										        		<option value="O">진행 중</option>
+										        		<option value="H">보류</option>
+										        		<option value="D">취소</option>
+										        	</select>
+										        </div>
+										        <input type="hidden" id="_goal-id" value="">
+												<div>&nbsp;</div>
+										        <button type="button" class="btn btn-sm btn-primary" id="_save-goal">저 장</button>
+											    </div>
+											    <!-- 목표 등록 폼 끝 ------------------------------------------------------------------------------>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                    <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab7" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next hide">
+		                                                            <a href="#tab9" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="tab-pane" id="tab9">
+		                                        <br>
+		                                        <h3><strong>Step 9</strong> - 완료!</h3>
+		                                        <br>
+		                                        <h1 class="text-center text-success"><strong><i class="fa fa-check fa-lg"></i> Complete</strong></h1>
+		                                        <h4 class="text-center">모든 과정이 끝났습니다. 이제 실천만 남았습니다!</h4>
+		                                        <br>
+		                                        <br>
+		                                        <div class="form-actions">
+		                                            <div class="row">
+		                                                <div class="col-sm-12">
+		                                                	<a href="#tab8" class="btn btn-lg btn-default _btn-finish" data-toggle="tab"> 완 료! </a>
+		                                                    <!-- <ul class="pager wizard no-margin">
+		                                                        <li class="previous hide">
+		                                                            <a href="#tab8" class="btn btn-lg btn-default _btn-prev" data-toggle="tab"> Previous </a>
+		                                                        </li>
+		                                                        <li class="next hide">
+		                                                            <a href="#" class="btn btn-lg txt-color-darken _btn-next" data-toggle="tab"> Next </a>
+		                                                        </li>
+		                                                    </ul> -->
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </form>
+		                    </div>
+		
+		                </div>
+		                <!-- end widget content -->
+		
+		            </div>
+		            <!-- end widget div -->
+		
+		        </div>
+		        <!-- end widget -->
+		
+		    </article>
+			</div>
+		</div>
+      	
+      	<!-- Wizard End  ----------------------------------------------------------------------->
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- 
+
+<div class="form-box col-xs-12">
+        	<label for="_goal-title">목표</label><input type="text" class="form-control" id="_goal-title" value="">
+        </div>
+        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-start-date">시작일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+	        </div>
+	        <div class="form-box-inline col-xs-6">
+	        	<label for="_goal-end-date">종료일</label><input type="text" class="form-control" id="_goal-end-date" value="">
+	        </div>
+        <div class="form-box  col-xs-12">
+        	<label for="_goal-description">목표 설명</label><textarea id="_goal-description" class="form-control"></textarea>
+        </div>
+        <div class="form-box col-xs-12 _goal-stat-pane hide">
+        	<label for="_goal-description">상태 수정</label>
+        	<select id="_goal-status" class="form-control">
+        		<option value="O">진행 중</option>
+        		<option value="H">보류</option>
+        		<option value="D">취소</option>
+        	</select>
+        </div>
+        <input type="hidden" id="_goal-id" value="">
+        <br>
+        <button type="button" class="btn btn-sm btn-primary" id="_save-goal">저 장</button>
+	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+ -->
+<!-- Modal Frame -->
+
 <div class="col-md-12 container-fluid main-container text-center">
 <br />
 <br />
