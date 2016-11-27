@@ -16,17 +16,18 @@ img { border: 0; max-width: 100%; }
 
 ._goal-range
 {
-	margin-top: 2px;
 	width: 100%;	
 }
 
-._elements-pane
+._nav-top
 {
+/* 	
 	width: 100%;
 	height: 32px;
 	background: black;
 	margin-bottom: 5px;
-	border-bottom: #aaa solid 1px;
+	border-bottom: #aaa solid 1px; */
+	vertical-align: middle;
 	box-shadow : 0 0 10px black;
 	color: white;
 }

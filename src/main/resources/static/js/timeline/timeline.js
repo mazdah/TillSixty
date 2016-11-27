@@ -24,6 +24,16 @@ $('document').ready(function () {
 	$('._user-id').text("@" + userInfo.id);
 	$('._user-name').text(userInfo.name);
 	
+	$('._anchor-profile').click(function () {
+		window.location.href = "/html/profile/profile.html";
+		$('._profile').addClass('active');
+		$('._home').removeClass('active');
+	});
+	
+	$('._anchor-logout').click(function () {
+		SessionDB.removeSessionStorage('userInfo', '');
+		window.location.href = "/";
+	});
 	
 //	$('#_goal-start-date').datepicker(
 //			{

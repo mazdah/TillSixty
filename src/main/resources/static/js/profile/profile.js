@@ -28,6 +28,17 @@ $('document').ready(function () {
 	var today = new Date();
 	var todayStr = today.formattedDate('-');
 
+	$('._anchor-home').click(function () {
+		window.location.href = "/html/timeline/timeline.html";
+		$('._profile').removeClass('active');
+		$('._home').addClass('active');
+	});
+	
+	$('._anchor-logout').click(function () {
+		SessionDB.removeSessionStorage('userInfo', '');
+		window.location.href = "/";
+	});
+	
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',
@@ -40,7 +51,17 @@ $('document').ready(function () {
 		weekNumbers: true,
 		navLinks: true, // can click day/week names to navigate views
 		editable: true,
-		eventLimit: true // allow "more" link when too many events
+		eventLimit: true, // allow "more" link when too many events
+		eventClick: function(calEvent, jsEvent, view) {
+			var date = new Date(calEvent.start);
+	        alert('Event: ' + calEvent.title + '\nStart: ' + date.formattedDate('-') + '\nElementType: ' + calEvent.elementType);
+//	        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+//	        alert('View: ' + view.name);
+
+	        // change the border color just for fun
+	        $(this).css('border-color', 'red');
+
+	    }
 //		events: [
 //			{
 //				title: 'All Day Event',
@@ -405,7 +426,6 @@ $('document').ready(function () {
 		$('#_elements-description').val('');
 		$('#_modal-add-elements').modal('hide');
 	});
-	
 	
 	view.setProfile();
 	view.setGoal();
@@ -810,7 +830,7 @@ var view = function () {
 				var eltype = dataArr[i].elementtype;
 				var createdate = dataArr[i].createdate;
 				
-				var event = {title: dataArr[i].title, start: createdate, allDay: false};
+				var event = {title: dataArr[i].title, start: createdate, allDay: false, elementType: eltype};
 				
 				
 				if (eltype == 'I') {
