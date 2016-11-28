@@ -625,6 +625,8 @@ var view = function () {
 		
 		goalInfo = goalInfoArr[0];
 		
+		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
+		
 		$('._container-add-goal').hide();
 		$('.btn-main').removeClass('hide');
 		$('.goal-title').show();

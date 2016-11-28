@@ -283,11 +283,13 @@ var view = function () {
 		}
 		
 		goalInfo = goalInfoArr[0];
+
+		$('._nav-gaol-title-anchor').text(goalInfoArr[0].goalTitle);
 		
-		$('._container-add-goal').hide();
-		$('.btn-main').removeClass('hide');
-		$('.goal-title').show();
-		$('#_goal-item').text(goalInfoArr[0].goalTitle);
+//		$('._container-add-goal').hide();
+//		$('.btn-main').removeClass('hide');
+//		$('.goal-title').show();
+//		$('#_goal-item').text(goalInfoArr[0].goalTitle);
 		$('._startday-label').text(goalInfoArr[0].startDate);
 		$('._endday-label').text(goalInfoArr[0].endDate);
 		
