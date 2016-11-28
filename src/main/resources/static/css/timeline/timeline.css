@@ -332,3 +332,35 @@ img { border: 0; max-width: 100%; }
 ._till60-logo {
 	margin-top: -7px;
 }
+
+._nav-gaol-title-anchor {
+	position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin:0 auto;
+    color: white;
+    font-size: 24px;
+    font-weight: bolder;
+    line-height: 50px;
+}
+
+._nav-gaol-title-anchor:link {
+	color: white;
+	text-decoration: none;
+}
+
+._nav-gaol-title-anchor:hover {
+	color: white;
+	text-decoration: none;
+}
+
+._nav-gaol-title-anchor:visited {
+	color: white;
+	text-decoration: none;
+}
+
+._nav-gaol-title-anchor:active {
+	color: white;
+	text-decoration: none;
+}
