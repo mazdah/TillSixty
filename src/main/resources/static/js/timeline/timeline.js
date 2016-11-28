@@ -10,6 +10,13 @@ $('document').ready(function () {
 	prevContents = $('._dashboard-contents');
 	$('.goal-title').hide();
 	
+	$('[data-toggle="popover"]').popover();
+	
+	$('._nav-gaol-title-anchor').click(function () {
+		alert('popover');
+		$('._nav-gaol-title-anchor').popover('show');
+	})
+	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 
 	if (userInfoStr == undefined) {
