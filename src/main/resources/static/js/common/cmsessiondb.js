@@ -7,13 +7,14 @@
 var SessionDB = function () {
 	var StrorageDB;
 	
-	var _setSessionStorage = function (key, value) {
-		if (window.sessionStorage[key]) {
+	var _setSessionStorage = function (key, value, isOverWrite = true) {
+		
+		if (isOverWrite || !window.sessionStorage[key]) {
+			window.sessionStorage[key] = value;
+		} else {
 			if (confirm("이미 존재하는 key입니다. 값을 덮어쓰시겠습니까?")) {
 				window.sessionStorage[key] = value;
 			}
-		} else {
-			window.sessionStorage[key] = value;
 		}
 	};
 	
