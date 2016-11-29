@@ -10,16 +10,15 @@ $('document').ready(function () {
 	prevContents = $('._dashboard-contents');
 	$('.goal-title').hide();
 	
-	$('[data-toggle="popover"]').popover({
-        placement : 'bottom',
-        title: "title",
-        content: "And here's some amazing content. It's very engaging. Right?"
-    });
+//	$('[data-toggle="popover"]').popover({
+//        placement : 'bottom',
+//        title: "title",
+//        content: "And here's some amazing content. It's very engaging. Right?"
+//    });
 	
-//	$('._nav-gaol-title-anchor').click(function () {
-//		alert('popover');
-//		$('._nav-gaol-title-anchor').popover('show');
-//	})
+	$('._nav-gaol-title-anchor').click(function () {
+		$("#panel").slideToggle("slow");
+	})
 	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 
