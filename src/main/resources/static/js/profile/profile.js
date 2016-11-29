@@ -10,6 +10,10 @@ $('document').ready(function () {
 	prevContents = $('._dashboard-contents');
 	$('.goal-title').hide();
 	
+	$('._nav-gaol-title-anchor').click(function () {
+		$("#panel").slideToggle("slow");
+	})
+	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 
 	if (userInfoStr == undefined) {
@@ -626,6 +630,7 @@ var view = function () {
 		goalInfo = goalInfoArr[0];
 		
 		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
+		$('._goal-description-pane').text(goalInfo.goalDescription);
 		
 		$('._container-add-goal').hide();
 		$('.btn-main').removeClass('hide');

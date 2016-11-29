@@ -29,7 +29,7 @@
 	  	</div>
 	  </div>
 	</nav>
-	<div id="panel">Hello world!</div>
+	<div id="panel" class="_goal-description-pane"></div>
    	<div class="_chart-goal-process">
 	  	<div class="progress _goal-process-container">
 		  <div class="progress-bar _goal-process" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="min-width: 2em;line-height: 50px;font-size: 15px;">
@@ -66,6 +66,38 @@
         </div>
 </div>
 <div class="_timeline-pane">  
+  <a href="#" class="btn btn-danger _add-elements-btn" type="button">요소 등록하기</a>
+  <div id="panel2" class="_add-elements-pane">
+  	<div class="_elements-form text-center">
+  		<div class="form-box col-xs-12">
+        	<label for="_elements-type">요소 유형</label>
+        	<select class="form-control" id="_elements-type">
+        		<option value="I">Idea</option>
+        		<option value="R">Resource</option>
+        		<option value="IN">Info</option>
+        		<option value="M">Mentor</option>
+        		<option value="RI">Risk</option>
+        		<option value="A">Action</option>
+        	</select>
+        </div>
+      	<div class="form-box col-xs-12">
+        	<label for="_elements-title">제 목</label><input type="text" class="form-control" id="_elements-title" value="">
+        </div>
+        <div class="form-box  col-xs-12">
+        	<label for="_gelements-description">내 용</label><textarea id="_elements-description" class="form-control"></textarea>
+        </div>
+        <div class="form-box col-xs-12 hidden _elements-name-pane">
+        	<label for="_elements-name">멘토 이름</label><input type="text" class="form-control" id="_elements-name" value="">
+        </div>
+        <div class="form-box col-xs-12 hidden _elements-email-pane">
+        	<label for="_elements-email">멘토 email</label><input type="text" class="form-control" id="_elements-email" value="">
+        </div>
+        <input type="hidden" id="_goal-id" value="">
+        <div>&nbsp;</div>
+        <button type="button" class="btn btn-sm btn-primary" id="_save-elements">저 장</button>
+	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+      </div>
+  </div>
   <ul class="timeline">
   </ul>
  </div>

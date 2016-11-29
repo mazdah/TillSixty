@@ -41,6 +41,7 @@ img { border: 0; max-width: 100%; }
 {
 	margin-left: 20px;
 	width: 880px;
+	text-align: center;
 }
 
 .page-header {
@@ -59,6 +60,7 @@ img { border: 0; max-width: 100%; }
   list-style: none;
   padding: 20px 0 10px;
   position: relative;
+  text-align: left !important;
 }
 
 .timeline:before {
@@ -255,6 +257,12 @@ img { border: 0; max-width: 100%; }
   }
 }
 
+._add-elements-btn {
+	margin: 5px 0px 10px 0px;
+	width: 450px;
+	height: 50px;
+	font-size: 24px;
+}
 /* ==========================================================================
    profile custom styles
    ========================================================================== */
@@ -370,16 +378,37 @@ img { border: 0; max-width: 100%; }
 	margin: 0 auto;
     padding: 5px;
     text-align: center;
-    background-color: #e5eecc;
+    background-color: #777;
     border: solid 1px #c3c3c3;
     border-radius: 3px;
     margin-bottom: 10px;
     -webkit-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
 	-moz-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
 	box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	text-shadow: 1px 1px 3px #383838;
+	font-size: 24px;
+	color: #efefef;
 }
 
 #panel {
     padding: 50px;
     display: none;
+}
+
+._add-elements-pane {
+	display: none;
+	width: 600px;
+	margin: 0 auto;
+    padding: 5px;
+    text-align: center;
+    background-color: #777;
+    border: solid 1px #c3c3c3;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	text-shadow: 1px 1px 3px #383838;
+	font-size: 16px;
+	color: #efefef;
 }

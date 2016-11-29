@@ -7,6 +7,7 @@ var elementType;
 
 $('document').ready(function () {
 	SessionDB.init('local');
+	
 	prevContents = $('._dashboard-contents');
 	$('.goal-title').hide();
 	
@@ -18,6 +19,24 @@ $('document').ready(function () {
 	
 	$('._nav-gaol-title-anchor').click(function () {
 		$("#panel").slideToggle("slow");
+	})
+	
+	$('._add-elements-btn').click(function () {
+		$("#panel2").slideToggle("slow");
+	})
+	
+	$('#_elements-type').on('change', function () {
+		if ('M' == $(this).val()) {
+			$('._elements-name-pane').removeClass('hidden');
+			$('._elements-email-pane').removeClass('hidden');
+		} else {
+			$('._elements-name-pane').addClass('hidden');
+			$('._elements-email-pane').addClass('hidden');
+		}
+	})
+	
+	$('#_close-modal').click(function () {
+		$("#panel2").slideToggle("slow");
 	})
 	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
@@ -295,6 +314,7 @@ var view = function () {
 		goalInfo = goalInfoArr[0];
 
 		$('._nav-gaol-title-anchor').text(goalInfoArr[0].goalTitle);
+		$('._goal-description-pane').text(goalInfoArr[0].goalDescription);
 		
 //		$('._container-add-goal').hide();
 //		$('.btn-main').removeClass('hide');
