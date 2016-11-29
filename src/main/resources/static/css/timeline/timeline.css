@@ -372,8 +372,11 @@ img { border: 0; max-width: 100%; }
     text-align: center;
     background-color: #e5eecc;
     border: solid 1px #c3c3c3;
+    border-radius: 3px;
     margin-bottom: 10px;
-    box-shadow : 0 0 10px black;
+    -webkit-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 1px 2px 5px 0px rgba(0,0,0,0.75);
 }
 
 #panel {
