@@ -25,6 +25,25 @@ var SessionDB = function () {
 	var _removeSessionStorage = function (key) {
 		return window.sessionStorage.removeItem(key);
 	};
+	
+	var _setLocalStorage = function (key, value, isOverWrite = true) {
+		
+		if (isOverWrite || !window.localStorage[key]) {
+			window.localStorage[key] = value;
+		} else {
+			if (confirm("이미 존재하는 key입니다. 값을 덮어쓰시겠습니까?")) {
+				window.localStorage[key] = value;
+			}
+		}
+	};
+	
+	var _getLocalStorage = function (key) {
+		return window.localStorage[key];
+	};
+	
+	var _removeLocalStorage = function (key) {
+		return window.localStorage.removeItem(key);
+	};
 
 	/**
 	*	@ SessionDB 초기화 : sessionStorage를 사용할 것인지, localStorage를 사용할 것인지 설정
@@ -379,6 +398,9 @@ var SessionDB = function () {
 		setSessionStorage		: _setSessionStorage,
 		getSessionStorage		: _getSessionStorage,
 		removeSessionStorage	: _removeSessionStorage,
+		setLocalStorage			: _setLocalStorage,
+		getLocalStorage			: _getLocalStorage,
+		removeLocalStorage		: _removeLocalStorage,
 		init					: _init,
 		createTable				: _createTable,
 		getTableList			: _getTableList,
