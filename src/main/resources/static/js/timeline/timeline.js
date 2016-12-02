@@ -233,7 +233,8 @@ $('document').ready(function () {
 		$('#_elements-description').val('');
 		$('#_elements-name').val('');
 		$('#_elements-email').val('');
-		$('#_modal-add-elements').modal('hide');
+		
+		$("#panel2").slideToggle("slow");
 	});
 	
 	$('._go-profile').click(function () {
@@ -494,6 +495,8 @@ var view = function () {
 		
 		var tlul = $('.timeline');
 		
+		tlul.empty();
+		
 		if (dataArr != null) {
 			var cnt = dataArr.length;
 			
@@ -529,8 +532,8 @@ var view = function () {
 				if (elementType == 'G') {
 					prependStr += '<li><div style="border: #999 solid 3px; border-radius: 10px; background-color: #fff">' +
 								  '<div class="text-center">' + prevDate + '</div>' +
-								  '<div class="text-center"><h3>최초 목표 등록<h3></div>' +
-								  '<div class="text-center"><h4>' + dataArr[i].title + '</h4></div>' +
+								  '<div class="text-center"><h4>최초 목표 등록<h4></div>' +
+								  '<div class="text-center"><h2>' + dataArr[i].title + '</h2></div>' +
 								  '<div class="text-center">' + 
 								  '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
 								  '</div>' +
