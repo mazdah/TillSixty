@@ -39,7 +39,7 @@ $('document').ready(function () {
 	});
 	
 	$('._anchor-logout').click(function () {
-		SessionDB.removeSessionStorage('userInfo', '');
+		SessionDB.removeSessionStorage('userInfo');
 		window.location.href = "/";
 	});
 	

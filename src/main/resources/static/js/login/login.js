@@ -1,13 +1,41 @@
 var prevStep;
-
+var rememberFlag;
 $('document').ready(function () {
 	SessionDB.init('local');
+	
+	var savedId = SessionDB.getLocalStorage('savedId');
+	var savedPass = SessionDB.getLocalStorage('savedPass');
+	var savedRemember = SessionDB.getLocalStorage('savedRemember');
+	
+	
+	if (savedRemember && 'T' == savedRemember) {
+		$('._remember-account').attr('checked', true);
+		rememberFlag = true;
+	}
+	
+	if ($('._remember-account').is(':checked')) {
+		$('#_userid').val(savedId?savedId:'');
+		$('#_password').val(savedPass?savedPass:'');
+	} else {
+		$('#_userid').val('');
+		$('#_password').val('');
+	}
 	
 	$('._sigin_up').click(function () {
 		window.location.href="/html/account/accountEdit.html"
 	});
 	
 	$('._sigin_in').click(function () {
+		if (rememberFlag) {
+			SessionDB.setLocalStorage('savedRemember', 'T');
+			SessionDB.setLocalStorage('savedId', $('#_userid').val());
+			SessionDB.setLocalStorage('savedPass', $('#_password').val());
+		} else {
+			SessionDB.removeLocalStorage('savedRemember');
+			SessionDB.removeLocalStorage('savedId');
+			SessionDB.removeLocalStorage('savedPass');
+		}
+		
 		controller.checkUserAccount();
 	});
 	
@@ -43,6 +71,14 @@ $('document').ready(function () {
 		$('#_modal-tutorial').modal('hide');
 		window.location.href="/html/timeline/timeline.html"
 	});
+	
+	$('._remember-account').change(function () {
+		if ($('._remember-account').is(':checked')) {
+			rememberFlag = true;
+		} else {
+			rememberFlag = false;
+		}
+	})
 	
 	$('#_goal-start-date').datepicker(
 			{
