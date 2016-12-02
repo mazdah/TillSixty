@@ -3,7 +3,6 @@ var goalInfo;
 var prevRsourceBtn;
 var prevContents;
 var mode;
-var elementType;
 
 $('document').ready(function () {
 	SessionDB.init('local');
@@ -101,7 +100,7 @@ $('document').ready(function () {
 //		}
 //	});
 	
-	
+/*	
 	$('#_idea-item').click(function (){
 		view.changeElements('I');
 		
@@ -197,6 +196,7 @@ $('document').ready(function () {
 		elementType = 'A';
 		_metorHide();
 	});
+*/
 	
 	$('#_save-elements').click(function () {
 		mode = 'EL';
@@ -209,6 +209,7 @@ $('document').ready(function () {
 		}
 				
 		var param = {};
+		var elementType = $('#_elements-type').val();
 		
 		param.userid = userInfo.id;
 		param.goal = goalInfo._id;
@@ -222,11 +223,16 @@ $('document').ready(function () {
 		if (elementType == 'M') {
 			param.name = $('#_elements-name').val();
 			param.email = $('#_elements-email').val();
+		} else {
+			param.name = '';
+			param.email = '';
 		}
 		
 		controller.addElementsInfo(param);
 		$('#_elements-title').val('');
 		$('#_elements-description').val('');
+		$('#_elements-name').val('');
+		$('#_elements-email').val('');
 		$('#_modal-add-elements').modal('hide');
 	});
 	
@@ -347,15 +353,16 @@ var view = function () {
 		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
 	}
 	
-	var _setGoalEdit = function (dataArr) {
-		$('#_goal-title').val(dataArr[0].goalTitle);
-		$('#_goal-start-date').val(dataArr[0].startDate);
-		$('#_goal-end-date').val(dataArr[0].endDate);
-		$('#_goal-description').val(dataArr[0].goalDescription);
-		$('#_goal-id').val(dataArr[0]._id);
-		$("#_goal-status option:selected").val(dataArr[0].status);
-	};
-	
+//	var _setGoalEdit = function (dataArr) {
+//		$('#_goal-title').val(dataArr[0].goalTitle);
+//		$('#_goal-start-date').val(dataArr[0].startDate);
+//		$('#_goal-end-date').val(dataArr[0].endDate);
+//		$('#_goal-description').val(dataArr[0].goalDescription);
+//		$('#_goal-id').val(dataArr[0]._id);
+//		$("#_goal-status option:selected").val(dataArr[0].status);
+//	};
+
+	/*
 	var _changeElements = function (elType) {
 		mode = 'EL';
 		elementType = elType;
@@ -414,6 +421,7 @@ var view = function () {
 		elementsContainer.empty();
 		elementsContainer.append(appendStr);
 	};
+*/
 	
 //	var _addElements = function (dataArr) {
 //		var elementsObj = dataArr[0];
@@ -490,7 +498,6 @@ var view = function () {
 			var cnt = dataArr.length;
 			
 			for (i = 0; i < cnt; i++) {
-				var eltype = dataArr[i].elementtype;
 				var createDate = dataArr[i].createdate;
 				var elementType = dataArr[i].elementtype;
 				var elTyleStr = '';
@@ -560,9 +567,9 @@ var view = function () {
 		init					: _init,
 		setProfile				: _setProfile,
 		setGoal					: _setGoal,
-		setGoalEdit				: _setGoalEdit,
-		changeElements			: _changeElements,
-		setElements				: _setElements,
+//		setGoalEdit				: _setGoalEdit,
+//		changeElements			: _changeElements,
+//		setElements				: _setElements,
 //		addElements				: _addElements,
 		setElementsCount		: _setElementsCount
 	}
@@ -573,7 +580,8 @@ var controller = function () {
 	var _init = function () {
 		
 	};
-	
+
+	/*
 	var _addGoalInfo = function (param) {
 		if (mode != undefined && mode == 'A') {
 			var result = SessionDB.insertRow('GoalTable', JSON.stringify(param));
@@ -606,6 +614,7 @@ var controller = function () {
 			alert("Profile 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
 		}
 	};
+*/
 	
 	var _addElementsInfo = function (param) {
 //		alert(JSON.stringify(param));
@@ -614,8 +623,7 @@ var controller = function () {
 		var result = SessionDB.insertRow('ElementsTable', JSON.stringify(param));
 		
 		if (result > 0) {
-			var elementsArr = [param];
-			view.addElements(elementsArr);
+			view.setElementsCount();
 		} else {
 			alert("요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
 		}
@@ -644,8 +652,8 @@ var controller = function () {
 	
 	return {
 		init				: _init,
-		addGoalInfo			: _addGoalInfo,
-		addProfileInfo		: _addProfileInfo,
+//		addGoalInfo			: _addGoalInfo,
+//		addProfileInfo		: _addProfileInfo,
 		addElementsInfo		: _addElementsInfo,
 		getTable			: _getTable,
 		selectData			: _selectData
