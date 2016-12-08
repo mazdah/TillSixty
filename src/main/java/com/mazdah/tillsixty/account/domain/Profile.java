@@ -1,7 +1,9 @@
 package com.mazdah.tillsixty.account.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="Profile")
 public class Profile {
 
 	@Id
