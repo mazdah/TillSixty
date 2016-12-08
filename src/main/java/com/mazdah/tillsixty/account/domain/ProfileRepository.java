@@ -10,4 +10,12 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface ProfileRepository extends MongoRepository<Profile, String> {
 
 	List<Profile> findByName(@Param("name") String name);
+	
+	Profile findByUserIdAndPassword (@Param("userId") String userId, @Param("password") String password);
+	
+	Long countByUserIdAndPassword (@Param("userId") String userId, @Param("password") String password);
+	
+	Long countByUserId(@Param("userId") String userId);
+	
+	Long countByEmail(@Param("email") String email);
 }
