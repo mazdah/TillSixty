@@ -210,30 +210,77 @@ var controller = function () {
 		var userid = $('#_userid').val();
 		var password = $('#_password').val();
 		
-		var param = {};
-		
-		param.id = userid;
-		param.password = password;
-		
-		var resultArr = SessionDB.selectRow('UserTable', param);
-		
-		if (resultArr != null) {
-			SessionDB.setSessionStorage("userInfo", JSON.stringify(resultArr[0]));
-			var param = {};
-			param.owner = userid;
-			
-			var goalInfoArr = _selectData('GoalTable', param);
-			if (goalInfoArr == null) {				
-				$('#_modal-tutorial').modal();
-				return;
+		$.ajax({
+			url : "/rest/profiles/search/countByUserIdAndPassword?userId=" + userid + "&password=" + password,
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data, status, jqXHR) {
+				if (data == 0) {
+					alert("User ID 또는 Password가 일치하지 않습니다.")
+				} else {
+					_setUserSession (userid, password);
+				}
+			},
+			error : function (jqXHR, status) {
+				alert("error : 로그인 중 오류가 발생하였습니다. [" + status + "]");
 			}
-			
-			SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalInfoArr[0]));
-			window.location.href = "/html/timeline/timeline.html";
-		} else {
-			alert("User ID 또는 Password가 일치하지 않습니다.")
-		}
+		})
+		
+//		var param = {};
+//		
+//		param.id = userid;
+//		param.password = password;
+//		
+//		var resultArr = SessionDB.selectRow('UserTable', param);
+//		
+//		if (resultArr != null) {
+//			SessionDB.setSessionStorage("userInfo", JSON.stringify(resultArr[0]));
+//			var param = {};
+//			param.owner = userid;
+//			
+//			var goalInfoArr = _selectData('GoalTable', param);
+//			if (goalInfoArr == null) {				
+//				$('#_modal-tutorial').modal();
+//				return;
+//			}
+//			
+//			SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalInfoArr[0]));
+//			window.location.href = "/html/timeline/timeline.html";
+//		} else {
+//			alert("User ID 또는 Password가 일치하지 않습니다.")
+//		}
 	};
+	
+	var _setUserSession = function (userid, password) {
+		$.ajax({
+			url : "/rest/profiles/search/findByUserIdAndPassword?userId=" + userid + "&password=" + password,
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data, status, jqXHR) {			
+				//alert(JSON.stringify(data));
+				SessionDB.setSessionStorage("userInfo", JSON.stringify(data));
+				
+				// localStorage를 이용한 목표 처리
+				var param = {};
+				param.owner = data.userId;
+				
+				var goalInfoArr = _selectData('GoalTable', param);
+				if (goalInfoArr == null) {				
+					$('#_modal-tutorial').modal();
+					return;
+				}
+				
+				SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalInfoArr[0]));
+				// localStorage를 이용한 목표 처리 끝
+				window.location.href = "/html/timeline/timeline.html";
+			},
+			error : function (jqXHR, status) {
+				alert("error : 로그인 중 오류가 발생하였습니다. [" + status + "]");
+			}
+		})
+	}
 	
 	var _selectData = function (tblNm, param) {
 		return SessionDB.selectRow(tblNm, param);
