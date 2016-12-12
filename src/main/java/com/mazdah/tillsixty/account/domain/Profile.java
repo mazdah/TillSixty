@@ -1,13 +1,16 @@
 package com.mazdah.tillsixty.account.domain;
 
+import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="Profile")
+@Document(collection="ProfileAndGoal")
 public class Profile {
 
 	@Id
-	private String id;
+	private ObjectId id;
 	
 	private String name;
 	private String userId;
@@ -18,15 +21,16 @@ public class Profile {
 	private String link;
 	private String imgPath;
 	private String introduction;
+	private List<Goal> goalList;
 	
 	public Profile() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Profile(String id, String name, String userId, String password,
+	public Profile(ObjectId id, String name, String userId, String password,
 			String email, String facebook, String twitter, String link,
-			String imgPath, String introduction) {
+			String imgPath, String introduction, List<Goal> goalList) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -38,16 +42,17 @@ public class Profile {
 		this.link = link;
 		this.imgPath = imgPath;
 		this.introduction = introduction;
+		this.goalList = goalList;
 	}
 
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	
-	public void setId(String id) {
+
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -120,6 +125,14 @@ public class Profile {
 		this.introduction = introduction;
 	}
 
+	public List<Goal> getGoalList() {
+		return goalList;
+	}
+
+	public void setGoalList(List<Goal> goalList) {
+		this.goalList = goalList;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -127,6 +140,8 @@ public class Profile {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((facebook == null) ? 0 : facebook.hashCode());
+		result = prime * result
+				+ ((goalList == null) ? 0 : goalList.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((imgPath == null) ? 0 : imgPath.hashCode());
 		result = prime * result
@@ -158,6 +173,11 @@ public class Profile {
 			if (other.facebook != null)
 				return false;
 		} else if (!facebook.equals(other.facebook))
+			return false;
+		if (goalList == null) {
+			if (other.goalList != null)
+				return false;
+		} else if (!goalList.equals(other.goalList))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -208,6 +228,9 @@ public class Profile {
 				+ ", password=" + password + ", email=" + email + ", facebook="
 				+ facebook + ", twitter=" + twitter + ", link=" + link
 				+ ", imgPath=" + imgPath + ", introduction=" + introduction
-				+ "]";
+				+ ", goalList=" + goalList + "]";
 	}
+
+	
+	
 }

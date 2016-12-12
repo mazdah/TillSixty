@@ -1,9 +1,7 @@
 package com.mazdah.tillsixty.account.domain;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="Goal")
 public class Goal {
 
 	/*
@@ -13,45 +11,45 @@ public class Goal {
 		param.goalDescription = goalDescription;
 		param.owner = userInfo.id;
 	 */
-	
-	@Id
-	private String id;
-	
+
+	private String goalId;	
 	private String goalTitle;
 	private String startDate;
 	private String endDate;
 	private String goalType;
 	private String goalSubType;
 	private String goalDescription;
-	private String owner;
-	private String ownerId;
+	private String goalStatus;
 	
 	public Goal() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Goal(String id, String goalTitle, String startDate, String endDate,
-			String goalType, String goalSubType, String goalDescription,
-			String owner, String ownerId) {
+	
+
+	public Goal(String goalId, String goalTitle, String startDate,
+			String endDate, String goalType, String goalSubType,
+			String goalDescription, String goalStatus) {
 		super();
-		this.id = id;
+		this.goalId = goalId;
 		this.goalTitle = goalTitle;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.goalType = goalType;
 		this.goalSubType = goalSubType;
 		this.goalDescription = goalDescription;
-		this.owner = owner;
-		this.ownerId = ownerId;
+		this.goalStatus = goalStatus;
 	}
 
-	public String getId() {
-		return id;
+
+
+	public String getGoalId() {
+		return goalId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setGoalId(String goalId) {
+		this.goalId = goalId;
 	}
 
 	public String getGoalTitle() {
@@ -101,21 +99,13 @@ public class Goal {
 	public void setGoalDescription(String goalDescription) {
 		this.goalDescription = goalDescription;
 	}
-
-	public String getOwner() {
-		return owner;
+	
+	public String getGoalStatus() {
+		return goalStatus;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
-	public String getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setGoalStatus(String goalStatus) {
+		this.goalStatus = goalStatus;
 	}
 
 	@Override
@@ -125,15 +115,15 @@ public class Goal {
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result
 				+ ((goalDescription == null) ? 0 : goalDescription.hashCode());
+		result = prime * result + ((goalId == null) ? 0 : goalId.hashCode());
+		result = prime * result
+				+ ((goalStatus == null) ? 0 : goalStatus.hashCode());
 		result = prime * result
 				+ ((goalSubType == null) ? 0 : goalSubType.hashCode());
 		result = prime * result
 				+ ((goalTitle == null) ? 0 : goalTitle.hashCode());
 		result = prime * result
 				+ ((goalType == null) ? 0 : goalType.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
-		result = prime * result + ((ownerId == null) ? 0 : ownerId.hashCode());
 		result = prime * result
 				+ ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
@@ -158,6 +148,16 @@ public class Goal {
 				return false;
 		} else if (!goalDescription.equals(other.goalDescription))
 			return false;
+		if (goalId == null) {
+			if (other.goalId != null)
+				return false;
+		} else if (!goalId.equals(other.goalId))
+			return false;
+		if (goalStatus == null) {
+			if (other.goalStatus != null)
+				return false;
+		} else if (!goalStatus.equals(other.goalStatus))
+			return false;
 		if (goalSubType == null) {
 			if (other.goalSubType != null)
 				return false;
@@ -173,21 +173,6 @@ public class Goal {
 				return false;
 		} else if (!goalType.equals(other.goalType))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (owner == null) {
-			if (other.owner != null)
-				return false;
-		} else if (!owner.equals(other.owner))
-			return false;
-		if (ownerId == null) {
-			if (other.ownerId != null)
-				return false;
-		} else if (!ownerId.equals(other.ownerId))
-			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;
@@ -198,12 +183,11 @@ public class Goal {
 
 	@Override
 	public String toString() {
-		return "Goal [id=" + id + ", goalTitle=" + goalTitle + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", goalType=" + goalType
-				+ ", goalSubType=" + goalSubType + ", goalDescription="
-				+ goalDescription + ", owner=" + owner + ", ownerId=" + ownerId
-				+ "]";
+		return "Goal [goalId=" + goalId + ", goalTitle=" + goalTitle
+				+ ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", goalType=" + goalType + ", goalSubType=" + goalSubType
+				+ ", goalDescription=" + goalDescription + ", goalStatus="
+				+ goalStatus + "]";
 	}
-	
-	
+
 }
