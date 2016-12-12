@@ -148,10 +148,8 @@ $('document').ready(function () {
 		param.goalTitle = goalTitle;
 		param.startDate = startDate;
 		param.endDate = endDate;
-		param.goalDescription = goalDescription;
-		param.owner = userInfo.id;
-		
-		param.status = "O"; // O : ongoing, D : Drop, H : Hold
+		param.goalDescription = goalDescription;		
+		param.goalStatus = "O"; // O : ongoing, D : Drop, H : Hold
 
 		controller.addGoalInfo(param);
 		
@@ -170,40 +168,77 @@ var controller = function () {
 	};
 	
 	var _addGoalInfo = function (param) {
-		var result = SessionDB.insertRow('GoalTable', JSON.stringify(param));
+		var userId = SessionDB.getSessionStorage("userId");		
+		var goalCnt = SessionDB.getSessionStorage("goalCount");	
 		
-		if (result > 0) {
-			var newparam = {};
-			var userInfo = JSON.parse(SessionDB.getSessionStorage("userInfo"));
-			
-			newparam.owner = userInfo.id;
-			var goalObj = _selectData('GoalTable', newparam)[0];
-			
-			newparam = {};
-			
-			newparam.userid = userInfo.id;
-			newparam.goal = goalObj._id;
-			newparam.elementtype = "G";
-			newparam.title = param.goalTitle;
-			newparam.description = param.goalDescription;
-			
-			var today = new Date();		
-			newparam.createdate = today.formattedDate('-');
-			newparam.name = "";
-			newparam.email = "";
-			
-			_addElementsInfo(newparam);
-			
-		} else {
-			alert("목표 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-		}
+		param.goalId = userId + "_" + (Number(goalCnt) + 1);
+		var paramStr = '{"goalList":[' + JSON.stringify(param) + ']}'
+
+//		alert("userId = " + userId + "\n\nparamStr = " + paramStr);
+
+		$.ajax({
+			url : "/rest/profiles/" + userId,
+			type : "PATCH",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : paramStr,
+			success : function (data, status, jqXHR) {
+//				alert("_addGoalInfo : " + JSON.stringify(data));
+				
+				SessionDB.setSessionStorage("goalId", param.goalId);
+				
+				/*
+				private String id;
+				
+				private String userId;
+				private String goalId;
+				private String elementType;
+				private String title;
+				private String description;
+				private List<Media> mediaList;
+				private String name;
+				private String email;
+				private List<SnsAccount> snsIdList;
+				private String createDate;
+				private String updateDate;
+				*/
+				
+				var elementParam = {};
+				
+				elementParam.userId = userId;				
+				elementParam.goalId = param.goalId;
+				elementParam.elementType = "G";
+				elementParam.title = param.goalTitle;
+				elementParam.description = param.goalDescription;
+				
+				var today = new Date();		
+				elementParam.createdate = today.formattedDate('-');
+				
+				_addElementsInfo(elementParam);
+			},
+			error : function (jqXHR, status) {
+				alert("error : 목표 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
 	};
 	
 	var _addElementsInfo = function (param) {
 //		alert(JSON.stringify(param));
 //		return;
 		
-		var result = SessionDB.insertRow('ElementsTable', JSON.stringify(param));
+		$.ajax({
+			url : "/rest/elements/",
+			type : "POST",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(param),
+			success : function (data, status, jqXHR) {
+//				alert("_addElementsInfo : " + JSON.stringify(data));
+			},
+			error : function (jqXHR, status) {
+				alert("error : 요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
 	};
 	
 	var _checkUserAccount = function () {
@@ -259,20 +294,21 @@ var controller = function () {
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function (data, status, jqXHR) {			
-				//alert(JSON.stringify(data));
+//				alert(JSON.stringify(data._links.self.href));
+				var urlArr = data._links.self.href.split("/");
+				
+				SessionDB.setSessionStorage("userId", urlArr[urlArr.length - 1]);
 				SessionDB.setSessionStorage("userInfo", JSON.stringify(data));
 				
 				// localStorage를 이용한 목표 처리
-				var param = {};
-				param.owner = data.userId;
-				
-				var goalInfoArr = _selectData('GoalTable', param);
-				if (goalInfoArr == null) {				
+				if (data.goalList == null || data.goalList.length == 0) {	
+					SessionDB.setSessionStorage("goalCount", "0");
 					$('#_modal-tutorial').modal();
 					return;
 				}
 				
-				SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalInfoArr[0]));
+				SessionDB.setSessionStorage("goalCount", data.goalList.length);
+				SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalList));
 				// localStorage를 이용한 목표 처리 끝
 				window.location.href = "/html/timeline/timeline.html";
 			},
