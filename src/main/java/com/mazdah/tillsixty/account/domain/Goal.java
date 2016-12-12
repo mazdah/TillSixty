@@ -1,4 +1,4 @@
-package com.mazdah.tillsixty.goal.domain;
+package com.mazdah.tillsixty.account.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
