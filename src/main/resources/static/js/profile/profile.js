@@ -332,7 +332,17 @@ $('document').ready(function () {
 	});
 	
 	$('#_goal-item').click(function (){
-		view.changeElements();
+		//view.changeElements();
+		controller.getElementsList();
+		
+		if (prevRsourceBtn) {
+			prevRsourceBtn.parent().removeClass('btn-active');
+		}
+		
+		if (prevContents) {
+			prevContents.addClass('hide');
+		}
+		
 		prevContents = $('._dashboard-contents');
 		prevContents.removeClass('hide');
 	});
@@ -342,13 +352,11 @@ $('document').ready(function () {
 	});
 	
 	$('._edit-goal').click(function (){
-		mode = 'E';
-		$('._goal-stat-pane').removeClass('hide');
-		
-		var param = {};
-		param.owner = userInfo.id;
-		
-		controller.selectData('GoalTable', param);
+		$('#_goal-title').val(goalInfo.goalTitle);
+		$('#_goal-start-date').val(goalInfo.startDate);
+		$('#_goal-end-date').val(goalInfo.endDate);
+		$('#_goal-description').val(goalInfo.goalDescription);
+		$("#_goal-status option:selected").val(goalInfo.goalStatus);
 	});
 	
 	var _metorHide = function () {
@@ -401,7 +409,7 @@ $('document').ready(function () {
 		
 		param.userId = SessionDB.getSessionStorage("userId");
 		param.goalId = SessionDB.getSessionStorage("goalId");
-		param.elementtype = elementType;
+		param.elementType = elementType;
 		param.title = title;
 		param.description = description;
 		
@@ -413,6 +421,8 @@ $('document').ready(function () {
 			param.email = $('#_elements-email').val();
 		}
 		
+//		alert(SessionDB.getSessionStorage("goalId"));
+//		alert(JSON.stringify(param));
 		controller.addElementsInfo(param);
 		
 		$('#_elements-title').val('');
@@ -687,8 +697,8 @@ var view = function () {
 		elementsContainer.append(appendStr);
 	};
 	
-	var _addElements = function (dataArr) {
-		var elementsObj = dataArr[0];
+	var _addElements = function (dataObj) {
+		var elementsObj = dataObj;
 		var elementsContainer;
 		var bgStyle;
 		var elCntObj;
@@ -729,10 +739,10 @@ var view = function () {
 		
 		elementsContainer.prepend(prependStr);
 		
-//		var elCnt = Number(elCntObj.text()) + 1;
-//		elCntObj.text(elCnt);
+		var elCnt = Number(elCntObj.text()) + 1;
+		elCntObj.text(elCnt);
 		
-		_setElementsCount(dataArr);
+//		_setElementsCount(dataArr);
 	}
 	
 	var _setElementsCount = function (dataArr) {
@@ -792,7 +802,7 @@ var view = function () {
 		
 		if (dataArr != null) {
 			var cnt = dataArr.length;
-			
+
 			for (i = 0; i < cnt; i++) {
 				var eltype = dataArr[i].elementType;
 				var createdate = dataArr[i].createDate;
@@ -865,6 +875,7 @@ var view = function () {
 			}
 		}
 		
+		$('#calendar').fullCalendar('removeEvents');
 		$('#calendar').fullCalendar('addEventSource', calEvents);
 		
 		$('._label-idea').text(ideaCnt);
@@ -1237,7 +1248,7 @@ var controller = function () {
 			success : function (data, status, jqXHR) {
 //				alert("_addElementsInfo : " + JSON.stringify(data));
 //				_getElementsList();
-				view.addElements(data._embedded.elementses);
+				view.addElements(data);
 			},
 			error : function (jqXHR, status) {
 				alert("error : 요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
