@@ -20,17 +20,16 @@ public class Goal {
 	private String goalSubType;
 	private String goalDescription;
 	private String goalStatus;
+	private String createDate;
 	
 	public Goal() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-
 	public Goal(String goalId, String goalTitle, String startDate,
 			String endDate, String goalType, String goalSubType,
-			String goalDescription, String goalStatus) {
+			String goalDescription, String goalStatus, String createDate) {
 		super();
 		this.goalId = goalId;
 		this.goalTitle = goalTitle;
@@ -40,9 +39,8 @@ public class Goal {
 		this.goalSubType = goalSubType;
 		this.goalDescription = goalDescription;
 		this.goalStatus = goalStatus;
+		this.createDate = createDate;
 	}
-
-
 
 	public String getGoalId() {
 		return goalId;
@@ -107,11 +105,21 @@ public class Goal {
 	public void setGoalStatus(String goalStatus) {
 		this.goalStatus = goalStatus;
 	}
+	
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result
 				+ ((goalDescription == null) ? 0 : goalDescription.hashCode());
@@ -138,6 +146,11 @@ public class Goal {
 		if (getClass() != obj.getClass())
 			return false;
 		Goal other = (Goal) obj;
+		if (createDate == null) {
+			if (other.createDate != null)
+				return false;
+		} else if (!createDate.equals(other.createDate))
+			return false;
 		if (endDate == null) {
 			if (other.endDate != null)
 				return false;
@@ -187,7 +200,7 @@ public class Goal {
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", goalType=" + goalType + ", goalSubType=" + goalSubType
 				+ ", goalDescription=" + goalDescription + ", goalStatus="
-				+ goalStatus + "]";
+				+ goalStatus + ", createDate=" + createDate + "]";
 	}
 
 }
