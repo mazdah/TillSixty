@@ -291,7 +291,7 @@ var controller = function () {
 				
 				SessionDB.setSessionStorage("goalCount", data.goalList.length);
 				SessionDB.setSessionStorage("goalInfo", JSON.stringify(data.goalList));
-				SessionDB.setSessionStorage("goalId", JSON.stringify(data.goalList[0].goalId));
+				SessionDB.setSessionStorage("goalId", data.goalList[0].goalId);
 				// localStorage를 이용한 목표 처리 끝
 				window.location.href = "/html/timeline/timeline.html";
 			},
