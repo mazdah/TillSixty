@@ -150,6 +150,9 @@ $('document').ready(function () {
 		param.endDate = endDate;
 		param.goalDescription = goalDescription;		
 		param.goalStatus = "O"; // O : ongoing, D : Drop, H : Hold
+		
+		var today = new Date();
+		param.createDate = today.formattedDate('-');
 
 		controller.addGoalInfo(param);
 		
@@ -187,6 +190,11 @@ var controller = function () {
 				
 				SessionDB.setSessionStorage("goalId", param.goalId);
 				
+				var userInfo = JSON.parse(SessionDB.getSessionStorage("userInfo"));
+				userInfo.goalList = [];
+				userInfo.goalList.push(param);
+				
+				SessionDB.setSessionStorage("userInfo", JSON.stringify(userInfo));
 				/*
 				private String id;
 				
@@ -209,10 +217,8 @@ var controller = function () {
 				elementParam.goalId = param.goalId;
 				elementParam.elementType = "G";
 				elementParam.title = param.goalTitle;
-				elementParam.description = param.goalDescription;
-				
-				var today = new Date();		
-				elementParam.createdate = today.formattedDate('-');
+				elementParam.description = param.goalDescription;	
+				elementParam.createDate = param.createDate;
 				
 				_addElementsInfo(elementParam);
 			},
@@ -261,30 +267,6 @@ var controller = function () {
 				alert("error : 로그인 중 오류가 발생하였습니다. [" + status + "]");
 			}
 		})
-		
-//		var param = {};
-//		
-//		param.id = userid;
-//		param.password = password;
-//		
-//		var resultArr = SessionDB.selectRow('UserTable', param);
-//		
-//		if (resultArr != null) {
-//			SessionDB.setSessionStorage("userInfo", JSON.stringify(resultArr[0]));
-//			var param = {};
-//			param.owner = userid;
-//			
-//			var goalInfoArr = _selectData('GoalTable', param);
-//			if (goalInfoArr == null) {				
-//				$('#_modal-tutorial').modal();
-//				return;
-//			}
-//			
-//			SessionDB.setSessionStorage("goalInfo", JSON.stringify(goalInfoArr[0]));
-//			window.location.href = "/html/timeline/timeline.html";
-//		} else {
-//			alert("User ID 또는 Password가 일치하지 않습니다.")
-//		}
 	};
 	
 	var _setUserSession = function (userid, password) {
@@ -315,12 +297,8 @@ var controller = function () {
 			error : function (jqXHR, status) {
 				alert("error : 로그인 중 오류가 발생하였습니다. [" + status + "]");
 			}
-		})
+		});
 	}
-	
-	var _selectData = function (tblNm, param) {
-		return SessionDB.selectRow(tblNm, param);
-	};
 	
 	return {
 		init				: _init,
