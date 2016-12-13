@@ -9,5 +9,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource(path="elements")
 public interface ElementsRepository extends MongoRepository<Elements, String> {
 	List<Elements> findByUserIdAndGoalId(@Param("userId") String userId, @Param("goalId") String goalId);
+	
 	List<Elements> findByUserIdAndGoalIdAndElementType(@Param("userId") String userId, @Param("goalId") String goalId, @Param("elementType") String elementType);
+	
+	Long countByUserIdAndGoalIdAndElementType(@Param("userId") String userId, @Param("goalId") String goalId, @Param("elementType") String elementType);
 }
