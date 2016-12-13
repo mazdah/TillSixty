@@ -21,11 +21,13 @@ $('document').ready(function () {
 		return;
 	}
 	
+	//alert(userInfoStr);
 	userInfo = JSON.parse(userInfoStr);
+	goalInfo = userInfo.goalList[0];
 	
 	$('._user-id').empty();
 	$('._user-name').empty();
-	$('._user-id').text("@" + userInfo.id);
+	$('._user-id').text("@" + userInfo.userId);
 	$('._user-name').text(userInfo.name);
 	
 	var initialLocaleCode = 'ko';
@@ -162,18 +164,10 @@ $('document').ready(function () {
 	);
 	
 	$('._pop-edit-profile').click(function () {
-		var param = {};
-		param.id = userInfo.id;
-		
-		var profileInfoArr = controller.selectData('ProfileTable', param);
-		if (profileInfoArr != null) {
-			var profileObj = profileInfoArr[0];
-			
-			$('#_frm-profile-facebook').val(profileObj.facebook);
-			$('#_frm-profile-twitter').val(profileObj.twitter);
-			$('#_frm-profile-link').val(profileObj.link);
-			$('#_frm-profile-description').val(profileObj.description);
-		}
+		$('#_frm-profile-facebook').val(userInfo.facebook?userInfo.facebook:"");
+		$('#_frm-profile-twitter').val(userInfo.twitter?userInfo.twitter:"");
+		$('#_frm-profile-link').val(userInfo.link?userInfo.link:"");
+		$('#_frm-profile-description').val(userInfo.introduction?userInfo.introduction:"");
 	});
 	
 	$('._go-timeline').click(function () {
@@ -251,7 +245,7 @@ $('document').ready(function () {
 		var image = $("#_frm-profile-image").fileinput('getFileStack'); //$('#_frm-profile-image').val();
 		
 		//alert("image path = " + image[0].value);
-		return;
+		//return;
 		
 		if ((facebook == undefined || facebook == '') &&
 				(twitter == undefined || twitter == '') &&
@@ -263,13 +257,10 @@ $('document').ready(function () {
 		
 		var param = {};
 		
-		param.name = userInfo.name;
-		param.id = userInfo.id;
-		param.email = userInfo.email;
 		param.facebook = facebook;
 		param.twitter = twitter;
 		param.link = link;
-		param.description = description;
+		param.introduction = description;
 		
 		controller.addProfileInfo(param);
 		
@@ -408,24 +399,22 @@ $('document').ready(function () {
 				
 		var param = {};
 		
-		param.userid = userInfo.id;
-		param.goal = goalInfo._id;
+		param.userId = SessionDB.getSessionStorage("userId");
+		param.goalId = SessionDB.getSessionStorage("goalId");
 		param.elementtype = elementType;
 		param.title = title;
 		param.description = description;
 		
 		var today = new Date();		
-		param.createdate = today.formattedDate('-');
+		param.createDate = today.formattedDate('-');
 		
 		if (elementType == 'M') {
 			param.name = $('#_elements-name').val();
 			param.email = $('#_elements-email').val();
-		} else {
-			param.name = "";
-			param.email = "";
 		}
 		
 		controller.addElementsInfo(param);
+		
 		$('#_elements-title').val('');
 		$('#_elements-description').val('');
 		$('#_modal-add-elements').modal('hide');
@@ -433,7 +422,7 @@ $('document').ready(function () {
 	
 	view.setProfile();
 	view.setGoal();
-	view.setElementsCount();
+	controller.getElementsList();
 //	view.setChart();
 //	view.setRadarChart();
 //	view.setTodayStatChart();
@@ -574,25 +563,12 @@ var view = function () {
 		fbObj.empty();
 		twObj.empty();
 		lnkObj.empty();
-		descObj.empty();
+		descObj.empty();		
 		
-		var profileInfoStr = controller.getTable('ProfileTable');
-		if (profileInfoStr == null) {
-			return;
-		}
-
-		var param = {};
-		param.id = userInfo.id;
+		var profileObj = userInfo;
 		
-		var profileInfoArr = controller.selectData('ProfileTable', param);
-		if (profileInfoArr == null) {
-			return;
-		}
-		
-		var profileObj = profileInfoArr[0];
-		
-		if (profileObj.description != undefined && profileObj.description != '') {
-			descObj.text(profileObj.description);
+		if (profileObj.introduction != undefined && profileObj.introduction != '') {
+			descObj.text(profileObj.introduction);
 		}
 		
 		if (profileObj.facebook != undefined && profileObj.facebook != '') {
@@ -613,21 +589,6 @@ var view = function () {
 	};
 
 	var _setGoal = function () {
-		var goalInfoStr = controller.getTable('GoalTable');
-		
-		if (goalInfoStr == null) {
-			return;
-		}
-
-		var param = {};
-		param.owner = userInfo.id;
-		
-		var goalInfoArr = controller.selectData('GoalTable', param);
-		if (goalInfoArr == null) {
-			return;
-		}
-		
-		goalInfo = goalInfoArr[0];
 		
 		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
 		$('._goal-description-pane').text(goalInfo.goalDescription);
@@ -635,15 +596,15 @@ var view = function () {
 		$('._container-add-goal').hide();
 		$('.btn-main').removeClass('hide');
 		$('.goal-title').show();
-		$('#_goal-item').text(goalInfoArr[0].goalTitle);
-		$('._startday-label').text(goalInfoArr[0].startDate);
-		$('._endday-label').text(goalInfoArr[0].endDate);
+		$('#_goal-item').text(goalInfo.goalTitle);
+		$('._startday-label').text(goalInfo.startDate);
+		$('._endday-label').text(goalInfo.endDate);
 		
 		var today = new Date();
 		$('._today-label').text(today.formattedDate('-'));
 		
-		var startDate = new Date(goalInfoArr[0].startDate);
-		var endDate = new Date(goalInfoArr[0].endDate);
+		var startDate = new Date(goalInfo.startDate);
+		var endDate = new Date(goalInfo.endDate);
 		var currDate = new Date();
 		var currDay = 24 * 60 * 60 * 1000;
 		
@@ -682,10 +643,7 @@ var view = function () {
 			prevContents.addClass('hide');
 		}
 		
-		var param = {};
-		param.goal = goalInfo._id;
-		param.elementtype = elementType;
-		controller.selectData('ElementsTable', param);
+		controller.getElementListForType(elementType);
 	};
 	
 	var _setElements = function (dataArr) {
@@ -719,7 +677,7 @@ var view = function () {
 		for (i = (cnt - 1); i >= 0; i--) {
 			var description = dataArr[i].description.replace(/\n/gi, '<br>')
 			appendStr += "<div class='panel " + bgStyle + "'>" +
-					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createdate + "</small></div>" +
+					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
 					  	 "<div class='panel-body'>" +
 					  	 description +
 					  	 "</div>" +
@@ -774,10 +732,10 @@ var view = function () {
 //		var elCnt = Number(elCntObj.text()) + 1;
 //		elCntObj.text(elCnt);
 		
-		_setElementsCount();
+		_setElementsCount(dataArr);
 	}
 	
-	var _setElementsCount = function () {
+	var _setElementsCount = function (dataArr) {
 		mode = "";
 		
 		if (goalInfo == undefined) {
@@ -787,10 +745,10 @@ var view = function () {
 		
 		$('._dashboard-contents').show();
 		
-		var param = {};
-		param.userid = userInfo.id;
-		param.goal = goalInfo._id;
-		var dataArr = controller.selectData('ElementsTable', param);
+//		var param = {};
+//		param.userid = userInfo.id;
+//		param.goal = goalInfo._id;
+//		var dataArr = controller.selectData('ElementsTable', param);
 		
 		var ideaCnt = 0;
 		var resourceCnt = 0;
@@ -828,14 +786,16 @@ var view = function () {
 //		    ]
 //		});
 		
+//		alert(JSON.stringify(dataArr));
+		
 		var calEvents = [];
 		
 		if (dataArr != null) {
 			var cnt = dataArr.length;
 			
 			for (i = 0; i < cnt; i++) {
-				var eltype = dataArr[i].elementtype;
-				var createdate = dataArr[i].createdate;
+				var eltype = dataArr[i].elementType;
+				var createdate = dataArr[i].createDate;
 				
 				var event = {title: dataArr[i].title, start: createdate, allDay: false, elementType: eltype};
 				
@@ -1150,8 +1110,8 @@ var view = function () {
 			var otherActionCnt = 0;
 			
 			for (j = 0; j < cnt; j++) {
-				var eltype = dataArr[j].elementtype;
-				var createdate = dataArr[j].createdate;
+				var eltype = dataArr[j].elementType;
+				var createdate = dataArr[j].createDate;
 				
 				if (eltype == 'I') {
 					if (createdate == otherDateStr) {
@@ -1246,27 +1206,80 @@ var controller = function () {
 	};
 	
 	var _addProfileInfo = function (param) {
-		var result = SessionDB.insertRow('ProfileTable', JSON.stringify(param));
-		
-		if (result > 0) {
-			view.setProfile();
-		} else {
-			alert("Profile 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-		}
+		$.ajax({
+			url : "/rest/profiles/" + SessionDB.getSessionStorage("userId"),
+			type : "PATCH",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(param),
+			success : function (data, status, jqXHR) {
+//				alert("_addProfileInfo : " + JSON.stringify(data));
+				SessionDB.setSessionStorage("userInfo", JSON.stringify(data));
+				userInfo = data;
+				view.setProfile();
+			},
+			error : function (jqXHR, status) {
+				alert("error : Profile 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
 	};
 	
 	var _addElementsInfo = function (param) {
 //		alert(JSON.stringify(param));
 //		return;
 		
-		var result = SessionDB.insertRow('ElementsTable', JSON.stringify(param));
+		$.ajax({
+			url : "/rest/elements/",
+			type : "POST",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : JSON.stringify(param),
+			success : function (data, status, jqXHR) {
+//				alert("_addElementsInfo : " + JSON.stringify(data));
+//				_getElementsList();
+				view.addElements(data._embedded.elementses);
+			},
+			error : function (jqXHR, status) {
+				alert("error : 요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
+	};
+	
+	var _getElementsList = function () {
+		var userId = SessionDB.getSessionStorage("userId");
+		var goalId = goalInfo.goalId;
 		
-		if (result > 0) {
-			var elementsArr = [param];
-			view.addElements(elementsArr);
-		} else {
-			alert("요소 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-		}
+		$.ajax({
+			url : "/rest/elements/search/findByUserIdAndGoalId?userId=" + userId + "&goalId=" + goalId,
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data, status, jqXHR) {			
+				view.setElementsCount(data._embedded.elementses)
+			},
+			error : function (jqXHR, status) {
+				alert("error : 요소 목록을 가져오는 중 오류가 발생하였습니다. [" + status + "]");
+			}
+		});
+	};
+	
+	var _getElementListForType = function(elementType) {
+		var userId = SessionDB.getSessionStorage("userId");
+		var goalId = goalInfo.goalId;
+		
+		$.ajax({
+			url : "/rest/elements/search/findByUserIdAndGoalIdAndElementType?userId=" + userId + "&goalId=" + goalId + "&elementType=" + elementType,
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data, status, jqXHR) {			
+				//alert(JSON.stringify(data));
+				view.setElements(data._embedded.elementses);
+			},
+			error : function (jqXHR, status) {
+				alert("error : 요소 목록을 가져오는 중 오류가 발생하였습니다. [" + status + "]");
+			}
+		});
 	};
 	
 	var _getTable = function (tblNm) {
@@ -1279,24 +1292,20 @@ var controller = function () {
 		if (mode != undefined && mode == 'E') {
 			view.setGoalEdit(dataArr);
 			return;
-		} else if (mode != undefined && mode == 'EL') {
-			if (dataArr != null) {
-				view.setElements(dataArr);
-			}
-			
-			return;
 		}
 		
 		return dataArr;
 	};
 	
 	return {
-		init				: _init,
-		addGoalInfo			: _addGoalInfo,
-		addProfileInfo		: _addProfileInfo,
-		addElementsInfo		: _addElementsInfo,
-		getTable			: _getTable,
-		selectData			: _selectData
+		init					: _init,
+		addGoalInfo				: _addGoalInfo,
+		addProfileInfo			: _addProfileInfo,
+		addElementsInfo			: _addElementsInfo,
+		getElementsList			: _getElementsList,
+		getElementListForType	: _getElementListForType,
+		getTable				: _getTable,
+		selectData				: _selectData
 	}
 }();
 controller.init();
