@@ -21,6 +21,7 @@ public class Goal {
 	private String goalDescription;
 	private String goalStatus;
 	private String createDate;
+	private String updateDate;
 	
 	public Goal() {
 		super();
@@ -29,7 +30,8 @@ public class Goal {
 
 	public Goal(String goalId, String goalTitle, String startDate,
 			String endDate, String goalType, String goalSubType,
-			String goalDescription, String goalStatus, String createDate) {
+			String goalDescription, String goalStatus, String createDate,
+			String updateDate) {
 		super();
 		this.goalId = goalId;
 		this.goalTitle = goalTitle;
@@ -40,6 +42,7 @@ public class Goal {
 		this.goalDescription = goalDescription;
 		this.goalStatus = goalStatus;
 		this.createDate = createDate;
+		this.updateDate = updateDate;
 	}
 
 	public String getGoalId() {
@@ -113,6 +116,14 @@ public class Goal {
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
+	
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
 
 	@Override
 	public int hashCode() {
@@ -134,6 +145,8 @@ public class Goal {
 				+ ((goalType == null) ? 0 : goalType.hashCode());
 		result = prime * result
 				+ ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result
+				+ ((updateDate == null) ? 0 : updateDate.hashCode());
 		return result;
 	}
 
@@ -191,6 +204,11 @@ public class Goal {
 				return false;
 		} else if (!startDate.equals(other.startDate))
 			return false;
+		if (updateDate == null) {
+			if (other.updateDate != null)
+				return false;
+		} else if (!updateDate.equals(other.updateDate))
+			return false;
 		return true;
 	}
 
@@ -200,7 +218,9 @@ public class Goal {
 				+ ", startDate=" + startDate + ", endDate=" + endDate
 				+ ", goalType=" + goalType + ", goalSubType=" + goalSubType
 				+ ", goalDescription=" + goalDescription + ", goalStatus="
-				+ goalStatus + ", createDate=" + createDate + "]";
+				+ goalStatus + ", createDate=" + createDate + ", updateDate="
+				+ updateDate + "]";
 	}
 
+	
 }
