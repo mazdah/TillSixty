@@ -317,10 +317,10 @@ div.button-group
 	text-decoration: none;
 }
 
-#panel {
+#panel{
 	width: 1100px;
 	margin: 0 auto;
-    padding: 5px;
+	padding: 5px;
     text-align: center;
     background-color: #777;
     border: solid 1px #c3c3c3;
@@ -334,7 +334,17 @@ div.button-group
 	color: #efefef;
 }
 
+#panel>._description-text{
+	width: 100%;
+	margin: 0 auto;
+
+    text-align: center;
+    background-color: #777;
+	text-shadow: 1px 1px 3px #383838;
+	font-size: 24px;
+	color: #efefef;
+}
+
 #panel {
-    padding: 50px;
     display: none;
 }
