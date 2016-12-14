@@ -154,7 +154,7 @@ var view = function () {
 
 	var _setGoal = function () {
 		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
-		$('._goal-description-pane').text(goalInfo.goalDescription);
+		$('._description-text').text(goalInfo.goalDescription);
 		
 //		$('._container-add-goal').hide();
 //		$('.btn-main').removeClass('hide');
@@ -162,9 +162,6 @@ var view = function () {
 //		$('#_goal-item').text(goalInfoArr[0].goalTitle);
 		$('._startday-label').text(goalInfo.startDate);
 		$('._endday-label').text(goalInfo.endDate);
-		
-		var today = new Date();
-		$('._today-label').text(today.formattedDate('-'));
 		
 		var startDate = new Date(goalInfo.startDate);
 		var endDate = new Date(goalInfo.endDate);
@@ -176,6 +173,9 @@ var view = function () {
 		
 		var intTotdiff = parseInt(totdiff/currDay);
 		var intCurrdiff = Math.ceil(currdiff/currDay);
+		
+		var today = new Date();
+		$('._today-label').text(today.formattedDate('-') + " (" + intCurrdiff + "일차)");
 
 //		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
@@ -184,7 +184,7 @@ var view = function () {
 		if (percent < 0) percent = 0;
 		
 		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
-		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
+		$('._goal-process').text(percent + "%");
 	}
 	
 	var _setElementsCount = function (dataArr) {
