@@ -2,7 +2,6 @@ var userInfo;
 var goalInfo;
 var prevRsourceBtn;
 var prevContents;
-var mode;
 var elementType;
 
 $('document').ready(function () {
@@ -220,15 +219,12 @@ $('document').ready(function () {
 		param.startDate = startDate;
 		param.endDate = endDate;
 		param.goalDescription = goalDescription;
-		param.owner = userInfo.id;
+		param.goalStatus = $("#_goal-status option:selected").val();
 		
-		if (mode == 'E') {
-			param.status = $("#_goal-status option:selected").val();
-		} else {
-			param.status = "O"; // O : ongoing, D : Drop, H : Hold
-		}
+		var today = new Date();		
+		param.updateDate = today.formattedDate('-');
 
-		controller.addGoalInfo(param);
+		controller.updateGoalInfo(param);
 		
 		$('#_goal-title').val('');
 		$('#_goal-start-date').val('');
@@ -347,9 +343,9 @@ $('document').ready(function () {
 		prevContents.removeClass('hide');
 	});
 	
-	$('._add-goal').click(function (){
-		mode = 'A';
-	});
+//	$('._add-goal').click(function (){
+//		mode = 'A';
+//	});
 	
 	$('._edit-goal').click(function (){
 		$('#_goal-title').val(goalInfo.goalTitle);
@@ -396,7 +392,6 @@ $('document').ready(function () {
 	});
 	
 	$('#_save-elements').click(function () {
-		mode = 'EL';
 		var title = $('#_elements-title').val();
 		var description = $('#_elements-description').val();
 		
@@ -601,7 +596,7 @@ var view = function () {
 	var _setGoal = function () {
 		
 		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
-		$('._goal-description-pane').text(goalInfo.goalDescription);
+		$('._description-text').text(goalInfo.goalDescription);
 		
 		$('._container-add-goal').hide();
 		$('.btn-main').removeClass('hide');
@@ -609,9 +604,6 @@ var view = function () {
 		$('#_goal-item').text(goalInfo.goalTitle);
 		$('._startday-label').text(goalInfo.startDate);
 		$('._endday-label').text(goalInfo.endDate);
-		
-		var today = new Date();
-		$('._today-label').text(today.formattedDate('-'));
 		
 		var startDate = new Date(goalInfo.startDate);
 		var endDate = new Date(goalInfo.endDate);
@@ -623,13 +615,16 @@ var view = function () {
 		
 		var intTotdiff = parseInt(totdiff/currDay);
 		var intCurrdiff = Math.ceil(currdiff/currDay);
+		
+		var today = new Date();
+		$('._today-label').text(today.formattedDate('-') + " (" + intCurrdiff + "일차)");
 
 //		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
 		var percent = parseInt(intCurrdiff / intTotdiff * 100);
 		if (percent < 0) percent = 0;
 		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
-		$('._goal-process').text(percent + "%\n(" + intCurrdiff + "일 째)");
+		$('._goal-process').text(percent + "%");
 	}
 	
 	var _setGoalEdit = function (dataArr) {
@@ -642,7 +637,6 @@ var view = function () {
 	};
 	
 	var _changeElements = function (elType) {
-		mode = 'EL';
 		elementType = elType;
 		
 		if (prevRsourceBtn) {
@@ -746,8 +740,6 @@ var view = function () {
 	}
 	
 	var _setElementsCount = function (dataArr) {
-		mode = "";
-		
 		if (goalInfo == undefined) {
 			$('._dashboard-contents').hide();
 			return;
@@ -1193,27 +1185,28 @@ var controller = function () {
 		
 	};
 	
-	var _addGoalInfo = function (param) {
-		if (mode != undefined && mode == 'A') {
-			var result = SessionDB.insertRow('GoalTable', JSON.stringify(param));
-			
-			if (result > 0) {
-				view.setGoal();
-			} else {
-				alert("목표 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-			}
-		} else if (mode != undefined && mode == 'E') {			
-			var result = SessionDB.updateRow('GoalTable', "_id", $('#_goal-id').val(), param);
-			
-			if (result > 0) {
-				$('#_goal-item').text(param.goalTitle);
-				$('._startday-label').text(param.startDate);
-				$('._endday-label').text(param.endDate);
-			} else {
-				alert("목표 수장에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-			}
-		}
+	var _updateGoalInfo = function (param) {
+		var paramStr = '{"goalList":[' + JSON.stringify(param) + ']}'
 		
+		$.ajax({
+			url : "/rest/profiles/" + SessionDB.getSessionStorage("userId"),
+			type : "PATCH",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : paramStr,
+			success : function (data, status, jqXHR) {
+				alert("_updateGoalInfo : " + JSON.stringify(data));
+				SessionDB.setSessionStorage("userInfo", JSON.stringify(data));
+				SessionDB.setSessionStorage("goalInfo", JSON.stringify(data.goalList));
+				userInfo = data;
+				goalInfo = userInfo.goalList[0];
+				view.setGoal();
+			},
+			error : function (jqXHR, status) {
+				alert("error : 목표 수정에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
+
 	};
 	
 	var _addProfileInfo = function (param) {
@@ -1292,31 +1285,14 @@ var controller = function () {
 			}
 		});
 	};
-	
-	var _getTable = function (tblNm) {
-		return SessionDB.getTable(tblNm);
-	};
-	
-	var _selectData = function (tblNm, param) {
-		var dataArr = SessionDB.selectRow(tblNm, param);
-		
-		if (mode != undefined && mode == 'E') {
-			view.setGoalEdit(dataArr);
-			return;
-		}
-		
-		return dataArr;
-	};
-	
+
 	return {
 		init					: _init,
-		addGoalInfo				: _addGoalInfo,
+		updateGoalInfo			: _updateGoalInfo,
 		addProfileInfo			: _addProfileInfo,
 		addElementsInfo			: _addElementsInfo,
 		getElementsList			: _getElementsList,
-		getElementListForType	: _getElementListForType,
-		getTable				: _getTable,
-		selectData				: _selectData
+		getElementListForType	: _getElementListForType
 	}
 }();
 controller.init();
