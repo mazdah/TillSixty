@@ -725,7 +725,7 @@ var view = function () {
 		
 		var description = elementsObj.description.replace(/\n/gi, '<br>')
 		var prependStr = "<div class='panel " + bgStyle + "'>" +
-					  	 "<div class='panel-heading'>" + elementsObj.title + "<small class='pull-right'>" + elementsObj.createdate + "</small></div>" +
+					  	 "<div class='panel-heading'>" + elementsObj.title + "<small class='pull-right'>" + elementsObj.createDate + "</small></div>" +
 					  	 "<div class='panel-body'>" +
 					  	 description +
 					  	 "</div>" +
