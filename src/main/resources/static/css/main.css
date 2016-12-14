@@ -195,6 +195,8 @@
 }
 #group1 .parallax-layer-base {
     background: #52b9e9;
+    background-image: url('../../images/main/period2.jpg'); 
+    background-repeat: no-repeat;
 }
 
 #group2 {
