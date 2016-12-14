@@ -34,9 +34,17 @@ $('document').ready(function () {
 	var todayStr = today.formattedDate('-');
 
 	$('._anchor-home').click(function () {
-		window.location.href = "/html/timeline/timeline.html";
-		$('._profile').removeClass('active');
+		window.location.href = "/html/main.html";
+		$('._timeline').removeClass('active');
 		$('._home').addClass('active');
+		$('._profile').removeClass('active');
+	});
+	
+	$('._anchor-timeline').click(function () {
+		window.location.href = "/html/timeline/timeline.html";
+		$('._timeline').addClass('active');
+		$('._home').removeClass('active');
+		$('._profile').removeClass('active');
 	});
 	
 	$('._anchor-logout').click(function () {

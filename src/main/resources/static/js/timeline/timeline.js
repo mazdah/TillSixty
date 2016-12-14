@@ -53,10 +53,18 @@ $('document').ready(function () {
 	$('._user-id').text("@" + userInfo.userId);
 	$('._user-name').text(userInfo.name);
 	
+	$('._anchor-home').click(function () {
+		window.location.href = "/html/main.html";
+		$('._timeline').removeClass('active');
+		$('._home').addClass('active');
+		$('._profile').removeClass('active');
+	});
+	
 	$('._anchor-profile').click(function () {
 		window.location.href = "/html/profile/profile.html";
-		$('._profile').addClass('active');
+		$('._timeline').removeClass('active');
 		$('._home').removeClass('active');
+		$('._profile').addClass('active');
 	});
 	
 	$('._anchor-logout').click(function () {
