@@ -35,10 +35,18 @@ $('document').ready(function () {
 	goalInfo = userInfo.goalList[0];
 
 	
+	$('._anchor-timeline').click(function () {
+		window.location.href = "/html/timeline/timeline.html";
+		$('._timeline').addClass('active');
+		$('._home').removeClass('active');
+		$('._profile').removeClass('active');
+	});
+	
 	$('._anchor-profile').click(function () {
 		window.location.href = "/html/profile/profile.html";
-		$('._profile').addClass('active');
+		$('._timeline').removeClass('active');
 		$('._home').removeClass('active');
+		$('._profile').addClass('active');
 	});
 	
 	$('._anchor-logout').click(function () {
@@ -65,15 +73,9 @@ var view = function () {
 	};
 	
 	var _setGoal = function () {
-		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
-		$('._description-text').text(goalInfo.goalDescription);
-		
-//		$('._container-add-goal').hide();
-//		$('.btn-main').removeClass('hide');
-//		$('.goal-title').show();
-//		$('#_goal-item').text(goalInfoArr[0].goalTitle);
-		$('._startday-label').text(goalInfo.startDate);
-		$('._endday-label').text(goalInfo.endDate);
+		$('._goal-title').text(goalInfo.goalTitle);
+		$('._goal-description').html(goalInfo.goalDescription.replace(/\n/gi, '<br />'));
+		$('._goal-start-date').text("기간 : " + goalInfo.startDate + " ~ " + goalInfo.endDate);
 		
 		var startDate = new Date(goalInfo.startDate);
 		var endDate = new Date(goalInfo.endDate);
@@ -87,7 +89,8 @@ var view = function () {
 		var intCurrdiff = Math.ceil(currdiff/currDay);
 		
 		var today = new Date();
-		$('._today-label').text(today.formattedDate('-') + " (" + intCurrdiff + "일차)");
+		
+		$('._goal-layer-title .text').html("오늘은<br />목표 실행</br><font color='#f00'>" + intCurrdiff + "일차</font><br />입니다!");
 
 //		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
 //		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
@@ -99,93 +102,443 @@ var view = function () {
 		$('._goal-process').text(percent + "%");
 	}
 	
+	var _setTodayStatChart = function (data) {
+  		nv.addGraph(function() {
+  	        var chart = nv.models.discreteBarChart()
+  	            .x(function(d) { return d.label })
+  	            .y(function(d) { return d.value })
+  	            .staggerLabels(false)
+  	            //.staggerLabels(historicalBarChart[0].values.length > 8)
+  	            .showValues(true)
+  	            .duration(250)
+  	            .width(780)
+	        	.height(180)
+	        	//.margin({left: -5}) 
+  	            ;
+
+  	        chart.yAxis.tickFormat(d3.format('d'));
+  	        chart.valueFormat(d3.format('d'));
+  	        
+  	        d3.select('#_today-chart svg')
+  	            .datum(data)
+  	            .call(chart);
+
+  	        nv.utils.windowResize(chart.update);
+  	        return chart;
+  	    });
+	};
+	
 	var _setElementsCount = function (dataArr) {
-		mode = "";
 		
-		if (goalInfo == undefined) {
-			$('._chart-goal-process').hide();
-			$('._timeline-pane').hide();
-			return;
-		}
-		
-		$('._chart-goal-process').show();
-		$('._timeline-pane').show();
+		var ideaCnt = 0;
+		var resourceCnt = 0;
+		var infoCnt = 0;
+		var mentorCnt = 0;
+		var riskCnt = 0;
+		var actionCnt = 0;
+				
+		var todayIdeaCnt = 0;
+		var todayResourceCnt = 0;
+		var todayInfoCnt = 0;
+		var todayMentorCnt = 0;
+		var todayRiskCnt = 0;
+		var todayActionCnt = 0;
 		
 		var today = new Date();
 		var todayStr = today.formattedDate('-');
-		var prevDate = '';
 		
-		var tlul = $('.timeline');
+//		$('#calendar').fullCalendar({
+//		    events: [
+//		        {
+//		            title  : 'event1',
+//		            start  : '2010-01-01'
+//		        },
+//		        {
+//		            title  : 'event2',
+//		            start  : '2010-01-05',
+//		            end    : '2010-01-07'
+//		        },
+//		        {
+//		            title  : 'event3',
+//		            start  : '2010-01-09T12:30:00',
+//		            allDay : false // will make the time show
+//		        }
+//		    ]
+//		});
 		
-		tlul.empty();
+//		alert(JSON.stringify(dataArr));
+		
+		var calEvents = [];
 		
 		if (dataArr != null) {
 			var cnt = dataArr.length;
-			
+
 			for (i = 0; i < cnt; i++) {
-				var createDate = dataArr[i].createDate;
-				var elementType = dataArr[i].elementType;
-				var elTyleStr = '';
+				var eltype = dataArr[i].elementType;
+				var createdate = dataArr[i].createDate;
 				
-				if (elementType == 'I') {
-					elTyleStr = 'Idea';
-				} else if (elementType == 'R') {
-					elTyleStr = 'Resource';
-				} else if (elementType == 'IN') {
-					elTyleStr = 'Info';
-				} else if (elementType == 'M') {
-					elTyleStr = 'Mentor';
-				} else if (elementType == 'RI') {
-					elTyleStr = 'Risk';
-				} else if (elementType == 'A') {
-					elTyleStr = 'Action';
-				}
-
-				if (prevDate == '' || (prevDate != '' && prevDate != createDate)) {
-					if (prevDate != '') {
-						tlul.prepend('<li><div class="tldate">' + prevDate + '</div></li>');
-					}
-					prevDate = createDate;
-				}
-
-				var prependStr = '';
+				var event = {title: dataArr[i].title, start: createdate, allDay: false, elementType: eltype};
 				
 				
-				if (elementType == 'G') {
-					prependStr += '<li><div style="border: #999 solid 3px; border-radius: 10px; background-color: #fff">' +
-								  '<div class="text-center">' + prevDate + '</div>' +
-								  '<div class="text-center"><h4>최초 목표 등록<h4></div>' +
-								  '<div class="text-center"><h2>' + dataArr[i].title + '</h2></div>' +
-								  '<div class="text-center">' + 
-								  '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
-								  '</div>' +
-								  '</div></li>';
-				} else {
-					if ((i % 2) == 1) {
-						prependStr += '<li class="timeline-inverted">';			      
-					} else {
-						prependStr += '<li>';
-					}
+				if (eltype == 'I') {
+					event.backgroundColor = "#337ab7";
+					event.className = "#286090";
+					event.textColor = "#ffffff";
+					ideaCnt++;
 					
-					prependStr += '<div class="tl-circ"></div>' +
-				      '<div class="timeline-panel">' +
-				        '<div class="tl-heading">' +
-				          '<h4>' + dataArr[i].title + '</h4>' +
-				          '<p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> ' + createDate + '</small><br>' + 
-				          '<i class="glyphicon glyphicon-star"></i> ' + elTyleStr + '</small></p>' +
-				        '</div>' +
-				        '<div class="tl-body">' +
-				        '<p>' + dataArr[i].description.replace(/\n/gi, '<br />') + '</p>'+
-				        '</div>' +
-				      '</div>' +
-				    '</li>';
+					if (createdate == todayStr) {
+						todayIdeaCnt++;
+					}
+				} else if (eltype == 'R') {
+					event.backgroundColor = "#fcf8e3";
+					event.className = "#f7ecb5";
+					event.textColor = "#000000";
+					resourceCnt++;
+					
+					if (createdate == todayStr) {
+						todayResourceCnt++;
+					}
+				} else if (eltype == 'IN') {
+					event.backgroundColor = "#d9edf7";
+					event.className = "#afd9ee";
+					event.textColor = "#000000";
+					infoCnt++;
+					
+					if (createdate == todayStr) {
+						todayInfoCnt++;
+					}
+				} else if (eltype == 'M') {
+					event.backgroundColor = "#dff0d8";
+					event.className = "#c1e2b3";
+					event.textColor = "#000000";
+					mentorCnt++;
+					
+					if (createdate == todayStr) {
+						todayMentorCnt++;
+					}
+				} else if (eltype == 'RI') {
+					event.backgroundColor = "#f2dede";
+					event.className = "#e4b9b9";
+					event.textColor = "#000000";
+					riskCnt++;
+					
+					if (createdate == todayStr) {
+						todayRiskCnt++;
+					}
+				} else if (eltype == 'A') {
+					event.backgroundColor = "#dddddd";
+					event.className = "#aaaaaa";
+					event.textColor = "#000000";
+					actionCnt++;
+					
+					if (createdate == todayStr) {
+						todayActionCnt++;
+					}
+				} else if (eltype == 'G') {
+					event.title = "목표 등록 : " + event.title;
+					event.backgroundColor = "#dddddd";
+					event.className = "#aaaaaa";
+					event.textColor = "#000000";
 				}
 				
-				
-				tlul.prepend(prependStr);
+				calEvents.push(event);
 			}
-			tlul.prepend('<li><div class="tldate">' + prevDate + '</div></li>');
 		}
+		
+//		$('#calendar').fullCalendar('removeEvents');
+//		$('#calendar').fullCalendar('addEventSource', calEvents);
+		
+//		$('._label-idea').text(ideaCnt);
+//		$('._label-resource').text(resourceCnt);
+//		$('._label-info').text(infoCnt);
+//		$('._label-mentor').text(mentorCnt);
+//		$('._label-risk').text(riskCnt);
+//		$('._label-action').text(actionCnt);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Radar chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+//		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
+//		
+//		var rcdata = [
+//				  [//iPhone
+//					{axis:"Idea",value:ideaCnt},
+//					{axis:"Info",value:infoCnt},
+//					{axis:"Resource",value:resourceCnt},
+//					{axis:"Mentor",value:mentorCnt},
+//					{axis:"Risk",value:riskCnt},
+//					{axis:"action",value:actionCnt}
+//				  ]
+//				];
+		
+//		_setRadarChart(rcdata, maxCnt);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Today bar chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var todayBarChart = [
+			      		            {
+			      		                key: "Cumulative Return",
+			      		                values: [
+			      		                  { 
+			      		                    "label" : "Idea" ,
+			      		                    "value" : todayIdeaCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Resource" , 
+			      		                    "value" : todayResourceCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Info" , 
+			      		                    "value" : todayInfoCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Mentor" , 
+			      		                    "value" : todayMentorCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Risk" ,
+			      		                    "value" : todayRiskCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Action" ,
+			      		                    "value" : todayActionCnt
+			      		                  }
+			      		                ]
+			      		              }
+			      		            ]
+		
+		_setTodayStatChart(todayBarChart);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Total elements chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var elementsBarChart = [
+			      		            {
+			      		                key: "Cumulative Return",
+			      		                values: [
+			      		                  { 
+			      		                    "label" : "Idea" ,
+			      		                    "value" : ideaCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Resource" , 
+			      		                    "value" : resourceCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Info" , 
+			      		                    "value" : infoCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Mentor" , 
+			      		                    "value" : mentorCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Risk" ,
+			      		                    "value" : riskCnt
+			      		                  } , 
+			      		                  { 
+			      		                    "label" : "Action" ,
+			      		                    "value" : actionCnt
+			      		                  }
+			      		                ]
+			      		              }
+			      		            ]
+		
+//		_setElementsStatChart(elementsBarChart);
+		
+		//////////////////////////////////////////////////////////////
+		////////////////////////// Range elements chart data ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 	
+//		alert(testDate.otherFormattedDate('y', 3));
+		
+		if (dataArr == null) {
+			var rangeData = [
+//				             {
+//				                key: "Idea",
+//				                values: [ { x:1083297600000 , y:1} , 
+//				                          { x:1085976000000 , y:1} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:2} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:1}]
+//				            },
+//				            {
+//				                key: "Resource",
+//				                values: [ { x:1083297600000 , y:0} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:1} , 
+//				                          { x:1096516800000 , y:1} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				                key: "Info",
+//				                values: [ { x:1083297600000 , y:2} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:1} , 
+//				                          { x:1091246400000 , y:1} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:1} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:1}]
+//				            },
+//				            {
+//				                key: "Mentor",
+//				                values: [ { x:1083297600000 , y:1} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:0} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				                key: "Risk",
+//				                values: [ { x:1083297600000 , y:0} , 
+//				                          { x:1085976000000 , y:0} , 
+//				                          { x:1088568000000 , y:0} , 
+//				                          { x:1091246400000 , y:0} , 
+//				                          { x:1093924800000 , y:0} , 
+//				                          { x:1096516800000 , y:0} , 
+//				                          { x:1099195200000 , y:1} , 
+//				                          { x:1101790800000 , y:1} , 
+//				                          { x:1104469200000 , y:0}]
+//				            },
+//				            {
+//				            	key: "Action",
+//				                values: [ { x:1083297600000 , y:2} , 
+//				                          { x:1085976000000 , y:2} , 
+//				                          { x:1088568000000 , y:3} , 
+//				                          { x:1091246400000 , y:1} , 
+//				                          { x:1093924800000 , y:1} , 
+//				                          { x:1096516800000 , y:2} , 
+//				                          { x:1099195200000 , y:3} , 
+//				                          { x:1101790800000 , y:0} , 
+//				                          { x:1104469200000 , y:1}]
+//				             }
+				        ];
+				
+//				_setRangeStatChart(rangeData);
+				return;
+		}
+		
+		var startDate = new Date(goalInfo.startDate);
+		var currDate = new Date();
+		var currDay = 24 * 60 * 60 * 1000;
+
+		var currdiff = currDate - startDate;
+		var intCurrdiff = parseInt(currdiff/currDay);
+		
+		var data = [];
+		var ideaItem = {};
+		var resourceItem = {};
+		var infoItem = {};
+		var mentorItem = {};
+		var riskItem = {};
+		var actionItem = {};
+		
+		ideaItem.key = "Idea";
+		resourceItem.key = "Resource";
+		infoItem.key = "Info";
+		mentorItem.key = "Mentor";
+		riskItem.key = "Risk";
+		actionItem.key = "Action";
+		
+		ideaItem.values = [];
+		resourceItem.values = [];
+		infoItem.values = [];
+		mentorItem.values = [];
+		riskItem.values = [];
+		actionItem.values = [];
+//		dataItem.values = [];
+		
+		
+		
+		if (intCurrdiff >= 7) {
+			intCurrdiff = 7;
+		}
+		
+		for (i = intCurrdiff; i >= 0; i--) {
+			var ideaArr = [];
+			var resourceArr = [];
+			var infoArr = [];
+			var mentorArr = [];
+			var riskArr = [];
+			var actionArr = [];			
+			
+			var otherDate = new Date();
+			otherDate.setDate(currDate.getDate() - i);
+			var otherDateTime = otherDate.getTime();
+			var otherDateStr = otherDate.formattedDate('-');
+			
+			var cnt = dataArr.length;
+			
+			var otherIdeaCnt = 0;
+			var otherResourceCnt = 0;
+			var otherInfoCnt = 0;
+			var otherMentorCnt = 0;
+			var otherRiskCnt = 0;
+			var otherActionCnt = 0;
+			
+			for (j = 0; j < cnt; j++) {
+				var eltype = dataArr[j].elementType;
+				var createdate = dataArr[j].createDate;
+				
+				if (eltype == 'I') {
+					if (createdate == otherDateStr) {
+						otherIdeaCnt++;
+					}
+				} else if (eltype == 'R') {
+					if (createdate == otherDateStr) {
+						otherResourceCnt++;
+					}
+				} else if (eltype == 'IN') {
+					if (createdate == otherDateStr) {
+						otherInfoCnt++;
+					}
+				} else if (eltype == 'M') {
+					if (createdate == otherDateStr) {
+						otherMentorCnt++;
+					}
+				} else if (eltype == 'RI') {
+					if (createdate == otherDateStr) {
+						otherRiskCnt++;
+					}
+				} else if (eltype == 'A') {
+					if (createdate == otherDateStr) {
+						otherActionCnt++;
+					}
+				}
+			}
+			
+			ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
+			resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
+			infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
+			mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
+			riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
+			actionItem.values.push({x:otherDateTime, y:otherActionCnt});
+		}
+		
+		data.push(ideaItem);
+		data.push(resourceItem);
+		data.push(infoItem);
+		data.push(mentorItem);
+		data.push(riskItem);
+		data.push(actionItem);
+		
+//		_setRangeStatChart(data);
+
+		
 	};
 	
 	return {
@@ -210,7 +563,7 @@ var controller = function () {
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
-			success : function (data, status, jqXHR) {			
+			success : function (data, status, jqXHR) {		
 				view.setElementsCount(data._embedded.elementses)
 			},
 			error : function (jqXHR, status) {

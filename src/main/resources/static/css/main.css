@@ -11,6 +11,10 @@
 	color: black;
 }
 
+._till60-logo {
+	margin-top: -7px;
+}
+
 ._nav-gaol-title-anchor {
 	position: absolute;
     width: 100%;
@@ -41,4 +45,195 @@
 ._nav-gaol-title-anchor:active {
 	color: white;
 	text-decoration: none;
+}
+
+.parallax {
+    font-size: 200%;
+    width: 800px;
+    margin: 0 auto;
+}
+.parallax-group .container {
+    padding: 4% 1%;
+}
+.parallax-group .jumbotron {
+    background-color: rgba(255,255,255,.7);
+    width: 785px;
+}
+/* centre the content in the parallax layers */
+.title {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: rgba(255,196,0,.7);
+    padding: 10px;
+}
+
+._goal-layer-title {
+	text-align: center;
+    position: absolute;
+    width: 400px;
+    height: 480px;
+    left: 50%;
+    top: 60%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background-color: rgba(255,196,0,0);
+    padding: 10px;
+    background-image: url('../../images/main/term-bubble.png'); 
+    background-repeat: no-repeat;
+}
+
+._goal-layer-title .text {
+	padding: 140px 20px 20px 20px;
+	text-align: center;
+	font-size: 48px;
+	text-shadow: 1px 1px 2px #4B2599;
+}
+
+._today-chart-container {
+	position: absolute;
+	padding: 60px 10px 10px 10px;
+	left: 10px;
+    top: 40%;
+	width: 780px;
+    height: 280px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9fcf7+0,f5f9f0+100;L+Green+3D */
+	background: #f9fcf7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f9fcf7 0%, #f5f9f0 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #f9fcf7 0%,#f5f9f0 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #f9fcf7 0%,#f5f9f0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 ); /* IE6-9 */
+
+
+
+	
+}
+
+.parallax {
+    height: 500px; /* fallback for older browsers */
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -o-perspective: 300px;
+    -ms-perspective: 300px;
+    perspective: 300px;
+}
+
+    .parallax-group {
+        position: relative;
+        height: 300px; /* fallback for older browsers */
+        height: 100vh;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+    
+    .parallax-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    
+    .parallax-layer-fore {
+        -webkit-transform: translateZ(90px) scale(.7);
+        -moz-transform: translateZ(90px) scale(.7);
+        -o-transform: translateZ(90px) scale(.7);
+        -ms-transform: translateZ(90px) scale(.7);
+        transform: translateZ(90px) scale(.7);
+        z-index: 1;
+    }
+    
+    .parallax-layer-base {
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        transform: translateZ(0);
+        z-index: 4;
+    }
+    
+    .parallax-layer-back {
+        -webkit-transform: translateZ(-300px) scale(2);
+        -moz-transform: translateZ(-300px) scale(2);
+        -o-transform: translateZ(-300px) scale(2);
+        -ms-transform: translateZ(-300px) scale(2);
+        transform: translateZ(-300px) scale(2);
+        z-index: 3;
+    }
+    
+    .parallax-layer-deep {
+        -webkit-transform: translateZ(-600px) scale(3);
+        -moz-transform: translateZ(-600px) scale(3);
+        -o-transform: translateZ(-600px) scale(3);
+        -ms-transform: translateZ(-600px) scale(3);
+        transform: translateZ(-600px) scale(3);
+        z-index: 2;
+    }
+    
+/* style the groups
+   --------------------------------------------- */
+
+#group1 {
+    z-index: 5; /* slide over group 2 */
+}
+#group1 .parallax-layer-base {
+    background: #52b9e9;
+}
+
+#group2 {
+    z-index: 3; /* slide under groups 1 and 3 */
+}
+#group2 .parallax-layer-back {
+    background: #1171a3;
+}
+
+#group3 {
+    z-index: 4; /* slide over group 2 and 4 */
+}
+#group3 .parallax-layer-base {
+    background: #932ab6;
+}
+
+#group4 {
+    z-index: 2; /* slide under group 3 and 5 */
+}
+#group4 .parallax-layer-deep {
+    background: #fa3031;
+}
+
+#group5 {
+    z-index: 3; /* slide over group 4 and 6 */
+}
+#group5 .parallax-layer-base {
+}
+
+#group6 {
+    z-index: 2; /* slide under group 5 and 7 */
+}
+#group6 .parallax-layer-back {
+    background: #43c83c;
+}
+
+#group7 {
+    z-index: 3; /* slide over group 7 */
+}
+#group7 .parallax-layer-base {
+    background: rgb(255,241,100);
 }
