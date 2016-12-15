@@ -40,7 +40,7 @@ img { border: 0; max-width: 100%; }
 ._timeline-pane
 {
 	margin-left: 20px;
-	width: 880px;
+	width: 700px;
 	text-align: center;
 }
 
@@ -70,7 +70,7 @@ img { border: 0; max-width: 100%; }
   content: " ";
   width: 3px;
   background-color: #eee;
-  left: 50%;
+  left: 101px;
   margin-left: -1.5px;
 }
 
@@ -80,7 +80,6 @@ img { border: 0; max-width: 100%; }
   background: #414141;
   border: 3px solid #212121;
   color: #ededed;
-  margin: 0 auto;
   padding: 3px 0;
   font-weight: bold;
   text-align: center;
@@ -106,7 +105,7 @@ img { border: 0; max-width: 100%; }
 
 /** timeline panels **/
 .timeline li .timeline-panel {
-  width: 46%;
+  width: 81%;
   float: left;
   background: #fff;
   border: 1px solid #d4d4d4;
@@ -174,9 +173,8 @@ img { border: 0; max-width: 100%; }
 .timeline li .tl-circ {
   position: absolute;
   top: 23px;
-  left: 50%;
+  left: 100px;
   text-align: center;
-  background: #6a8db3;
   color: #000;
   width: 35px;
   height: 35px;
@@ -187,9 +185,32 @@ img { border: 0; max-width: 100%; }
   border-top-left-radius: 50%;
   border-bottom-right-radius: 50%;
   border-bottom-left-radius: 50%;
-  z-index: 99999;
+  z-index: 3;
 }
 
+._tl-circ_i {
+	background: #337ab7 !important;
+}
+
+._tl-circ_r {
+	background: #fcf8e3 !important;
+}
+
+._tl-circ_in {
+	background: #d9edf7 !important;
+}
+
+._tl-circ_m {
+	background: #dff0d8 !important;
+}
+
+._tl-circ_ri {
+	background: #f2dede !important;
+}
+
+._tl-circ_a {
+	background: #dddddd !important;
+}
 
 /** timeline content **/
 
@@ -209,7 +230,7 @@ img { border: 0; max-width: 100%; }
 /** media queries **/
 @media (max-width: 991px) {
   .timeline li .timeline-panel {
-    width: 44%;
+    width: 84%;
   }
 }
 
@@ -268,11 +289,16 @@ img { border: 0; max-width: 100%; }
    ========================================================================== */
 .fb-image-profile
 {
-	margin: 10px 5px 5px 5px;
+	margin: 10px 5px 10px 5px;
 	position: relative;
     z-index: 9;
-    width: 240px; 
-    height: 250px;
+    width: 120px; 
+    height: 120px;
+}
+
+._links {
+	display: inline;
+	padding: 0 0 20px 10px;
 }
 
 .profile-box
@@ -281,7 +307,7 @@ img { border: 0; max-width: 100%; }
 	border: #aaa solid 1px;
 	border-radius: 5px;
 	margin: 5px 0px 5px 0px;
-	padding : 10px 5px 0px 10px;
+	padding : 10px 5px 5px 10px;
 }
 
 .main-title 

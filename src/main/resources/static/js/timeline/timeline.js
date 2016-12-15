@@ -114,7 +114,6 @@ $('document').ready(function () {
 	})
 	
 	view.setProfile();
-	view.setGoal();
 	controller.getElementsList();
 //	view.setChart();
 //	view.setRadarChart();
@@ -143,57 +142,25 @@ var view = function () {
 			descObj.text(userInfo.description);
 		}
 		
+		//userInfo.facebook
 		if (userInfo.facebook != undefined && userInfo.facebook != '') {
-			fbObj.append('<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> ' + userInfo.facebook);
+			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + userInfo.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px"></a>');
 		}
 		
+		//userInfo.twitter
 		if (userInfo.twitter != undefined && userInfo.twitter != '') {
-			twObj.append('<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> ' + userInfo.twitter);
+			twObj.append('<a href="https://twitter.com/' + userInfo.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px"></a>');
 		}
 		
+		//userInfo.link
 		if (userInfo.link != undefined && userInfo.link != '') {
-			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; ' + userInfo.link + '</div>');
+			lnkObj.append('<a href="' + userInfo.link + '" target="_blank"><img src="../../images/profile/ico_link.png" width="15px" height="15px"></a>');
 		}
 		
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
 		//<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> @mazdah70
 		//<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; http://mazdah.tistory.com/</div>
 	};
-
-	var _setGoal = function () {
-		$('._nav-gaol-title-anchor').text(goalInfo.goalTitle);
-		$('._description-text').text(goalInfo.goalDescription);
-		
-//		$('._container-add-goal').hide();
-//		$('.btn-main').removeClass('hide');
-//		$('.goal-title').show();
-//		$('#_goal-item').text(goalInfoArr[0].goalTitle);
-		$('._startday-label').text(goalInfo.startDate);
-		$('._endday-label').text(goalInfo.endDate);
-		
-		var startDate = new Date(goalInfo.startDate);
-		var endDate = new Date(goalInfo.endDate);
-		var currDate = new Date();
-		var currDay = 24 * 60 * 60 * 1000;
-		
-		var totdiff = endDate - startDate;
-		var currdiff = currDate - startDate;
-		
-		var intTotdiff = parseInt(totdiff/currDay);
-		var intCurrdiff = Math.ceil(currdiff/currDay);
-		
-		var today = new Date();
-		$('._today-label').text(today.formattedDate('-') + " (" + intCurrdiff + "일차)");
-
-//		$('._goal-process').attr('aria-valuemax', intTotdiff + "");
-//		$('._goal-process').attr('aria-valuenow', intCurrdiff + "");
-		var percent = parseInt(intCurrdiff / intTotdiff * 100);
-		
-		if (percent < 0) percent = 0;
-		
-		$('.progress-bar').css('width', percent+'%').attr('aria-valuenow', intCurrdiff).attr('aria-valuemax', intTotdiff);  
-		$('._goal-process').text(percent + "%");
-	}
 	
 	var _setElementsCount = function (dataArr) {
 		mode = "";
@@ -257,13 +224,29 @@ var view = function () {
 								  '</div>' +
 								  '</div></li>';
 				} else {
-					if ((i % 2) == 1) {
+//					if ((i % 2) == 1) {
 						prependStr += '<li class="timeline-inverted">';			      
-					} else {
-						prependStr += '<li>';
-					}
+//					} else {
+//						prependStr += '<li>';
+//					}
 					
-					prependStr += '<div class="tl-circ"></div>' +
+					var tlCircleClass;
+					
+					if (elementType == "I") {
+						tlCircleClass = "_tl-circ_i"
+					} else if (elementType == "R") {
+						tlCircleClass = "_tl-circ_r"
+					} else if (elementType == "IN") {
+						tlCircleClass = "_tl-circ_in"
+					} else if (elementType == "M") {
+						tlCircleClass = "_tl-circ_m"
+					} else if (elementType == "RI") {
+						tlCircleClass = "_tl-circ_ri"
+					} else if (elementType == "A") {
+						tlCircleClass = "_tl-circ_a"
+					}
+						
+					prependStr += '<div class="tl-circ ' + tlCircleClass + '"></div>' +
 				      '<div class="timeline-panel">' +
 				        '<div class="tl-heading">' +
 				          '<h4>' + dataArr[i].title + '</h4>' +
@@ -287,11 +270,6 @@ var view = function () {
 	return {
 		init					: _init,
 		setProfile				: _setProfile,
-		setGoal					: _setGoal,
-//		setGoalEdit				: _setGoalEdit,
-//		changeElements			: _changeElements,
-//		setElements				: _setElements,
-//		addElements				: _addElements,
 		setElementsCount		: _setElementsCount
 	}
 }();
