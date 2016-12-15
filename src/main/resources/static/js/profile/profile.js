@@ -9,9 +9,9 @@ $('document').ready(function () {
 	prevContents = $('._dashboard-contents');
 	$('.goal-title').hide();
 	
-	$('._nav-gaol-title-anchor').click(function () {
-		$("#panel").slideToggle("slow");
-	})
+//	$('._nav-gaol-title-anchor').click(function () {
+//		$("#panel").slideToggle("slow");
+//	})
 	
 	var userInfoStr = SessionDB.getSessionStorage("userInfo");
 

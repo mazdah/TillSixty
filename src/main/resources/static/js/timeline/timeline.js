@@ -16,9 +16,9 @@ $('document').ready(function () {
 //        content: "And here's some amazing content. It's very engaging. Right?"
 //    });
 	
-	$('._nav-gaol-title-anchor').click(function () {
-		$("#panel").slideToggle("slow");
-	})
+//	$('._nav-gaol-title-anchor').click(function () {
+//		$("#panel").slideToggle("slow");
+//	})
 	
 	$('._add-elements-btn').click(function () {
 		$("#panel2").slideToggle("slow");
