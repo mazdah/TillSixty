@@ -56,9 +56,30 @@
     padding: 4% 1%;
 }
 .parallax-group .jumbotron {
-    background-color: rgba(255,255,255,.7);
+    /*background-color: rgba(255,255,255,.7);*/
     width: 785px;
 }
+
+#group1 .jumbotron {
+    background-color: rgba(255,200,200,.8);
+}
+
+#group2 .jumbotron {
+    background-color: rgba(200,255,200,.8);
+}
+
+#group3 .jumbotron {
+    background-color: rgba(200,200,255,.8);
+}
+
+#group4 .jumbotron {
+    background-color: rgba(200,255,255,.8);
+}
+
+#group5 .jumbotron {
+    background-color: rgba(255,200,255,.8);
+}
+
 /* centre the content in the parallax layers */
 .title {
     text-align: center;
@@ -97,6 +118,30 @@
 	text-align: center;
 	font-size: 48px;
 	text-shadow: 1px 1px 2px #4B2599;
+}
+
+._today-chart-container {
+	position: absolute;
+	padding: 60px 10px 10px 10px;
+	left: 10px;
+    top: 40%;
+	width: 780px;
+    height: 280px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+
+._total-chart-container {
+	position: absolute;
+	padding: 60px 10px 10px 10px;
+	left: 10px;
+    top: 40%;
+	width: 780px;
+    height: 280px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgba(255, 255, 255, 0.9);
 }
 
 ._chart-container {

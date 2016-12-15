@@ -390,7 +390,47 @@ var view = function () {
 			      		                  }
 			      		                ]
 			      		              }
-			      		            ]
+			      		            ];
+		
+	    if ((todayIdeaCnt + todayResourceCnt + todayInfoCnt + todayMentorCnt + todayRiskCnt + todayActionCnt) == 0) {
+	    	$('._today-ment').html('<font color="#ff0000">오늘은 아직까지 목표를 위한 활동이 없습니다... :(</font>');
+	    } else {
+	    	var htmlStr = "";
+	    	var validCnt = 40;
+	    	
+	    	if (todayIdeaCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 아이디어 정리 활동(Idea)을 <span class='label label-primary'>" + todayIdeaCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (todayResourceCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 자원 수집 활동(Resource)을 <span class='label label-warning'>" + todayResourceCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (todayInfoCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 정보 수집 활동(Info)을 <span class='label label-info'>" + todayInfoCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (todayMentorCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 멘토링 활동(Mentor)을 <span class='label label-success'>" + todayMentorCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (todayRiskCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 위험요소 조치 활동(Risk)을 <span class='label label-danger'>" + todayRiskCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (todayActionCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 실무 작업 활동(Action)을 <span class='label label-default'>" + todayActionCnt + "</span>건 하셨습니다.<br>";
+	    	}
+
+	    	$('._today-chart-container').css("top", validCnt + "%");
+	    	$('._today-ment').html(htmlStr);
+	    }
 		
 		_setTodayStatChart(todayBarChart);
 		
@@ -427,7 +467,47 @@ var view = function () {
 			      		                  }
 			      		                ]
 			      		              }
-			      		            ]
+			      		            ];
+		
+		if ((ideaCnt + resourceCnt + infoCnt + mentorCnt + riskCnt + actionCnt) == 0) {
+	    	$('._total-ment').html('<font color="#ff0000">목표 등록 후 아직까지 목표를 위한 활동이 없습니다... :(</font>');
+	    } else {
+	    	var htmlStr = "";
+	    	var validCnt = 40;
+	    	
+	    	if (ideaCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 아이디어 정리 활동(Idea)을 <span class='label label-primary'>" + ideaCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (resourceCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 자원 수집 활동(Resource)을 <span class='label label-warning'>" + resourceCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (infoCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 정보 수집 활동(Info)을 <span class='label label-info'>" + infoCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (mentorCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 멘토링 활동(Mentor)을 <span class='label label-success'>" + mentorCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (riskCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 위험요소 조치 활동(Risk)을 <span class='label label-danger'>" + riskCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (actionCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 실무 작업 활동(Action)을 <span class='label label-default'>" + actionCnt + "</span>건 하셨습니다.<br>";
+	    	}
+
+	    	$('._total-chart-container').css("top", validCnt + "%");
+	    	$('._total-ment').html(htmlStr);
+	    }
 		
 		_setElementsStatChart(elementsBarChart);
 		
