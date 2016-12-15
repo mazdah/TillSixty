@@ -355,6 +355,41 @@ var view = function () {
 				  ]
 				];
 		
+		var minCnt = Math.min(Math.min(Math.min(Math.min(Math.min(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
+		
+		if ((ideaCnt + infoCnt + resourceCnt + mentorCnt + riskCnt + actionCnt) == 0) {
+	    	$('._week-ment').html('<font color="#ff0000">평가할 활동이 없습니다... :(</font>');
+	    } else {
+	    	var htmlStr = "";
+	    	
+	    	if (ideaCnt == minCnt) {
+	    		htmlStr += "아이디어 정리 활동(Idea),";
+	    	}
+	    	
+	    	if (resourceCnt == minCnt) {
+	    		htmlStr += "자원 수집 활동(Resource),";
+	    	}
+	    	
+	    	if (infoCnt == minCnt) {
+	    		htmlStr += "정보 수집 활동(Info),";
+	    	}
+	    		
+	    	if (mentorCnt == minCnt) {
+	    		htmlStr += "멘토링 활동(Mentor),";
+	    	}
+	    		
+	    	if (riskCnt == minCnt) {
+	    		htmlStr += "위험요소 조치 활동(Risk),";
+	    	}
+	    	
+	    	if (actionCnt == minCnt) {
+	    		htmlStr += "실무 작업 활동(Action),";
+	    	}
+
+	    	htmlStr = htmlStr.substring(0, htmlStr.length - 1);
+	    	$('._radar-ment').html(htmlStr + "은 다른 활동에 비해 부진합니다.<br />조금 더 노력해주세요~");
+	    }
+		
 		_setRadarChart(rcdata, maxCnt);
 		
 		//////////////////////////////////////////////////////////////
@@ -632,6 +667,13 @@ var view = function () {
 			intCurrdiff = 7;
 		}
 		
+		var weekIdeaCnt = 0;
+		var weekResourceCnt = 0;
+		var weekInfoCnt = 0;
+		var weekMentorCnt = 0;
+		var weekRiskCnt = 0;
+		var weekActionCnt = 0;
+		
 		for (i = intCurrdiff; i >= 0; i--) {
 			var ideaArr = [];
 			var resourceArr = [];
@@ -661,26 +703,32 @@ var view = function () {
 				if (eltype == 'I') {
 					if (createdate == otherDateStr) {
 						otherIdeaCnt++;
+						weekIdeaCnt++;
 					}
 				} else if (eltype == 'R') {
 					if (createdate == otherDateStr) {
 						otherResourceCnt++;
+						weekResourceCnt++;
 					}
 				} else if (eltype == 'IN') {
 					if (createdate == otherDateStr) {
 						otherInfoCnt++;
+						weekInfoCnt++;
 					}
 				} else if (eltype == 'M') {
 					if (createdate == otherDateStr) {
 						otherMentorCnt++;
+						weekMentorCnt++;
 					}
 				} else if (eltype == 'RI') {
 					if (createdate == otherDateStr) {
 						otherRiskCnt++;
+						weekRiskCnt++;
 					}
 				} else if (eltype == 'A') {
 					if (createdate == otherDateStr) {
 						otherActionCnt++;
+						weekActionCnt++;
 					}
 				}
 			}
@@ -692,6 +740,46 @@ var view = function () {
 			riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
 			actionItem.values.push({x:otherDateTime, y:otherActionCnt});
 		}
+		
+		if ((weekIdeaCnt + weekResourceCnt + weekInfoCnt + weekMentorCnt + weekRiskCnt + weekActionCnt) == 0) {
+	    	$('._week-ment').html('<font color="#ff0000">지난 한 주간 목표를 위한 활동이 없습니다... :(</font>');
+	    } else {
+	    	var htmlStr = "";
+	    	var validCnt = 40;
+	    	
+	    	if (weekIdeaCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 아이디어 정리 활동(Idea)을 <span class='label label-primary'>" + weekIdeaCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (weekResourceCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 자원 수집 활동(Resource)을 <span class='label label-warning'>" + weekResourceCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (weekInfoCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 정보 수집 활동(Info)을 <span class='label label-info'>" + weekInfoCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (weekMentorCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 멘토링 활동(Mentor)을 <span class='label label-success'>" + weekMentorCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    		
+	    	if (weekRiskCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 위험요소 조치 활동(Risk)을 <span class='label label-danger'>" + weekRiskCnt + "</span>건 하셨습니다.<br>";
+	    	}
+	    	
+	    	if (weekActionCnt > 0) {
+	    		validCnt += 2;
+	    		htmlStr += "▶︎ 실무 작업 활동(Action)을 <span class='label label-default'>" + weekActionCnt + "</span>건 하셨습니다.<br>";
+	    	}
+
+	    	$('._week-chart-container').css("top", validCnt + "%");
+	    	$('._week-ment').html(htmlStr);
+	    }
 		
 		data.push(ideaItem);
 		data.push(resourceItem);
