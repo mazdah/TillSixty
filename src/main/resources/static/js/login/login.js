@@ -293,7 +293,7 @@ var controller = function () {
 				SessionDB.setSessionStorage("goalInfo", JSON.stringify(data.goalList));
 				SessionDB.setSessionStorage("goalId", data.goalList[0].goalId);
 				// localStorage를 이용한 목표 처리 끝
-				window.location.href = "/html/timeline/timeline.html";
+				window.location.href = "/html/main.html";
 			},
 			error : function (jqXHR, status) {
 				alert("error : 로그인 중 오류가 발생하였습니다. [" + status + "]");
