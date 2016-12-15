@@ -128,6 +128,90 @@ var view = function () {
   	    });
 	};
 	
+	var _setElementsStatChart = function (data) {
+		nv.addGraph(function() {
+	        var chart = nv.models.discreteBarChart()
+	            .x(function(d) { return d.label })
+	            .y(function(d) { return d.value })
+	            .staggerLabels(false)
+	            //.staggerLabels(historicalBarChart[0].values.length > 8)
+	            .showValues(true)
+	            .duration(250)
+	            .width(780)
+	        	.height(180)
+//	        	.margin({top: -5}) 
+	            ;
+
+	        chart.yAxis.tickFormat(d3.format('d'));
+  	        chart.valueFormat(d3.format('d'));
+	        
+	        d3.select('#_elements-chart svg')
+	            .datum(data)
+	            .call(chart);
+
+	        nv.utils.windowResize(chart.update);
+	        return chart;
+	    });
+	};
+	
+	var _setRangeStatChart = function (data) {
+		
+		nv.addGraph(function() {
+			var chart = nv.models.lineChart()
+//            .margin({top: -5})  //Adjust chart margins to give the x-axis some breathing room.
+            .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+//            .transitionDuration(350)  //how fast do you want the lines to transition?
+            .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+            .showYAxis(true)        //Show the y-axis
+            .showXAxis(true)        //Show the x-axis
+            .width(750)
+        	.height(180)
+        ;
+
+	        chart.xAxis.tickFormat(function(d) {
+	            return d3.time.format('%y/%m/%d')(new Date(d))
+	        });
+	
+	        chart.yAxis.tickFormat(d3.format('d'));
+	
+	        d3.select('#_range_chart svg')
+	            .datum(data)
+	            .call(chart);
+	
+	        //TODO: Figure out a good way to do this automatically
+	        nv.utils.windowResize(chart.update);
+	
+	        return chart;
+		});
+	};
+	
+	var _setRadarChart = function (data, maxCnt) {
+		//////////////////////////////////////////////////////////////
+		//////////////////////// Set-Up ////////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var margin = {top: 65, right: 60, bottom: 45, left: 60},
+			width = Math.min(420, window.innerWidth - 10) - margin.left - margin.right,
+			height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+				
+		//alert(width + ' : ' + height);
+		////////////////////////////////////////////////////////////// 
+		//////////////////// Draw the Chart ////////////////////////// 
+		////////////////////////////////////////////////////////////// 
+		var color = d3.scale.ordinal().range(["#EDC951","#CC333F","#00A0B0"]);
+			
+		var radarChartOptions = {
+		  w: width,
+		  h: height,
+		  margin: margin,
+		  maxValue: maxCnt + 2,
+		  levels: 5,
+		  roundStrokes: true,
+		  color: color
+		};
+		//Call function to draw the Radar chart
+		RadarChart(".radarChart", data, radarChartOptions);
+	};
+	
 	var _setElementsCount = function (dataArr) {
 		
 		var ideaCnt = 0;
@@ -258,20 +342,20 @@ var view = function () {
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Radar chart data ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 
-//		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
-//		
-//		var rcdata = [
-//				  [//iPhone
-//					{axis:"Idea",value:ideaCnt},
-//					{axis:"Info",value:infoCnt},
-//					{axis:"Resource",value:resourceCnt},
-//					{axis:"Mentor",value:mentorCnt},
-//					{axis:"Risk",value:riskCnt},
-//					{axis:"action",value:actionCnt}
-//				  ]
-//				];
+		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
 		
-//		_setRadarChart(rcdata, maxCnt);
+		var rcdata = [
+				  [//iPhone
+					{axis:"Idea",value:ideaCnt},
+					{axis:"Info",value:infoCnt},
+					{axis:"Resource",value:resourceCnt},
+					{axis:"Mentor",value:mentorCnt},
+					{axis:"Risk",value:riskCnt},
+					{axis:"action",value:actionCnt}
+				  ]
+				];
+		
+		_setRadarChart(rcdata, maxCnt);
 		
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Today bar chart data ////////////////////////////// 
@@ -345,7 +429,7 @@ var view = function () {
 			      		              }
 			      		            ]
 		
-//		_setElementsStatChart(elementsBarChart);
+		_setElementsStatChart(elementsBarChart);
 		
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Range elements chart data ////////////////////////////// 
@@ -428,7 +512,7 @@ var view = function () {
 //				             }
 				        ];
 				
-//				_setRangeStatChart(rangeData);
+				_setRangeStatChart(rangeData);
 				return;
 		}
 		
@@ -536,7 +620,7 @@ var view = function () {
 		data.push(riskItem);
 		data.push(actionItem);
 		
-//		_setRangeStatChart(data);
+		_setRangeStatChart(data);
 
 		
 	};

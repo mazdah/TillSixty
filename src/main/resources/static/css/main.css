@@ -99,7 +99,7 @@
 	text-shadow: 1px 1px 2px #4B2599;
 }
 
-._today-chart-container {
+._chart-container {
 	position: absolute;
 	padding: 60px 10px 10px 10px;
 	left: 10px;
@@ -108,16 +108,25 @@
     height: 280px;
     -webkit-border-radius: 5px 5px 5px 5px;
 	border-radius: 5px 5px 5px 5px;
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f9fcf7+0,f5f9f0+100;L+Green+3D */
-	background: #f9fcf7; /* Old browsers */
-	background: -moz-linear-gradient(top,  #f9fcf7 0%, #f5f9f0 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top,  #f9fcf7 0%,#f5f9f0 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom,  #f9fcf7 0%,#f5f9f0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=0 ); /* IE6-9 */
+	background-color: rgba(255, 255, 255, 0.9);
+}
 
+._radar-chart-container {
+	position: absolute;
+	padding: 60px 10px 10px 10px;
+	left: 160px;
+    top: 40%;
+	width: 480px;
+    height: 480px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	background-color: rgba(255, 255, 255, 0.9);
+}
 
-
-	
+._chart-radar {
+	position: absolute;
+	left: 25px;
+    top: 10px;
 }
 
 .parallax {
@@ -134,7 +143,7 @@
 
     .parallax-group {
         position: relative;
-        height: 300px; /* fallback for older browsers */
+        height: 500px; /* fallback for older browsers */
         height: 100vh;
         -webkit-transform-style: preserve-3d;
         -moz-transform-style: preserve-3d;
@@ -195,7 +204,7 @@
 }
 #group1 .parallax-layer-base {
     background: #52b9e9;
-    background-image: url('../../images/main/period2.jpg'); 
+    background-image: url('../../images/main/period.jpg'); 
     background-repeat: no-repeat;
 }
 
@@ -204,6 +213,8 @@
 }
 #group2 .parallax-layer-back {
     background: #1171a3;
+    background-image: url('../../images/main/period2.jpg'); 
+    background-repeat: no-repeat;
 }
 
 #group3 {
@@ -211,31 +222,37 @@
 }
 #group3 .parallax-layer-base {
     background: #932ab6;
+    background-image: url('../../images/main/period3.jpg'); 
+    background-repeat: no-repeat;
 }
 
 #group4 {
-    z-index: 2; /* slide under group 3 and 5 */
+    z-index: 3; /* slide under group 3 and 5 */
 }
-#group4 .parallax-layer-deep {
+#group4 .parallax-layer-back {
     background: #fa3031;
+    background-image: url('../../images/main/period4.jpg'); 
+    background-repeat: no-repeat;
 }
 
 #group5 {
-    z-index: 3; /* slide over group 4 and 6 */
+    z-index: 4; /* slide over group 4 and 6 */
 }
 #group5 .parallax-layer-base {
+	background-image: url('../../images/main/period5.jpg'); 
+    background-repeat: no-repeat;
 }
-
+/* 
 #group6 {
-    z-index: 2; /* slide under group 5 and 7 */
+    z-index: 2; slide under group 5 and 7
 }
 #group6 .parallax-layer-back {
     background: #43c83c;
 }
 
 #group7 {
-    z-index: 3; /* slide over group 7 */
+    z-index: 3; slide over group 7
 }
 #group7 .parallax-layer-base {
     background: rgb(255,241,100);
-}
+} */
