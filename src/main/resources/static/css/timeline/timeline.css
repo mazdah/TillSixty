@@ -32,11 +32,6 @@ img { border: 0; max-width: 100%; }
 	color: white;
 }
 
-._profile-pane
-{
-	width: 260px;
-}
-
 ._timeline-pane
 {
 	margin-left: 20px;
@@ -287,6 +282,12 @@ img { border: 0; max-width: 100%; }
 /* ==========================================================================
    profile custom styles
    ========================================================================== */
+   
+._profile-pane
+{
+	width: 260px;
+}
+
 .fb-image-profile
 {
 	margin: 10px 5px 10px 5px;
@@ -324,40 +325,28 @@ img { border: 0; max-width: 100%; }
 	font-weight: 300;
     font-size:20px;
 }
-/* ==========================================================================
-   prgress custom styles
-   ========================================================================== */
-._chart-goal-process
-{
-	width: 1100px;
-	height: 120px !important;	
-	border-bottom: #aaa solid 1px;
-	margin: 0 auto;
+
+._tl-btn {
+	width: 250px;
+	text-align: left;
+	vertical-align: middle;
+	font-size:20px;
+	line-height: 35px;
+	margin-bottom: 5px;
+	background-color: #ffffff;
 }
 
-._goal-process-container
-{
-	height: 50px !important;	
+._tl-btn:hover {
+	background-color: #eeeeee;
 }
 
-._startday-label, ._today-label, ._endday-label 
-{
-	display: inline-block;	
-	border: #999 solid 1px;
-	border-radius: 5px;
-	color: black;
-}
-
-._startday-label, ._endday-label
-{
-	background-color: rgba(0, 0, 255, 0.2);
-}
-
-._today-label
-{
-	background-color: rgba(200, 50, 50, 0.2);
-	font-weight: bolder;
-	font-size: 16px;
+._tl-btn-label {
+	width: 40px;
+	height: 50px;
+	vertical-align: middle;
+	margin: -6px -13px -8px 0;
+	font-size:20px;
+	line-height: 38px;
 }
 
 /* ==========================================================================

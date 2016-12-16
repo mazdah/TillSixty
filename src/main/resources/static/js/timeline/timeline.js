@@ -2,7 +2,8 @@ var userInfo;
 var goalInfo;
 var prevRsourceBtn;
 var prevContents;
-var mode;
+var prevBtn;
+var gElementType;
 
 $('document').ready(function () {
 	SessionDB.init('local');
@@ -73,7 +74,6 @@ $('document').ready(function () {
 	});
 	
 	$('#_save-elements').click(function () {
-		mode = 'EL';
 		var title = $('#_elements-title').val();
 		var description = $('#_elements-description').val();
 		
@@ -113,8 +113,37 @@ $('document').ready(function () {
 		window.location.href="/html/profile/profile.html"
 	})
 	
+	$('._tl-btn-all').click(function () {
+		controller.getElementsList();
+	});
+	
+	$('._tl-btn-i').click(function () {
+		controller.getElementsList("I");
+	});
+	
+	$('._tl-btn-r').click(function () {
+		controller.getElementsList("R");
+	});
+
+	$('._tl-btn-in').click(function () {
+		controller.getElementsList("IN");
+	});
+	
+	$('._tl-btn-m').click(function () {
+		controller.getElementsList("M");
+	});
+	
+	$('._tl-btn-ri').click(function () {
+		controller.getElementsList("RI");
+	});
+	
+	$('._tl-btn-a').click(function () {
+		controller.getElementsList("A");
+	});
+
 	view.setProfile();
-	controller.getElementsList();
+	$('._tl-btn-all').trigger('click');
+	//controller.getElementsList();
 //	view.setChart();
 //	view.setRadarChart();
 //	view.setTodayStatChart();
@@ -163,8 +192,6 @@ var view = function () {
 	};
 	
 	var _setElementsCount = function (dataArr) {
-		mode = "";
-		
 		if (goalInfo == undefined) {
 			$('._chart-goal-process').hide();
 			$('._timeline-pane').hide();
@@ -185,22 +212,35 @@ var view = function () {
 		if (dataArr != null) {
 			var cnt = dataArr.length;
 			
+			var ideaCnt = 0;
+			var resourceCnt = 0;
+			var infoCnt = 0;
+			var mentorCnt = 0;
+			var riskCnt = 0;
+			var actionCnt = 0;
+			
 			for (i = 0; i < cnt; i++) {
 				var createDate = dataArr[i].createDate;
 				var elementType = dataArr[i].elementType;
 				var elTyleStr = '';
 				
 				if (elementType == 'I') {
+					ideaCnt++;
 					elTyleStr = 'Idea';
 				} else if (elementType == 'R') {
+					resourceCnt++;
 					elTyleStr = 'Resource';
 				} else if (elementType == 'IN') {
+					infoCnt++;
 					elTyleStr = 'Info';
 				} else if (elementType == 'M') {
+					mentorCnt++;
 					elTyleStr = 'Mentor';
 				} else if (elementType == 'RI') {
+					riskCnt++;
 					elTyleStr = 'Risk';
 				} else if (elementType == 'A') {
+					actionCnt++;
 					elTyleStr = 'Action';
 				}
 
@@ -263,6 +303,16 @@ var view = function () {
 				
 				tlul.prepend(prependStr);
 			}
+			
+			if (gElementType == "ALL") {
+				$('._label-idea').text(ideaCnt);
+				$('._label-resource').text(resourceCnt);
+				$('._label-info').text(infoCnt);
+				$('._label-mentor').text(mentorCnt);
+				$('._label-risk').text(riskCnt);
+				$('._label-action').text(actionCnt);
+			}
+
 			tlul.prepend('<li><div class="tldate">' + prevDate + '</div></li>');
 		}
 	};
@@ -280,12 +330,22 @@ var controller = function () {
 		
 	};
 
-	var _getElementsList = function () {
+	var _getElementsList = function (type) {
 		var userId = SessionDB.getSessionStorage("userId");
 		var goalId = goalInfo.goalId;
 		
+		var url = "";
+		
+		if (!type) {
+			gElementType = "ALL";
+			url = "/rest/elements/search/findByUserIdAndGoalId?userId=" + userId + "&goalId=" + goalId;
+		} else {
+			gElementType = "NA";
+			url = "/rest/elements/search/findByUserIdAndGoalIdAndElementType?userId=" + userId + "&goalId=" + goalId + "&elementType=" + type;
+		}
+		
 		$.ajax({
-			url : "/rest/elements/search/findByUserIdAndGoalId?userId=" + userId + "&goalId=" + goalId,
+			url : url,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
