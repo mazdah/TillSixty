@@ -21,7 +21,7 @@ public class Elements {
 	private String email;
 	private List<SnsAccount> snsIdList;
 	private String createDate;
-	private String updateDate;
+	private String dueDate;
 	
 	public Elements() {
 		super();
@@ -31,7 +31,7 @@ public class Elements {
 	public Elements(String id, String userId, String goalId,
 			String elementType, String title, String description,
 			List<Media> mediaList, String name, String email,
-			List<SnsAccount> snsIdList, String createDate, String updateDate) {
+			List<SnsAccount> snsIdList, String createDate, String dueDate) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -44,7 +44,7 @@ public class Elements {
 		this.email = email;
 		this.snsIdList = snsIdList;
 		this.createDate = createDate;
-		this.updateDate = updateDate;
+		this.dueDate = dueDate;
 	}
 
 	public String getId() {
@@ -135,12 +135,12 @@ public class Elements {
 		this.createDate = createDate;
 	}
 
-	public String getUpdateDate() {
-		return updateDate;
+	public String getDueDate() {
+		return dueDate;
 	}
 
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
 	}
 
 	@Override
@@ -163,7 +163,7 @@ public class Elements {
 				+ ((snsIdList == null) ? 0 : snsIdList.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result
-				+ ((updateDate == null) ? 0 : updateDate.hashCode());
+				+ ((dueDate == null) ? 0 : dueDate.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
@@ -227,10 +227,10 @@ public class Elements {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (updateDate == null) {
-			if (other.updateDate != null)
+		if (dueDate == null) {
+			if (other.dueDate != null)
 				return false;
-		} else if (!updateDate.equals(other.updateDate))
+		} else if (!dueDate.equals(other.dueDate))
 			return false;
 		if (userId == null) {
 			if (other.userId != null)
@@ -246,8 +246,8 @@ public class Elements {
 				+ goalId + ", elementType=" + elementType + ", title=" + title
 				+ ", description=" + description + ", mediaList=" + mediaList
 				+ ", name=" + name + ", email=" + email + ", snsIdList="
-				+ snsIdList + ", createDate=" + createDate + ", updateDate="
-				+ updateDate + "]";
+				+ snsIdList + ", createDate=" + createDate + ", dueDate="
+				+ dueDate + "]";
 	}
 	
 	
