@@ -888,285 +888,285 @@ var view = function () {
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Radar chart data ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 
-		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
-		
-		var rcdata = [
-				  [//iPhone
-					{axis:"Idea",value:ideaCnt},
-					{axis:"Info",value:infoCnt},
-					{axis:"Resource",value:resourceCnt},
-					{axis:"Mentor",value:mentorCnt},
-					{axis:"Risk",value:riskCnt},
-					{axis:"action",value:actionCnt}
-				  ]
-				];
-		
-		_setRadarChart(rcdata, maxCnt);
+//		var maxCnt = Math.max(Math.max(Math.max(Math.max(Math.max(ideaCnt, resourceCnt), infoCnt), mentorCnt), riskCnt), actionCnt);
+//		
+//		var rcdata = [
+//				  [//iPhone
+//					{axis:"Idea",value:ideaCnt},
+//					{axis:"Info",value:infoCnt},
+//					{axis:"Resource",value:resourceCnt},
+//					{axis:"Mentor",value:mentorCnt},
+//					{axis:"Risk",value:riskCnt},
+//					{axis:"action",value:actionCnt}
+//				  ]
+//				];
+//		
+//		_setRadarChart(rcdata, maxCnt);
 		
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Today bar chart data ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 
-		var todayBarChart = [
-			      		            {
-			      		                key: "Cumulative Return",
-			      		                values: [
-			      		                  { 
-			      		                    "label" : "Idea" ,
-			      		                    "value" : todayIdeaCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Resource" , 
-			      		                    "value" : todayResourceCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Info" , 
-			      		                    "value" : todayInfoCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Mentor" , 
-			      		                    "value" : todayMentorCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Risk" ,
-			      		                    "value" : todayRiskCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Action" ,
-			      		                    "value" : todayActionCnt
-			      		                  }
-			      		                ]
-			      		              }
-			      		            ]
-		
-		_setTodayStatChart(todayBarChart);
+//		var todayBarChart = [
+//			      		            {
+//			      		                key: "Cumulative Return",
+//			      		                values: [
+//			      		                  { 
+//			      		                    "label" : "Idea" ,
+//			      		                    "value" : todayIdeaCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Resource" , 
+//			      		                    "value" : todayResourceCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Info" , 
+//			      		                    "value" : todayInfoCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Mentor" , 
+//			      		                    "value" : todayMentorCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Risk" ,
+//			      		                    "value" : todayRiskCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Action" ,
+//			      		                    "value" : todayActionCnt
+//			      		                  }
+//			      		                ]
+//			      		              }
+//			      		            ]
+//		
+//		_setTodayStatChart(todayBarChart);
 		
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Total elements chart data ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 
-		var elementsBarChart = [
-			      		            {
-			      		                key: "Cumulative Return",
-			      		                values: [
-			      		                  { 
-			      		                    "label" : "Idea" ,
-			      		                    "value" : ideaCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Resource" , 
-			      		                    "value" : resourceCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Info" , 
-			      		                    "value" : infoCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Mentor" , 
-			      		                    "value" : mentorCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Risk" ,
-			      		                    "value" : riskCnt
-			      		                  } , 
-			      		                  { 
-			      		                    "label" : "Action" ,
-			      		                    "value" : actionCnt
-			      		                  }
-			      		                ]
-			      		              }
-			      		            ]
-		
-		_setElementsStatChart(elementsBarChart);
+//		var elementsBarChart = [
+//			      		            {
+//			      		                key: "Cumulative Return",
+//			      		                values: [
+//			      		                  { 
+//			      		                    "label" : "Idea" ,
+//			      		                    "value" : ideaCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Resource" , 
+//			      		                    "value" : resourceCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Info" , 
+//			      		                    "value" : infoCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Mentor" , 
+//			      		                    "value" : mentorCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Risk" ,
+//			      		                    "value" : riskCnt
+//			      		                  } , 
+//			      		                  { 
+//			      		                    "label" : "Action" ,
+//			      		                    "value" : actionCnt
+//			      		                  }
+//			      		                ]
+//			      		              }
+//			      		            ]
+//		
+//		_setElementsStatChart(elementsBarChart);
 		
 		//////////////////////////////////////////////////////////////
 		////////////////////////// Range elements chart data ////////////////////////////// 
 		////////////////////////////////////////////////////////////// 	
 //		alert(testDate.otherFormattedDate('y', 3));
 		
-		if (dataArr == null) {
-			var rangeData = [
-//				             {
-//				                key: "Idea",
-//				                values: [ { x:1083297600000 , y:1} , 
-//				                          { x:1085976000000 , y:1} , 
-//				                          { x:1088568000000 , y:0} , 
-//				                          { x:1091246400000 , y:0} , 
-//				                          { x:1093924800000 , y:2} , 
-//				                          { x:1096516800000 , y:0} , 
-//				                          { x:1099195200000 , y:0} , 
-//				                          { x:1101790800000 , y:0} , 
-//				                          { x:1104469200000 , y:1}]
-//				            },
-//				            {
-//				                key: "Resource",
-//				                values: [ { x:1083297600000 , y:0} , 
-//				                          { x:1085976000000 , y:0} , 
-//				                          { x:1088568000000 , y:0} , 
-//				                          { x:1091246400000 , y:0} , 
-//				                          { x:1093924800000 , y:1} , 
-//				                          { x:1096516800000 , y:1} , 
-//				                          { x:1099195200000 , y:0} , 
-//				                          { x:1101790800000 , y:1} , 
-//				                          { x:1104469200000 , y:0}]
-//				            },
-//				            {
-//				                key: "Info",
-//				                values: [ { x:1083297600000 , y:2} , 
-//				                          { x:1085976000000 , y:0} , 
-//				                          { x:1088568000000 , y:1} , 
-//				                          { x:1091246400000 , y:1} , 
-//				                          { x:1093924800000 , y:0} , 
-//				                          { x:1096516800000 , y:1} , 
-//				                          { x:1099195200000 , y:0} , 
-//				                          { x:1101790800000 , y:1} , 
-//				                          { x:1104469200000 , y:1}]
-//				            },
-//				            {
-//				                key: "Mentor",
-//				                values: [ { x:1083297600000 , y:1} , 
-//				                          { x:1085976000000 , y:0} , 
-//				                          { x:1088568000000 , y:0} , 
-//				                          { x:1091246400000 , y:0} , 
-//				                          { x:1093924800000 , y:0} , 
-//				                          { x:1096516800000 , y:0} , 
-//				                          { x:1099195200000 , y:0} , 
-//				                          { x:1101790800000 , y:0} , 
-//				                          { x:1104469200000 , y:0}]
-//				            },
-//				            {
-//				                key: "Risk",
-//				                values: [ { x:1083297600000 , y:0} , 
-//				                          { x:1085976000000 , y:0} , 
-//				                          { x:1088568000000 , y:0} , 
-//				                          { x:1091246400000 , y:0} , 
-//				                          { x:1093924800000 , y:0} , 
-//				                          { x:1096516800000 , y:0} , 
-//				                          { x:1099195200000 , y:1} , 
-//				                          { x:1101790800000 , y:1} , 
-//				                          { x:1104469200000 , y:0}]
-//				            },
-//				            {
-//				            	key: "Action",
-//				                values: [ { x:1083297600000 , y:2} , 
-//				                          { x:1085976000000 , y:2} , 
-//				                          { x:1088568000000 , y:3} , 
-//				                          { x:1091246400000 , y:1} , 
-//				                          { x:1093924800000 , y:1} , 
-//				                          { x:1096516800000 , y:2} , 
-//				                          { x:1099195200000 , y:3} , 
-//				                          { x:1101790800000 , y:0} , 
-//				                          { x:1104469200000 , y:1}]
-//				             }
-				        ];
-				
-				_setRangeStatChart(rangeData);
-				return;
-		}
+//		if (dataArr == null) {
+//			var rangeData = [
+////				             {
+////				                key: "Idea",
+////				                values: [ { x:1083297600000 , y:1} , 
+////				                          { x:1085976000000 , y:1} , 
+////				                          { x:1088568000000 , y:0} , 
+////				                          { x:1091246400000 , y:0} , 
+////				                          { x:1093924800000 , y:2} , 
+////				                          { x:1096516800000 , y:0} , 
+////				                          { x:1099195200000 , y:0} , 
+////				                          { x:1101790800000 , y:0} , 
+////				                          { x:1104469200000 , y:1}]
+////				            },
+////				            {
+////				                key: "Resource",
+////				                values: [ { x:1083297600000 , y:0} , 
+////				                          { x:1085976000000 , y:0} , 
+////				                          { x:1088568000000 , y:0} , 
+////				                          { x:1091246400000 , y:0} , 
+////				                          { x:1093924800000 , y:1} , 
+////				                          { x:1096516800000 , y:1} , 
+////				                          { x:1099195200000 , y:0} , 
+////				                          { x:1101790800000 , y:1} , 
+////				                          { x:1104469200000 , y:0}]
+////				            },
+////				            {
+////				                key: "Info",
+////				                values: [ { x:1083297600000 , y:2} , 
+////				                          { x:1085976000000 , y:0} , 
+////				                          { x:1088568000000 , y:1} , 
+////				                          { x:1091246400000 , y:1} , 
+////				                          { x:1093924800000 , y:0} , 
+////				                          { x:1096516800000 , y:1} , 
+////				                          { x:1099195200000 , y:0} , 
+////				                          { x:1101790800000 , y:1} , 
+////				                          { x:1104469200000 , y:1}]
+////				            },
+////				            {
+////				                key: "Mentor",
+////				                values: [ { x:1083297600000 , y:1} , 
+////				                          { x:1085976000000 , y:0} , 
+////				                          { x:1088568000000 , y:0} , 
+////				                          { x:1091246400000 , y:0} , 
+////				                          { x:1093924800000 , y:0} , 
+////				                          { x:1096516800000 , y:0} , 
+////				                          { x:1099195200000 , y:0} , 
+////				                          { x:1101790800000 , y:0} , 
+////				                          { x:1104469200000 , y:0}]
+////				            },
+////				            {
+////				                key: "Risk",
+////				                values: [ { x:1083297600000 , y:0} , 
+////				                          { x:1085976000000 , y:0} , 
+////				                          { x:1088568000000 , y:0} , 
+////				                          { x:1091246400000 , y:0} , 
+////				                          { x:1093924800000 , y:0} , 
+////				                          { x:1096516800000 , y:0} , 
+////				                          { x:1099195200000 , y:1} , 
+////				                          { x:1101790800000 , y:1} , 
+////				                          { x:1104469200000 , y:0}]
+////				            },
+////				            {
+////				            	key: "Action",
+////				                values: [ { x:1083297600000 , y:2} , 
+////				                          { x:1085976000000 , y:2} , 
+////				                          { x:1088568000000 , y:3} , 
+////				                          { x:1091246400000 , y:1} , 
+////				                          { x:1093924800000 , y:1} , 
+////				                          { x:1096516800000 , y:2} , 
+////				                          { x:1099195200000 , y:3} , 
+////				                          { x:1101790800000 , y:0} , 
+////				                          { x:1104469200000 , y:1}]
+////				             }
+//				        ];
+//				
+//				_setRangeStatChart(rangeData);
+//				return;
+//		}
 		
-		var startDate = new Date(goalInfo.startDate);
-		var currDate = new Date();
-		var currDay = 24 * 60 * 60 * 1000;
-
-		var currdiff = currDate - startDate;
-		var intCurrdiff = parseInt(currdiff/currDay);
-		
-		var data = [];
-		var ideaItem = {};
-		var resourceItem = {};
-		var infoItem = {};
-		var mentorItem = {};
-		var riskItem = {};
-		var actionItem = {};
-		
-		ideaItem.key = "Idea";
-		resourceItem.key = "Resource";
-		infoItem.key = "Info";
-		mentorItem.key = "Mentor";
-		riskItem.key = "Risk";
-		actionItem.key = "Action";
-		
-		ideaItem.values = [];
-		resourceItem.values = [];
-		infoItem.values = [];
-		mentorItem.values = [];
-		riskItem.values = [];
-		actionItem.values = [];
-//		dataItem.values = [];
-		
-		
-		
-		if (intCurrdiff >= 7) {
-			intCurrdiff = 7;
-		}
-		
-		for (i = intCurrdiff; i >= 0; i--) {
-			var ideaArr = [];
-			var resourceArr = [];
-			var infoArr = [];
-			var mentorArr = [];
-			var riskArr = [];
-			var actionArr = [];			
-			
-			var otherDate = new Date();
-			otherDate.setDate(currDate.getDate() - i);
-			var otherDateTime = otherDate.getTime();
-			var otherDateStr = otherDate.formattedDate('-');
-			
-			var cnt = dataArr.length;
-			
-			var otherIdeaCnt = 0;
-			var otherResourceCnt = 0;
-			var otherInfoCnt = 0;
-			var otherMentorCnt = 0;
-			var otherRiskCnt = 0;
-			var otherActionCnt = 0;
-			
-			for (j = 0; j < cnt; j++) {
-				var eltype = dataArr[j].elementType;
-				var createdate = dataArr[j].createDate;
-				
-				if (eltype == 'I') {
-					if (createdate == otherDateStr) {
-						otherIdeaCnt++;
-					}
-				} else if (eltype == 'R') {
-					if (createdate == otherDateStr) {
-						otherResourceCnt++;
-					}
-				} else if (eltype == 'IN') {
-					if (createdate == otherDateStr) {
-						otherInfoCnt++;
-					}
-				} else if (eltype == 'M') {
-					if (createdate == otherDateStr) {
-						otherMentorCnt++;
-					}
-				} else if (eltype == 'RI') {
-					if (createdate == otherDateStr) {
-						otherRiskCnt++;
-					}
-				} else if (eltype == 'A') {
-					if (createdate == otherDateStr) {
-						otherActionCnt++;
-					}
-				}
-			}
-			
-			ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
-			resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
-			infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
-			mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
-			riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
-			actionItem.values.push({x:otherDateTime, y:otherActionCnt});
-		}
-		
-		data.push(ideaItem);
-		data.push(resourceItem);
-		data.push(infoItem);
-		data.push(mentorItem);
-		data.push(riskItem);
-		data.push(actionItem);
-		
-		_setRangeStatChart(data);
+//		var startDate = new Date(goalInfo.startDate);
+//		var currDate = new Date();
+//		var currDay = 24 * 60 * 60 * 1000;
+//
+//		var currdiff = currDate - startDate;
+//		var intCurrdiff = parseInt(currdiff/currDay);
+//		
+//		var data = [];
+//		var ideaItem = {};
+//		var resourceItem = {};
+//		var infoItem = {};
+//		var mentorItem = {};
+//		var riskItem = {};
+//		var actionItem = {};
+//		
+//		ideaItem.key = "Idea";
+//		resourceItem.key = "Resource";
+//		infoItem.key = "Info";
+//		mentorItem.key = "Mentor";
+//		riskItem.key = "Risk";
+//		actionItem.key = "Action";
+//		
+//		ideaItem.values = [];
+//		resourceItem.values = [];
+//		infoItem.values = [];
+//		mentorItem.values = [];
+//		riskItem.values = [];
+//		actionItem.values = [];
+////		dataItem.values = [];
+//		
+//		
+//		
+//		if (intCurrdiff >= 7) {
+//			intCurrdiff = 7;
+//		}
+//		
+//		for (i = intCurrdiff; i >= 0; i--) {
+//			var ideaArr = [];
+//			var resourceArr = [];
+//			var infoArr = [];
+//			var mentorArr = [];
+//			var riskArr = [];
+//			var actionArr = [];			
+//			
+//			var otherDate = new Date();
+//			otherDate.setDate(currDate.getDate() - i);
+//			var otherDateTime = otherDate.getTime();
+//			var otherDateStr = otherDate.formattedDate('-');
+//			
+//			var cnt = dataArr.length;
+//			
+//			var otherIdeaCnt = 0;
+//			var otherResourceCnt = 0;
+//			var otherInfoCnt = 0;
+//			var otherMentorCnt = 0;
+//			var otherRiskCnt = 0;
+//			var otherActionCnt = 0;
+//			
+//			for (j = 0; j < cnt; j++) {
+//				var eltype = dataArr[j].elementType;
+//				var createdate = dataArr[j].createDate;
+//				
+//				if (eltype == 'I') {
+//					if (createdate == otherDateStr) {
+//						otherIdeaCnt++;
+//					}
+//				} else if (eltype == 'R') {
+//					if (createdate == otherDateStr) {
+//						otherResourceCnt++;
+//					}
+//				} else if (eltype == 'IN') {
+//					if (createdate == otherDateStr) {
+//						otherInfoCnt++;
+//					}
+//				} else if (eltype == 'M') {
+//					if (createdate == otherDateStr) {
+//						otherMentorCnt++;
+//					}
+//				} else if (eltype == 'RI') {
+//					if (createdate == otherDateStr) {
+//						otherRiskCnt++;
+//					}
+//				} else if (eltype == 'A') {
+//					if (createdate == otherDateStr) {
+//						otherActionCnt++;
+//					}
+//				}
+//			}
+//			
+//			ideaItem.values.push({x:otherDateTime, y:otherIdeaCnt});
+//			resourceItem.values.push({x:otherDateTime, y:otherResourceCnt});
+//			infoItem.values.push({x:otherDateTime, y:otherInfoCnt});
+//			mentorItem.values.push({x:otherDateTime, y:otherMentorCnt});
+//			riskItem.values.push({x:otherDateTime, y:otherRiskCnt});
+//			actionItem.values.push({x:otherDateTime, y:otherActionCnt});
+//		}
+//		
+//		data.push(ideaItem);
+//		data.push(resourceItem);
+//		data.push(infoItem);
+//		data.push(mentorItem);
+//		data.push(riskItem);
+//		data.push(actionItem);
+//		
+//		_setRangeStatChart(data);
 
 		
 	};

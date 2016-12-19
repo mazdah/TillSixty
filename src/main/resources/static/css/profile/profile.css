@@ -21,10 +21,18 @@ body
 	color: white;
 }
 
+.fb-profile {
+	display: inline-block;
+	margin: 0 auto;
+    border: #f00 solid 1px;
+    text-align: center;
+}
+
 .fb-profile img.fb-image-lg
 {
+	display: inline-block;
     z-index: 0;
-    width: 1200px;  
+    width: 900px;  
     height: 200px;
 }
 
@@ -33,7 +41,7 @@ div.button-bar
 	position: relative;
 	z-index: 0;
 	display: inline-block;
-    width: 1200px;  
+    width: 900px;  
     background-color: #eee;
 	border-top: #000 solid 1px;
 	border-bottom: #000 solid 1px;
@@ -44,14 +52,14 @@ div.button-group
 	display: table;
 	height: 34px;
 	margin-left: 330px;
-	width: 870px;
+	width: 570px;
 	color: #000;
 	vertical-align: middle;
 }
 
 .goal-title
 {
-	width: 870px;
+	width: 570px;
 	font-weight: bolder;
 	font-size: 16px;
 	border-bottom: #000 solid 1px;
@@ -61,7 +69,7 @@ div.button-group
 {
 	display: inline-block;
 	box-sizing: border-box;
-	width: 145px;
+	width: 95px;
 	height: 34px;
 	color: #000;
 	vertical-align: middle;
@@ -108,7 +116,7 @@ div.button-group
 }
   
 .fb-profile-text {
-	width: 1200px;
+	width: 900px;
 	vertical-align: top;
 }
 
@@ -125,7 +133,7 @@ div.button-group
 	vertical-align: top;
 	/* border: #00f solid 1px; */
 	margin: 20px 0px 0px 35px;
-	width: 870px;
+	width: 550px;
 }
 
 .btn-span
