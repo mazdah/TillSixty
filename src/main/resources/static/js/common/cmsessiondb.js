@@ -7,7 +7,11 @@
 var SessionDB = function () {
 	var StrorageDB;
 	
-	var _setSessionStorage = function (key, value, isOverWrite = true) {
+	var _setSessionStorage = function (key, value, isOverWrite) {
+		
+		if (!isOverWrite) {
+			isOverWrite = true;
+		}
 		
 		if (isOverWrite || !window.sessionStorage[key]) {
 			window.sessionStorage[key] = value;
@@ -26,7 +30,11 @@ var SessionDB = function () {
 		return window.sessionStorage.removeItem(key);
 	};
 	
-	var _setLocalStorage = function (key, value, isOverWrite = true) {
+	var _setLocalStorage = function (key, value, isOverWrite) {
+		
+		if (!isOverWrite) {
+			isOverWrite = true;
+		}
 		
 		if (isOverWrite || !window.localStorage[key]) {
 			window.localStorage[key] = value;
@@ -177,7 +185,11 @@ var SessionDB = function () {
 	*	@ parameter : tblNm String (테이블 이름, 문자열), rowData String (JSON 포맷의 문자열)
 	*	@ return : 0 - insert 실패, 1 - insert 성공
 	*/
-	var _insertRow = function(tblNm, rowData, flag = true) {
+	var _insertRow = function(tblNm, rowData, flag) {
+		if (!flag) {
+			flag = true;
+		}
+		
 		if (tblNm == undefined || '' == tblNm) {
 			alert('Table 이름은 필수입니다.');
 			return 0;
