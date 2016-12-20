@@ -26,10 +26,12 @@ body
 	margin: 0 auto;
     border: #f00 solid 1px;
     text-align: center;
+    width: 900px;
 }
 
 .fb-profile img.fb-image-lg
 {
+	position: relative;
 	display: inline-block;
     z-index: 0;
     width: 900px;  
@@ -51,15 +53,15 @@ div.button-group
 {
 	display: table;
 	height: 34px;
-	margin-left: 330px;
-	width: 570px;
+	margin-left: 200px;
+	width: 600px;
 	color: #000;
 	vertical-align: middle;
 }
 
 .goal-title
 {
-	width: 570px;
+	width: 700px;
 	font-weight: bolder;
 	font-size: 16px;
 	border-bottom: #000 solid 1px;
@@ -69,11 +71,11 @@ div.button-group
 {
 	display: inline-block;
 	box-sizing: border-box;
-	width: 95px;
+	width: 100px;
 	height: 34px;
 	color: #000;
 	vertical-align: middle;
-	text-align: center;
+	text-align: left;
 }
 
 .btn-main:hover
@@ -92,8 +94,8 @@ div.button-group
 {
 	display: inline-block;
 	width: 100%;
-	margin-right: 5px;
 	text-align: left;
+	margin-left: -10px;
 }
 
 .btn-active
@@ -104,6 +106,7 @@ div.button-group
 .label-badge
 {
 	margin-top: 3px;
+	margin-right: -20px;
 }
 
 .fb-image-profile
