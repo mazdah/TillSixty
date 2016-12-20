@@ -21,10 +21,13 @@ body
 	color: white;
 }
 
+.container {
+	width: 930px;
+}
+
 .fb-profile {
 	display: inline-block;
 	margin: 0 auto;
-    border: #f00 solid 1px;
     text-align: center;
     width: 900px;
 }
@@ -80,7 +83,7 @@ div.button-group
 
 .btn-main:hover
 {
-	border-bottom: #888 solid 2px;
+	border-bottom: #f00 solid 2px;
 }
 
 .btn-goal
@@ -100,7 +103,7 @@ div.button-group
 
 .btn-active
 {
-	border-bottom: #888 solid 2px;
+	border-bottom: #f00 solid 2px;
 }
 
 .label-badge
@@ -135,8 +138,8 @@ div.button-group
 	display: inline-block;
 	vertical-align: top;
 	/* border: #00f solid 1px; */
-	margin: 20px 0px 0px 35px;
-	width: 550px;
+	margin: 20px 0px 0px 15px;
+	width: 570px;
 }
 
 .btn-span
