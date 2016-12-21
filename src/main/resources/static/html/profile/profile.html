@@ -117,6 +117,51 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- Modal Frame -->
+<!-- Modal Frame -->
+<div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-todo">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content _modal-content-todo">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">ToDo 추가</h4>
+      </div>
+      <div class="modal-body text-center">
+      	<div class="form-box col-xs-12">
+        	<label for="_elements-type">요소 유형</label>
+        	<select class="form-control" id="_elements-type">
+        		<option value="I">Idea</option>
+        		<option value="R">Resource</option>
+        		<option value="IN">Info</option>
+        		<option value="M">Mentor</option>
+        		<option value="RI">Risk</option>
+        		<option value="A">Action</option>
+        	</select>
+        </div>
+      	<div class="form-box col-xs-12">
+        	<label for="_todo-title">제 목</label><input type="text" class="form-control" id="_todo-title" value="">
+        </div>
+        <div class="form-box  col-xs-12">
+        	<label for="_todo-description">내 용</label><textarea id="_todo-description" class="form-control"></textarea>
+        </div>
+        <div class="form-box col-xs-12 hidden _elements-name-pane">
+        	<label for="_todo-name">만날 사람</label><input type="text" class="form-control" id="_todo-name" value="">
+        </div>
+        <div class="form-box col-xs-12 hidden _elements-email-pane">
+        	<label for="_todo-email">만날 장소</label><input type="text" class="form-control" id="_todo-place" value="">
+        </div>
+        <div class="form-box-inline col-xs-6">
+        	<label for="_goal-start-date">완료 예정일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+        </div>
+        <input type="hidden" id="_goal-id" value="">
+        <div class="col-xs-12">
+        <button type="button" class="btn btn-sm btn-primary" id="_save-todo">저 장</button>
+	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+	    </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- Modal Frame -->
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 <nav class="navbar navbar-inverse navbar-fixed-top _nav-top">
@@ -217,8 +262,13 @@
 				  </ul>
 	        	 <div class="tab-content">
 				    <div id="todo-container" class="tab-pane fade in active _todo-container">
-				    	<h3>To Do</h3>
-				      	<p>To Do를 등록하는 화면</p>
+				    	<div class="_todo-btn-div">
+					    	<a herf="#" class="btn btn-default _add-todo pull-right" type="button" data-toggle="modal" data-target="#_modal-add-todo">
+							  ToDo 추가
+							</a>
+						</div>
+						<div class="_todo-list-div">
+						</div>
 				    </div>
 				    <div id="calendar-container" class="tab-pane fade">
 				      <div id='calendar'></div>

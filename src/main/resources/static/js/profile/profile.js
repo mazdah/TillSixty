@@ -3,6 +3,7 @@ var goalInfo;
 var prevRsourceBtn;
 var prevContents;
 var elementType;
+var prevModalBg;
 
 $('document').ready(function () {
 	SessionDB.init('local');
@@ -363,40 +364,62 @@ $('document').ready(function () {
 		$("#_goal-status option:selected").val(goalInfo.goalStatus);
 	});
 	
-	var _metorHide = function () {
+	var _mentorHide = function () {
 		$('._elements-name-pane').addClass('hidden');
 		$('._elements-email-pane').addClass('hidden');
 	};
 	
+	var _headerChange = function (className) {
+		if (prevModalBg) {
+			$('.modal-header').removeClass(prevModalBg);
+		}
+		
+		$('.modal-header').addClass(className);
+		prevModalBg = className;
+	}
+	
 	$('._add-idea').click(function () {
+		_headerChange("modal-header-primary");
+		$('.modal-title').text("Idea 추가");
+		
 		elementType = 'I';
-		_metorHide();
+		_mentorHide();
 	});
 	
 	$('._add-resource').click(function () {
+		_headerChange("modal-header-warning");
+		$('.modal-title').text("Resource 추가");
 		elementType = 'R';
-		_metorHide();
+		_mentorHide();
 	});
 	
 	$('._add-info').click(function () {
+		_headerChange("modal-header-info");
+		$('.modal-title').text("Info 추가");
 		elementType = 'IN';
-		_metorHide();
+		_mentorHide();
 	});
 	
 	$('._add-mentor').click(function () {
+		_headerChange("modal-header-success");
+		$('.modal-title').text("Mentor 추가");
 		elementType = 'M';
 		$('._elements-name-pane').removeClass('hidden');
 		$('._elements-email-pane').removeClass('hidden');
 	});
 	
 	$('._add-risk').click(function () {
+		_headerChange("modal-header-danger");
+		$('.modal-title').text("Risk 추가");
 		elementType = 'RI';
-		_metorHide();
+		_mentorHide();
 	});
 	
 	$('._add-action').click(function () {
+		_headerChange("modal-header-default");
+		$('.modal-title').text("Action 추가");
 		elementType = 'A';
-		_metorHide();
+		_mentorHide();
 	});
 	
 	$('#_save-elements').click(function () {
