@@ -69,7 +69,7 @@ $('document').ready(function () {
 	
 	$('._btn-finish').click(function () {
 		$('#_modal-tutorial').modal('hide');
-		window.location.href="/html/timeline/timeline.html"
+		window.location.href="/html/main.html"
 	});
 	
 	$('._remember-account').change(function () {
