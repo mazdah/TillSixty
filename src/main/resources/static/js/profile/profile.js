@@ -603,20 +603,20 @@ var view = function () {
 		
 		var profileObj = userInfo;
 		
-		if (profileObj.introduction != undefined && profileObj.introduction != '') {
-			descObj.text(profileObj.introduction);
+		if (profileObj.profile.introduction != undefined && profileObj.profile.introduction != '') {
+			descObj.text(profileObj.profile.introduction);
 		}
 		
-		if (profileObj.facebook != undefined && profileObj.facebook != '') {
-			fbObj.append('<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> ' + profileObj.facebook);
+		if (profileObj.facebook != undefined && profileObj.profile.facebook != '') {
+			fbObj.append('<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> ' + profileObj.profile.facebook);
 		}
 		
-		if (profileObj.twitter != undefined && profileObj.twitter != '') {
-			twObj.append('<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> ' + profileObj.twitter);
+		if (profileObj.twitter != undefined && profileObj.profile.twitter != '') {
+			twObj.append('<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> ' + profileObj.profile.twitter);
 		}
 		
-		if (profileObj.link != undefined && profileObj.link != '') {
-			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; ' + profileObj.link + '</div>');
+		if (profileObj.profile.link != undefined && profileObj.profile.link != '') {
+			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; ' + profileObj.profile.link + '</div>');
 		}
 		
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
@@ -1220,7 +1220,7 @@ var controller = function () {
 		var paramStr = '{"goalList":[' + JSON.stringify(param) + ']}'
 		
 		$.ajax({
-			url : "/rest/profiles/" + SessionDB.getSessionStorage("userId"),
+			url : "/rest/users/" + SessionDB.getSessionStorage("userId"),
 			type : "PATCH",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -1242,13 +1242,13 @@ var controller = function () {
 	
 	var _addProfileInfo = function (param) {
 		$.ajax({
-			url : "/rest/profiles/" + SessionDB.getSessionStorage("userId"),
+			url : "/rest/users/" + SessionDB.getSessionStorage("userId"),
 			type : "PATCH",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
-			data : JSON.stringify(param),
+			data : '{"profile":' + JSON.stringify(param) + '}',
 			success : function (data, status, jqXHR) {
-//				alert("_addProfileInfo : " + JSON.stringify(data));
+				alert("_addProfileInfo : " + JSON.stringify(data));
 				SessionDB.setSessionStorage("userInfo", JSON.stringify(data));
 				userInfo = data;
 				view.setProfile();

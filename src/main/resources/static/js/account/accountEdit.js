@@ -88,7 +88,7 @@ var controller = function () {
 	
 	var _checkUserID = function (Profile) {
 		$.ajax({
-			url : "/rest/profiles/search/countByUserId?userId=" + Profile.userId,
+			url : "/rest/users/search/countByUserId?userId=" + Profile.userId,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -107,7 +107,7 @@ var controller = function () {
 	
 	var _checkEmail = function (Profile) {
 		$.ajax({
-			url : "/rest/profiles/search/countByEmail?email=" + Profile.email,
+			url : "/rest/users/search/countByEmail?email=" + Profile.email,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -126,7 +126,7 @@ var controller = function () {
 	
 	var _insertUser = function (Profile) {
 		$.ajax({
-			url : "/rest/profiles",
+			url : "/rest/users",
 			type : "POST",
 			contentType : "application/json; charset=utf-8",
 			data : JSON.stringify(Profile),

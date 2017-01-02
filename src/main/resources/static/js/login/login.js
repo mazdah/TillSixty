@@ -180,7 +180,7 @@ var controller = function () {
 //		alert("userId = " + userId + "\n\nparamStr = " + paramStr);
 
 		$.ajax({
-			url : "/rest/profiles/" + userId,
+			url : "/rest/users/" + userId,
 			type : "PATCH",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -252,7 +252,7 @@ var controller = function () {
 		var password = $('#_password').val();
 		
 		$.ajax({
-			url : "/rest/profiles/search/countByUserIdAndPassword?userId=" + userid + "&password=" + password,
+			url : "/rest/users/search/countByUserIdAndPassword?userId=" + userid + "&password=" + password,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -271,7 +271,7 @@ var controller = function () {
 	
 	var _setUserSession = function (userid, password) {
 		$.ajax({
-			url : "/rest/profiles/search/findByUserIdAndPassword?userId=" + userid + "&password=" + password,
+			url : "/rest/users/search/findByUserIdAndPassword?userId=" + userid + "&password=" + password,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
