@@ -7,11 +7,11 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
-public interface ProfileRepository extends MongoRepository<Profile, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
-	List<Profile> findByName(@Param("name") String name);
+	List<User> findByName(@Param("name") String name);
 	
-	Profile findByUserIdAndPassword (@Param("userId") String userId, @Param("password") String password);
+	User findByUserIdAndPassword (@Param("userId") String userId, @Param("password") String password);
 	
 	Long countByUserIdAndPassword (@Param("userId") String userId, @Param("password") String password);
 	
