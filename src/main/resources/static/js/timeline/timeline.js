@@ -167,23 +167,23 @@ var view = function () {
 		lnkObj.empty();
 		descObj.empty();
 		
-		if (userInfo.description != undefined && userInfo.description != '') {
+		if (userInfo.profile.description != undefined && userInfo.profile.description != '') {
 			descObj.text(userInfo.description);
 		}
 		
 		//userInfo.facebook
-		if (userInfo.facebook != undefined && userInfo.facebook != '') {
-			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + userInfo.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px"></a>');
+		if (userInfo.profile.facebook != undefined && userInfo.profile.facebook != '') {
+			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + userInfo.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px"></a>');
 		}
 		
 		//userInfo.twitter
-		if (userInfo.twitter != undefined && userInfo.twitter != '') {
-			twObj.append('<a href="https://twitter.com/' + userInfo.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px"></a>');
+		if (userInfo.profile.twitter != undefined && userInfo.profile.twitter != '') {
+			twObj.append('<a href="https://twitter.com/' + userInfo.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px"></a>');
 		}
 		
 		//userInfo.link
-		if (userInfo.link != undefined && userInfo.link != '') {
-			lnkObj.append('<a href="' + userInfo.link + '" target="_blank"><img src="../../images/profile/ico_link.png" width="15px" height="15px"></a>');
+		if (userInfo.profile.link != undefined && userInfo.profile.link != '') {
+			lnkObj.append('<a href="' + userInfo.profile.link + '" target="_blank"><img src="../../images/profile/ico_link.png" width="15px" height="15px"></a>');
 		}
 		
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000

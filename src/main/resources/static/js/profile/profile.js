@@ -422,6 +422,12 @@ $('document').ready(function () {
 		_mentorHide();
 	});
 	
+	$('._add-todo').click(function () {
+		_headerChange("modal-header-default");
+		$('.modal-title').text("To-Do 추가");
+		_mentorHide();
+	});
+	
 	$('#_save-elements').click(function () {
 		var title = $('#_elements-title').val();
 		var description = $('#_elements-description').val();
@@ -607,16 +613,16 @@ var view = function () {
 			descObj.text(profileObj.profile.introduction);
 		}
 		
-		if (profileObj.facebook != undefined && profileObj.profile.facebook != '') {
-			fbObj.append('<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> ' + profileObj.profile.facebook);
+		if (profileObj.profile.facebook != undefined && profileObj.profile.facebook != '') {
+			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + profileObj.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px">' + profileObj.profile.facebook + '</a>');
 		}
 		
-		if (profileObj.twitter != undefined && profileObj.profile.twitter != '') {
-			twObj.append('<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> ' + profileObj.profile.twitter);
+		if (profileObj.profile.twitter != undefined && profileObj.profile.twitter != '') {
+			twObj.append('<a href="https://twitter.com/' + profileObj.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px">' + profileObj.profile.twitter + '</a>');
 		}
 		
 		if (profileObj.profile.link != undefined && profileObj.profile.link != '') {
-			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; ' + profileObj.profile.link + '</div>');
+			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; <a href="' + profileObj.profile.link + '" target="_blank">' + profileObj.profile.link + '</a></div>');
 		}
 		
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
