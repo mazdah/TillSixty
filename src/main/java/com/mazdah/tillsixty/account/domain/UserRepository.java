@@ -17,5 +17,5 @@ public interface UserRepository extends MongoRepository<User, String> {
 	
 	Long countByUserId(@Param("userId") String userId);
 	
-	Long countByEmail(@Param("email") String email);
+	Long countByProfileEmail(@Param("email") String email);
 }
