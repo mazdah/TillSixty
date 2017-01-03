@@ -22,6 +22,7 @@ public class Elements {
 	private List<SnsAccount> snsIdList;
 	private String createDate;
 	private String dueDate;
+	private String endDate;
 	private List<ElementsStatus> statusList;
 	
 	public Elements() {
@@ -33,7 +34,7 @@ public class Elements {
 			String elementType, String title, String description,
 			List<Media> mediaList, String name, String email,
 			List<SnsAccount> snsIdList, String createDate, String dueDate,
-			List<ElementsStatus> statusList) {
+			String endDate, List<ElementsStatus> statusList) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -47,6 +48,7 @@ public class Elements {
 		this.snsIdList = snsIdList;
 		this.createDate = createDate;
 		this.dueDate = dueDate;
+		this.endDate = endDate;
 		this.statusList = statusList;
 	}
 
@@ -146,6 +148,14 @@ public class Elements {
 		this.dueDate = dueDate;
 	}
 
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
 	public List<ElementsStatus> getStatusList() {
 		return statusList;
 	}
@@ -166,6 +176,7 @@ public class Elements {
 		result = prime * result
 				+ ((elementType == null) ? 0 : elementType.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
 		result = prime * result + ((goalId == null) ? 0 : goalId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
@@ -213,6 +224,11 @@ public class Elements {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (endDate == null) {
+			if (other.endDate != null)
+				return false;
+		} else if (!endDate.equals(other.endDate))
 			return false;
 		if (goalId == null) {
 			if (other.goalId != null)
@@ -264,7 +280,8 @@ public class Elements {
 				+ ", description=" + description + ", mediaList=" + mediaList
 				+ ", name=" + name + ", email=" + email + ", snsIdList="
 				+ snsIdList + ", createDate=" + createDate + ", dueDate="
-				+ dueDate + ", statusList=" + statusList + "]";
+				+ dueDate + ", endDate=" + endDate + ", statusList="
+				+ statusList + "]";
 	}
 
 	
