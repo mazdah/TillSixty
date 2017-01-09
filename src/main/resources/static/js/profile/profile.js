@@ -171,6 +171,28 @@ $('document').ready(function () {
 			}	
 	);
 	
+	$('#_due-date').datepicker(
+			{
+				format: "yyyy-mm-dd",
+				language: "ko",
+				todayBtn: true,
+				todayHighlight: true,
+				toggleActive: true,
+				autoclose: true
+			}	
+	);
+	
+	$('#_todo-date').datepicker(
+			{
+				format: "yyyy-mm-dd",
+				language: "ko",
+				todayBtn: true,
+				todayHighlight: true,
+				toggleActive: true,
+				autoclose: true
+			}	
+	);
+	
 	$('._pop-edit-profile').click(function () {
 		$('#_frm-profile-facebook').val(userInfo.facebook?userInfo.facebook:"");
 		$('#_frm-profile-twitter').val(userInfo.twitter?userInfo.twitter:"");
@@ -365,6 +387,7 @@ $('document').ready(function () {
 	});
 	
 	var _mentorHide = function () {
+		$('._modal-content-elements').css('height', '350px');
 		$('._elements-name-pane').addClass('hidden');
 		$('._elements-email-pane').addClass('hidden');
 	};
@@ -401,6 +424,7 @@ $('document').ready(function () {
 	});
 	
 	$('._add-mentor').click(function () {
+		$('._modal-content-elements').css('height', '500px');
 		_headerChange("modal-header-success");
 		$('.modal-title').text("Mentor 추가");
 		elementType = 'M';
@@ -420,6 +444,14 @@ $('document').ready(function () {
 		$('.modal-title').text("Action 추가");
 		elementType = 'A';
 		_mentorHide();
+	});
+	
+	$('._elements-status').on('change', function () {
+		if ($(this).val() == '예정') {
+			$('._due-date').removeClass('hidden');
+		} else {
+			$('._due-date').addClass('hidden');
+		}
 	});
 	
 	$('._add-todo').click(function () {
@@ -460,6 +492,55 @@ $('document').ready(function () {
 		$('#_elements-title').val('');
 		$('#_elements-description').val('');
 		$('#_modal-add-elements').modal('hide');
+	});
+	
+	$('#_save-todo').click(function () {
+		var title = $('#_todo-title').val();
+		var description = $('#_todo-description').val();
+		elementType = $('#_elements-type').val();
+		var dueDate = $('#_todo-date').val();
+		var status = '예정';
+		var updateDate = $('#_todo-date').val();
+		var seq = '1';
+		
+		if (title == undefined || title == '' || description == undefined || description == '') {
+			alert('제목과 내용을 입력해주세요.');
+			return;
+		}
+				
+		var statusObj = {};
+		statusObj.seq = seq;
+		statusObj.statusName = status;
+		statusObj.updateDate = updateDate;
+		
+		var param = {};
+		param.statusList = [];
+		
+		param.userId = SessionDB.getSessionStorage("userId");
+		param.goalId = SessionDB.getSessionStorage("goalId");
+		param.elementType = elementType;
+		param.title = title;
+		param.description = description;
+		param.statusList.push(statusObj);
+		param.dueDate = dueDate;
+		
+		var today = new Date();		
+		param.createDate = today.formattedDate('-');
+		
+		if (elementType == 'M') {
+			param.name = $('#_todo-name').val();
+			param.email = $('#_todo-email').val();
+		}
+		
+//		alert(SessionDB.getSessionStorage("goalId"));
+//		alert(JSON.stringify(param));
+		controller.addElementsInfo(param);
+		
+		$('#_todo-title').val('');
+		$('#_todo-description').val('');
+		$('#_todo-date').val('');
+		$("#_elements-type option:selected").val("I");
+		$('#_modal-add-todo').modal('hide');
 	});
 	
 	view.setProfile();

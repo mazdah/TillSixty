@@ -91,7 +91,7 @@
 <!-- Modal Frame -->
 <div class="modal fade" tabindex="-1" role="dialog" id="_modal-add-elements">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content _modal-content-elements">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">요소 추가</h4>
@@ -109,9 +109,21 @@
         <div class="form-box col-xs-12 hidden _elements-email-pane">
         	<label for="_elements-email">멘토 email</label><input type="text" class="form-control" id="_elements-email" value="">
         </div>
+        <div class="form-box col-xs-6">
+        	<label for="_elements-status">상태</label>
+        	<select class="form-control _elements-status" id="_elements-status">
+        		<option value="완료">완료</option>
+        		<option value="예정">예정</option>
+        	</select>
+        </div>
+        <div class="form-box-inline col-xs-6 _due-date hidden">
+        	<label for="_goal-start-date">완료 예정일</label><input type="text" class="form-control" id="_due-date" value="">
+        </div>
         <input type="hidden" id="_goal-id" value="">
+        <div class="col-xs-12">
         <button type="button" class="btn btn-sm btn-primary" id="_save-elements">저 장</button>
 	    <button type="button" class="btn btn-sm btn-danger" id="_close-modal" data-dismiss="modal">취 소</button>
+	    </div>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -126,7 +138,7 @@
         <h4 class="modal-title">ToDo 추가</h4>
       </div>
       <div class="modal-body text-center">
-      	<div class="form-box col-xs-12">
+      	<div class="form-box col-xs-6">
         	<label for="_elements-type">요소 유형</label>
         	<select class="form-control" id="_elements-type">
         		<option value="I">Idea</option>
@@ -136,6 +148,9 @@
         		<option value="RI">Risk</option>
         		<option value="A">Action</option>
         	</select>
+        </div>
+        <div class="form-box-inline col-xs-6">
+        	<label for="_goal-start-date">완료 예정일</label><input type="text" class="form-control" id="_todo-date" value="">
         </div>
       	<div class="form-box col-xs-12">
         	<label for="_todo-title">제 목</label><input type="text" class="form-control" id="_todo-title" value="">
@@ -147,10 +162,7 @@
         	<label for="_todo-name">만날 사람</label><input type="text" class="form-control" id="_todo-name" value="">
         </div>
         <div class="form-box col-xs-12 hidden _elements-email-pane">
-        	<label for="_todo-email">만날 장소</label><input type="text" class="form-control" id="_todo-place" value="">
-        </div>
-        <div class="form-box-inline col-xs-6">
-        	<label for="_goal-start-date">완료 예정일</label><input type="text" class="form-control" id="_goal-start-date" value="">
+        	<label for="_todo-email">email</label><input type="text" class="form-control" id="_todo-email" value="">
         </div>
         <input type="hidden" id="_goal-id" value="">
         <div class="col-xs-12">

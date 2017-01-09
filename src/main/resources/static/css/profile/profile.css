@@ -367,7 +367,11 @@ div.button-group
 }   
    
 ._modal-content-todo {
-	height: 450px;
+	height: 350px;
+}
+
+._modal-content-elements {
+	height: 350px;
 }
 
 /* ==========================================================================
