@@ -463,12 +463,18 @@ $('document').ready(function () {
 	$('#_save-elements').click(function () {
 		var title = $('#_elements-title').val();
 		var description = $('#_elements-description').val();
+		var status = $('#_elements-status').val();
+		var seq = '1';
+
+		var today = new Date();
+		var todayStr = today.formattedDate('-');
 		
 		if (title == undefined || title == '' || description == undefined || description == '') {
 			alert('제목과 내용을 입력해주세요.');
 			return;
 		}
-				
+		
+		
 		var param = {};
 		
 		param.userId = SessionDB.getSessionStorage("userId");
@@ -477,8 +483,25 @@ $('document').ready(function () {
 		param.title = title;
 		param.description = description;
 		
-		var today = new Date();		
-		param.createDate = today.formattedDate('-');
+//		alert('status = ' + status);
+		if (status == '예정') {
+			param.dueDate = $('#_due-date').val();
+			
+			param.statusList = [];
+			
+			var date = new Date();
+			
+			var statusObj = {};
+			statusObj.seq = seq;
+			statusObj.statusName = status;
+			statusObj.updateDate = todayStr;
+			
+			param.statusList.push(statusObj);
+		} else {
+			param.endDate = todayStr;
+		}
+			
+		param.createDate = todayStr;
 		
 		if (elementType == 'M') {
 			param.name = $('#_elements-name').val();
@@ -500,18 +523,23 @@ $('document').ready(function () {
 		elementType = $('#_elements-type').val();
 		var dueDate = $('#_todo-date').val();
 		var status = '예정';
-		var updateDate = $('#_todo-date').val();
+		
+		var date = new Date();
+		var updateDate = date.formattedDate('-');
 		var seq = '1';
 		
 		if (title == undefined || title == '' || description == undefined || description == '') {
 			alert('제목과 내용을 입력해주세요.');
 			return;
 		}
-				
+		
+		var today = new Date();
+		var todayStr = today.formattedDate('-');
+		
 		var statusObj = {};
 		statusObj.seq = seq;
 		statusObj.statusName = status;
-		statusObj.updateDate = updateDate;
+		statusObj.updateDate = todayStr;
 		
 		var param = {};
 		param.statusList = [];
@@ -524,8 +552,8 @@ $('document').ready(function () {
 		param.statusList.push(statusObj);
 		param.dueDate = dueDate;
 		
-		var today = new Date();		
-		param.createDate = today.formattedDate('-');
+				
+		param.createDate = todayStr;
 		
 		if (elementType == 'M') {
 			param.name = $('#_todo-name').val();
@@ -818,7 +846,7 @@ var view = function () {
 		if (elementType == 'I') {
 			elementsContainer = $('._idea-container');
 			bgStyle = 'panel-primary';
-			elCntObj = $('._label-iead');
+			elCntObj = $('._label-idea');
 		} else if (elementType == 'R') {
 			elementsContainer = $('._resource-container');
 			bgStyle = 'panel-warning';
@@ -850,7 +878,7 @@ var view = function () {
 					  	 "</div>";
 		
 		elementsContainer.prepend(prependStr);
-		
+
 		var elCnt = Number(elCntObj.text()) + 1;
 		elCntObj.text(elCnt);
 		
@@ -1390,12 +1418,12 @@ var controller = function () {
 		var goalId = goalInfo.goalId;
 		
 		$.ajax({
-			url : "/rest/elements/search/findByUserIdAndGoalIdAndElementType?userId=" + userId + "&goalId=" + goalId + "&elementType=" + elementType,
+			url : "/rest/elements/search/findByUserIdAndGoalIdAndElementTypeOrderByEndDateDesc?userId=" + userId + "&goalId=" + goalId + "&elementType=" + elementType,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
 			success : function (data, status, jqXHR) {			
-				//alert(JSON.stringify(data));
+//				alert(JSON.stringify(data));
 				view.setElements(data._embedded.elementses);
 			},
 			error : function (jqXHR, status) {
