@@ -13,6 +13,7 @@ public class Elements {
 	
 	private String userId;
 	private String goalId;
+	private long elementId;
 	private String elementType;
 	private String title;
 	private String description;
@@ -23,22 +24,23 @@ public class Elements {
 	private String createDate;
 	private String dueDate;
 	private String endDate;
-	private List<ElementsStatus> statusList;
+	private String status;
 	
 	public Elements() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Elements(String id, String userId, String goalId,
+	public Elements(String id, String userId, String goalId, long elementId,
 			String elementType, String title, String description,
 			List<Media> mediaList, String name, String email,
 			List<SnsAccount> snsIdList, String createDate, String dueDate,
-			String endDate, List<ElementsStatus> statusList) {
+			String endDate, String status) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.goalId = goalId;
+		this.elementId = elementId;
 		this.elementType = elementType;
 		this.title = title;
 		this.description = description;
@@ -49,7 +51,7 @@ public class Elements {
 		this.createDate = createDate;
 		this.dueDate = dueDate;
 		this.endDate = endDate;
-		this.statusList = statusList;
+		this.status = status;
 	}
 
 	public String getId() {
@@ -74,6 +76,14 @@ public class Elements {
 
 	public void setGoalId(String goalId) {
 		this.goalId = goalId;
+	}
+
+	public long getElementId() {
+		return elementId;
+	}
+
+	public void setElementId(long elementId) {
+		this.elementId = elementId;
 	}
 
 	public String getElementType() {
@@ -156,12 +166,12 @@ public class Elements {
 		this.endDate = endDate;
 	}
 
-	public List<ElementsStatus> getStatusList() {
-		return statusList;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setStatusList(List<ElementsStatus> statusList) {
-		this.statusList = statusList;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
@@ -173,6 +183,7 @@ public class Elements {
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
+		result = prime * result + (int) (elementId ^ (elementId >>> 32));
 		result = prime * result
 				+ ((elementType == null) ? 0 : elementType.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -184,8 +195,7 @@ public class Elements {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result
 				+ ((snsIdList == null) ? 0 : snsIdList.hashCode());
-		result = prime * result
-				+ ((statusList == null) ? 0 : statusList.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
@@ -214,6 +224,8 @@ public class Elements {
 			if (other.dueDate != null)
 				return false;
 		} else if (!dueDate.equals(other.dueDate))
+			return false;
+		if (elementId != other.elementId)
 			return false;
 		if (elementType == null) {
 			if (other.elementType != null)
@@ -255,10 +267,10 @@ public class Elements {
 				return false;
 		} else if (!snsIdList.equals(other.snsIdList))
 			return false;
-		if (statusList == null) {
-			if (other.statusList != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!statusList.equals(other.statusList))
+		} else if (!status.equals(other.status))
 			return false;
 		if (title == null) {
 			if (other.title != null)
@@ -276,12 +288,12 @@ public class Elements {
 	@Override
 	public String toString() {
 		return "Elements [id=" + id + ", userId=" + userId + ", goalId="
-				+ goalId + ", elementType=" + elementType + ", title=" + title
-				+ ", description=" + description + ", mediaList=" + mediaList
-				+ ", name=" + name + ", email=" + email + ", snsIdList="
-				+ snsIdList + ", createDate=" + createDate + ", dueDate="
-				+ dueDate + ", endDate=" + endDate + ", statusList="
-				+ statusList + "]";
+				+ goalId + ", elementId=" + elementId + ", elementType="
+				+ elementType + ", title=" + title + ", description="
+				+ description + ", mediaList=" + mediaList + ", name=" + name
+				+ ", email=" + email + ", snsIdList=" + snsIdList
+				+ ", createDate=" + createDate + ", dueDate=" + dueDate
+				+ ", endDate=" + endDate + ", status=" + status + "]";
 	}
 
 	
