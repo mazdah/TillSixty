@@ -467,6 +467,7 @@ $('document').ready(function () {
 		var seq = '1';
 
 		var today = new Date();
+		var elementId = today.getTime();
 		var todayStr = today.formattedDate('-');
 		
 		if (title == undefined || title == '' || description == undefined || description == '') {
@@ -479,24 +480,14 @@ $('document').ready(function () {
 		
 		param.userId = SessionDB.getSessionStorage("userId");
 		param.goalId = SessionDB.getSessionStorage("goalId");
+		param.elementId = elementId;
 		param.elementType = elementType;
 		param.title = title;
 		param.description = description;
-		
+		param.status = status;
 //		alert('status = ' + status);
 		if (status == '예정') {
 			param.dueDate = $('#_due-date').val();
-			
-			param.statusList = [];
-			
-			var date = new Date();
-			
-			var statusObj = {};
-			statusObj.seq = seq;
-			statusObj.statusName = status;
-			statusObj.updateDate = todayStr;
-			
-			param.statusList.push(statusObj);
 		} else {
 			param.endDate = todayStr;
 		}
@@ -524,33 +515,25 @@ $('document').ready(function () {
 		var dueDate = $('#_todo-date').val();
 		var status = '예정';
 		
-		var date = new Date();
-		var updateDate = date.formattedDate('-');
-		var seq = '1';
-		
 		if (title == undefined || title == '' || description == undefined || description == '') {
 			alert('제목과 내용을 입력해주세요.');
 			return;
 		}
 		
 		var today = new Date();
+		var elementId = today.getTime();
 		var todayStr = today.formattedDate('-');
 		
-		var statusObj = {};
-		statusObj.seq = seq;
-		statusObj.statusName = status;
-		statusObj.updateDate = todayStr;
-		
 		var param = {};
-		param.statusList = [];
 		
 		param.userId = SessionDB.getSessionStorage("userId");
 		param.goalId = SessionDB.getSessionStorage("goalId");
+		param.elementId = elementId;
 		param.elementType = elementType;
 		param.title = title;
 		param.description = description;
-		param.statusList.push(statusObj);
 		param.dueDate = dueDate;
+		param.status = status;
 		
 				
 		param.createDate = todayStr;
