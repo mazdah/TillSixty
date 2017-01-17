@@ -22,7 +22,7 @@ public class Elements {
 	private String email;
 	private List<SnsAccount> snsIdList;
 	private String createDate;
-	private String dueDate;
+	private List<String> dueDateList;
 	private String endDate;
 	private String status;
 	
@@ -34,8 +34,8 @@ public class Elements {
 	public Elements(String id, String userId, String goalId, long elementId,
 			String elementType, String title, String description,
 			List<Media> mediaList, String name, String email,
-			List<SnsAccount> snsIdList, String createDate, String dueDate,
-			String endDate, String status) {
+			List<SnsAccount> snsIdList, String createDate,
+			List<String> dueDateList, String endDate, String status) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -49,7 +49,7 @@ public class Elements {
 		this.email = email;
 		this.snsIdList = snsIdList;
 		this.createDate = createDate;
-		this.dueDate = dueDate;
+		this.dueDateList = dueDateList;
 		this.endDate = endDate;
 		this.status = status;
 	}
@@ -150,12 +150,12 @@ public class Elements {
 		this.createDate = createDate;
 	}
 
-	public String getDueDate() {
-		return dueDate;
+	public List<String> getDueDateList() {
+		return dueDateList;
 	}
 
-	public void setDueDate(String dueDate) {
-		this.dueDate = dueDate;
+	public void setDueDateList(List<String> dueDateList) {
+		this.dueDateList = dueDateList;
 	}
 
 	public String getEndDate() {
@@ -182,7 +182,8 @@ public class Elements {
 				+ ((createDate == null) ? 0 : createDate.hashCode());
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
+		result = prime * result
+				+ ((dueDateList == null) ? 0 : dueDateList.hashCode());
 		result = prime * result + (int) (elementId ^ (elementId >>> 32));
 		result = prime * result
 				+ ((elementType == null) ? 0 : elementType.hashCode());
@@ -220,10 +221,10 @@ public class Elements {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (dueDate == null) {
-			if (other.dueDate != null)
+		if (dueDateList == null) {
+			if (other.dueDateList != null)
 				return false;
-		} else if (!dueDate.equals(other.dueDate))
+		} else if (!dueDateList.equals(other.dueDateList))
 			return false;
 		if (elementId != other.elementId)
 			return false;
@@ -292,7 +293,7 @@ public class Elements {
 				+ elementType + ", title=" + title + ", description="
 				+ description + ", mediaList=" + mediaList + ", name=" + name
 				+ ", email=" + email + ", snsIdList=" + snsIdList
-				+ ", createDate=" + createDate + ", dueDate=" + dueDate
+				+ ", createDate=" + createDate + ", dueDateList=" + dueDateList
 				+ ", endDate=" + endDate + ", status=" + status + "]";
 	}
 

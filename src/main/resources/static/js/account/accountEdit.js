@@ -107,7 +107,7 @@ var controller = function () {
 	
 	var _checkEmail = function (Profile) {
 		$.ajax({
-			url : "/rest/users/search/countByEmail?email=" + Profile.email,
+			url : "/rest/users/search/countByProfileEmail?email=" + Profile.email,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",

@@ -167,24 +167,27 @@ var view = function () {
 		lnkObj.empty();
 		descObj.empty();
 		
-		if (userInfo.profile.description != undefined && userInfo.profile.description != '') {
-			descObj.text(userInfo.description);
+		if (userInfo.profile) {
+			if (userInfo.profile.description != undefined && userInfo.profile.description != '') {
+				descObj.text(userInfo.description);
+			}
+			
+			//userInfo.facebook
+			if (userInfo.profile.facebook != undefined && userInfo.profile.facebook != '') {
+				fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + userInfo.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px"></a>');
+			}
+			
+			//userInfo.twitter
+			if (userInfo.profile.twitter != undefined && userInfo.profile.twitter != '') {
+				twObj.append('<a href="https://twitter.com/' + userInfo.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px"></a>');
+			}
+			
+			//userInfo.link
+			if (userInfo.profile.link != undefined && userInfo.profile.link != '') {
+				lnkObj.append('<a href="' + userInfo.profile.link + '" target="_blank"><img src="../../images/profile/ico_link.png" width="15px" height="15px"></a>');
+			}
 		}
 		
-		//userInfo.facebook
-		if (userInfo.profile.facebook != undefined && userInfo.profile.facebook != '') {
-			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + userInfo.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px"></a>');
-		}
-		
-		//userInfo.twitter
-		if (userInfo.profile.twitter != undefined && userInfo.profile.twitter != '') {
-			twObj.append('<a href="https://twitter.com/' + userInfo.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px"></a>');
-		}
-		
-		//userInfo.link
-		if (userInfo.profile.link != undefined && userInfo.profile.link != '') {
-			lnkObj.append('<a href="' + userInfo.profile.link + '" target="_blank"><img src="../../images/profile/ico_link.png" width="15px" height="15px"></a>');
-		}
 		
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
 		//<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> @mazdah70

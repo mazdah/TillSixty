@@ -360,7 +360,7 @@ $('document').ready(function () {
 	
 	$('#_goal-item').click(function (){
 		//view.changeElements();
-		controller.getElementsList();
+		controller.getTodoList();
 		
 		if (prevRsourceBtn) {
 			prevRsourceBtn.parent().removeClass('btn-active');
@@ -465,6 +465,7 @@ $('document').ready(function () {
 		var description = $('#_elements-description').val();
 		var status = $('#_elements-status').val();
 		var seq = '1';
+		var dueDate = $('#_due-date').val();
 
 		var today = new Date();
 		var elementId = today.getTime();
@@ -477,6 +478,7 @@ $('document').ready(function () {
 		
 		
 		var param = {};
+		param.dueDateList = [];
 		
 		param.userId = SessionDB.getSessionStorage("userId");
 		param.goalId = SessionDB.getSessionStorage("goalId");
@@ -487,7 +489,9 @@ $('document').ready(function () {
 		param.status = status;
 //		alert('status = ' + status);
 		if (status == '예정') {
-			param.dueDate = $('#_due-date').val();
+			if (dueDate) {
+				param.dueDateList.push(dueDate);
+			}
 		} else {
 			param.endDate = todayStr;
 		}
@@ -525,6 +529,7 @@ $('document').ready(function () {
 		var todayStr = today.formattedDate('-');
 		
 		var param = {};
+		param.dueDateList = [];
 		
 		param.userId = SessionDB.getSessionStorage("userId");
 		param.goalId = SessionDB.getSessionStorage("goalId");
@@ -532,7 +537,9 @@ $('document').ready(function () {
 		param.elementType = elementType;
 		param.title = title;
 		param.description = description;
-		param.dueDate = dueDate;
+		if (dueDate) {
+			param.dueDateList.push(dueDate);
+		}
 		param.status = status;
 		
 				
@@ -554,9 +561,14 @@ $('document').ready(function () {
 		$('#_modal-add-todo').modal('hide');
 	});
 	
+	$(document).on('click', '._edit_duedate', function (){
+		alert('edit : element id = ' + $(this).attr('id'));
+	});
+	
 	view.setProfile();
 	view.setGoal();
 	controller.getElementsList();
+	controller.getTodoList();
 //	view.setChart();
 //	view.setRadarChart();
 //	view.setTodayStatChart();
@@ -701,22 +713,24 @@ var view = function () {
 		
 		var profileObj = userInfo;
 		
-		if (profileObj.profile.introduction != undefined && profileObj.profile.introduction != '') {
-			descObj.text(profileObj.profile.introduction);
+		if (profileObj.profile) {
+			if (profileObj.profile.introduction != undefined && profileObj.profile.introduction != '') {
+				descObj.text(profileObj.profile.introduction);
+			}
+			
+			if (profileObj.profile.facebook != undefined && profileObj.profile.facebook != '') {
+				fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + profileObj.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px">' + profileObj.profile.facebook + '</a>');
+			}
+			
+			if (profileObj.profile.twitter != undefined && profileObj.profile.twitter != '') {
+				twObj.append('<a href="https://twitter.com/' + profileObj.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px">' + profileObj.profile.twitter + '</a>');
+			}
+			
+			if (profileObj.profile.link != undefined && profileObj.profile.link != '') {
+				lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; <a href="' + profileObj.profile.link + '" target="_blank">' + profileObj.profile.link + '</a></div>');
+			}
 		}
-		
-		if (profileObj.profile.facebook != undefined && profileObj.profile.facebook != '') {
-			fbObj.append('<a href="https://www.facebook.com/profile.php?id=' + profileObj.profile.facebook + '" target="_blank"><img src="../../images/profile/ico_facebook.png" width="25px" height="25px">' + profileObj.profile.facebook + '</a>');
-		}
-		
-		if (profileObj.profile.twitter != undefined && profileObj.profile.twitter != '') {
-			twObj.append('<a href="https://twitter.com/' + profileObj.profile.twitter + '" target="_blank"><img src="../../images/profile/ico_twitter.png" width="25px" height="25px">' + profileObj.profile.twitter + '</a>');
-		}
-		
-		if (profileObj.profile.link != undefined && profileObj.profile.link != '') {
-			lnkObj.append('<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; <a href="' + profileObj.profile.link + '" target="_blank">' + profileObj.profile.link + '</a></div>');
-		}
-		
+
 		//<img src="../../images/profile/ico_facebook.png" width="25px" height="25px"> 100012050000
 		//<img src="../../images/profile/ico_twitter.png" width="25px" height="25px"> @mazdah70
 		//<div class="_link-area">&nbsp;<img src="../../images/profile/ico_link.png" width="15px" height="15px">&nbsp;&nbsp; http://mazdah.tistory.com/</div>
@@ -779,45 +793,134 @@ var view = function () {
 		controller.getElementListForType(elementType);
 	};
 	
-	var _setElements = function (dataArr) {
-		
+	var _setElements = function (dataArr, flag) {
+		var appendToDoStr = "";
+		var appendStr = "";
 		var elementsContainer;
 		var bgStyle;
-		
-		if (elementType == 'I') {
-			elementsContainer = $('._idea-container');
-			bgStyle = 'panel-primary';
-		} else if (elementType == 'R') {
-			elementsContainer = $('._resource-container');
-			bgStyle = 'panel-warning';
-		} else if (elementType == 'IN') {
-			elementsContainer = $('._info-container');
-			bgStyle = 'panel-info';
-		} else if (elementType == 'M') {
-			elementsContainer = $('._mentor-container');
-			bgStyle = 'panel-success';
-		} else if (elementType == 'RI') {
-			elementsContainer = $('._risk-container');
-			bgStyle = 'panel-danger';
-		} else if (elementType == 'A') {
-			elementsContainer = $('._action-container');
-			bgStyle = 'panel-default';
-		}
+
 		
 		var cnt = dataArr.length;
-		var appendStr = "";
+		
+		$('._idea_todo_list_container').empty();
+		$('._idea_complete_list_container').empty();
+		
+		$('._resource_todo_list_container').empty();
+		$('._resource_complete_list_container').empty();
+		
+		$('._info_todo_list_container').empty();
+		$('._info_complete_list_container').empty();
+		
+		$('._mentor_todo_list_container').empty();
+		$('._mentor_complete_list_container').empty();
+		
+		$('._risk_todo_list_container').empty();
+		$('._risk_complete_list_container').empty();
+		
+		$('._action_todo_list_container').empty();
+		$('._action_complete_list_container').empty();
 		
 		for (i = (cnt - 1); i >= 0; i--) {
+			var status = dataArr[i].status;
+			var dueDate = dataArr[i].dueDateList.sort().reverse();
+			var complete = "";
+			
+			if (dataArr[i].elementType == 'I') {
+				bgStyle = 'panel-primary';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._idea_todo_list_container');
+				} else {
+					elementsContainer = $('._idea_complete_list_container');
+				}
+			} else if (dataArr[i].elementType == 'R') {
+				bgStyle = 'panel-warning';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._resource_todo_list_container');
+				} else {
+					elementsContainer = $('._resource_complete_list_container');
+				}
+			} else if (dataArr[i].elementType == 'IN') {
+				bgStyle = 'panel-info';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._info_todo_list_container');
+				} else {
+					elementsContainer = $('._info_complete_list_container');
+				}
+			} else if (dataArr[i].elementType == 'M') {
+				bgStyle = 'panel-success';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._mentor_todo_list_container');
+				} else {
+					elementsContainer = $('._mentor_complete_list_container');
+				}
+			} else if (dataArr[i].elementType == 'RI') {
+				bgStyle = 'panel-danger';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._risk_todo_list_container');
+				} else {
+					elementsContainer = $('._risk_complete_list_container');
+				}
+			} else if (dataArr[i].elementType == 'A') {
+				bgStyle = 'panel-default';
+				
+				if (status == "예정" || status == "연기") {
+					elementsContainer = $('._action_todo_list_container');
+				} else {
+					elementsContainer = $('._action_complete_list_container');
+				}
+			}
+			
 			var description = dataArr[i].description.replace(/\n/gi, '<br>')
-			appendStr += "<div class='panel " + bgStyle + "'>" +
-					  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
-					  	 "<div class='panel-body'>" +
-					  	 description +
-					  	 "</div>" +
-					  	 "</div>";
+			if (status == "예정" || status == "연기") {
+				var date = new Date();
+				var todayStr = date.formattedDate("-");
+				if (todayStr > dueDate) {
+					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : <font color='#ff0000'>" + dueDate + "</font> <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + dataArr[i].elementId + "'></label></div>";
+				} else {
+					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : " + dueDate + " <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + dataArr[i].elementId + "'></label></div>";
+				}
+				
+				if (flag == "TD") {
+					appendToDoStr += "<div class='panel " + bgStyle + "'>" +
+				  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
+				  	 "<div class='panel-body'>" +
+				  	 description +
+				  	 "</div>" +
+				  	 complete +
+				  	 "</div>";
+				} else {
+					appendToDoStr = "<div class='panel " + bgStyle + "'>" +
+				  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
+				  	 "<div class='panel-body'>" +
+				  	 description +
+				  	 "</div>" +
+				  	 complete +
+				  	 "</div>";
+				}
+				
+				
+				elementsContainer.append(appendToDoStr);
+			} else {
+				appendStr = "<div class='panel " + bgStyle + "'>" +
+			  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
+			  	 "<div class='panel-body'>" +
+			  	 description +
+			  	 "</div>" +
+			  	 "</div>";
+				
+				elementsContainer.append(appendStr);
+			}
 		}
-		elementsContainer.empty();
-		elementsContainer.append(appendStr);
+		
+		if (flag == "TD") {
+			$('._todo-list-div').empty();
+			$('._todo-list-div').append(appendToDoStr);
+		}
 	};
 	
 	var _addElements = function (dataObj) {
@@ -825,31 +928,69 @@ var view = function () {
 		var elementsContainer;
 		var bgStyle;
 		var elCntObj;
+		var status = elementsObj.status;
+		var dueDate = dataObj.dueDateList.sort().reverse();
 		
 		if (elementType == 'I') {
-			elementsContainer = $('._idea-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._idea_todo_list_container');
+			} else {
+				elementsContainer = $('._idea_complete_list_container');
+			}
+			
 			bgStyle = 'panel-primary';
 			elCntObj = $('._label-idea');
 		} else if (elementType == 'R') {
-			elementsContainer = $('._resource-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._resource_todo_list_container');
+			} else {
+				elementsContainer = $('._resource_complete_list_container');
+			}
+			
 			bgStyle = 'panel-warning';
 			elCntObj = $('._label-resource');
 		} else if (elementType == 'IN') {
-			elementsContainer = $('._info-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._info_todo_list_container');
+			} else {
+				elementsContainer = $('._info_complete_list_container');
+			}
+			
 			bgStyle = 'panel-info';
 			elCntObj = $('._label-info');
 		} else if (elementType == 'M') {
-			elementsContainer = $('._mentor-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._mentor_todo_list_container');
+			} else {
+				elementsContainer = $('._mentor_complete_list_container');
+			}
+			
 			bgStyle = 'panel-success';
 			elCntObj = $('._label-mentor');
 		} else if (elementType == 'RI') {
-			elementsContainer = $('._risk-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._risk_todo_list_container');
+			} else {
+				elementsContainer = $('._risk_complete_list_container');
+			}
+			
 			bgStyle = 'panel-danger';
 			elCntObj = $('._label-risk');
 		} else if (elementType == 'A') {
-			elementsContainer = $('._action-container');
+			if (status == "예정" || status == "연기") {
+				elementsContainer = $('._action_todo_list_container');
+			} else {
+				elementsContainer = $('._action_complete_list_container');
+			}
+			
 			bgStyle = 'panel-default';
 			elCntObj = $('._label-action');
+		}
+		
+		var complete = "";
+		
+		if (status == "예정" || status == "연기") {
+			complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : " + dueDate + " <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + elementsObj.elementId + "'></label></div>";
 		}
 		
 		var description = elementsObj.description.replace(/\n/gi, '<br>')
@@ -858,6 +999,7 @@ var view = function () {
 					  	 "<div class='panel-body'>" +
 					  	 description +
 					  	 "</div>" +
+					  	 complete +
 					  	 "</div>";
 		
 		elementsContainer.prepend(prependStr);
@@ -1401,7 +1543,7 @@ var controller = function () {
 		var goalId = goalInfo.goalId;
 		
 		$.ajax({
-			url : "/rest/elements/search/findByUserIdAndGoalIdAndElementTypeOrderByEndDateDesc?userId=" + userId + "&goalId=" + goalId + "&elementType=" + elementType,
+			url : "/rest/elements/search/findByUserIdAndGoalIdAndElementTypeOrderByStatusDesc?userId=" + userId + "&goalId=" + goalId + "&elementType=" + elementType,
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -1414,6 +1556,25 @@ var controller = function () {
 			}
 		});
 	};
+	
+	var _getTodoList = function () {
+		var userId = SessionDB.getSessionStorage("userId");
+		var goalId = goalInfo.goalId;
+		
+		$.ajax({
+			url : "/rest/elements/search/findByUserIdAndGoalIdAndStatusOrderByCreateDateAsc?userId=" + userId + "&goalId=" + goalId + "&status=예정",
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			success : function (data, status, jqXHR) {			
+//				alert(JSON.stringify(data));
+				view.setElements(data._embedded.elementses, "TD");
+			},
+			error : function (jqXHR, status) {
+				alert("error : ToDo 목록을 가져오는 중 오류가 발생하였습니다. [" + status + "]");
+			}
+		});
+	}
 
 	return {
 		init					: _init,
@@ -1421,7 +1582,8 @@ var controller = function () {
 		addProfileInfo			: _addProfileInfo,
 		addElementsInfo			: _addElementsInfo,
 		getElementsList			: _getElementsList,
-		getElementListForType	: _getElementListForType
+		getElementListForType	: _getElementListForType,
+		getTodoList				: _getTodoList
 	}
 }();
 controller.init();
