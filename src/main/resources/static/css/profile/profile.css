@@ -8,6 +8,15 @@ body
     padding-top: 100px;
 }
 
+hr {
+	height: 1px;
+	background: #bbb;
+	background-image: -webkit-linear-gradient(left, #eee, #777, #eee);
+	background-image: -moz-linear-gradient(left, #eee, #777, #eee);
+	background-image: -ms-linear-gradient(left, #eee, #777, #eee);
+	background-image: -o-linear-gradient(left, #eee, #777, #eee);
+}
+
 ._nav-top
 {
 /* 	
