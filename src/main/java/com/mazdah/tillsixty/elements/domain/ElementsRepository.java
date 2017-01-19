@@ -14,7 +14,7 @@ public interface ElementsRepository extends MongoRepository<Elements, String> {
 	
 	List<Elements> findByUserIdAndGoalIdAndElementTypeOrderByStatusDesc(@Param("userId") String userId, @Param("goalId") String goalId, @Param("elementType") String elementType);
 	
-	List<Elements> findByUserIdAndGoalIdAndStatusOrderByCreateDateAsc(@Param("userId") String userId, @Param("goalId") String goalId, @Param("status") String status);
+	List<Elements> findByUserIdAndGoalIdAndStatusInOrderByCreateDateAsc(@Param("userId") String userId, @Param("goalId") String goalId, @Param("status") List<String> status);
 	
 	Long countByUserIdAndGoalIdAndElementType(@Param("userId") String userId, @Param("goalId") String goalId, @Param("elementType") String elementType);
 }
