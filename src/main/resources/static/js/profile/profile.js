@@ -2,7 +2,7 @@ var userInfo;
 var goalInfo;
 var prevRsourceBtn;
 var prevContents;
-var elementType;
+var elementType = "TD";
 var prevModalBg;
 
 $('document').ready(function () {
@@ -360,6 +360,7 @@ $('document').ready(function () {
 	
 	$('#_goal-item').click(function (){
 		//view.changeElements();
+		elementType = "TD";
 		controller.getTodoList();
 		
 		if (prevRsourceBtn) {
@@ -561,8 +562,72 @@ $('document').ready(function () {
 		$('#_modal-add-todo').modal('hide');
 	});
 	
+	var dueDateForUpdate;
 	$(document).on('click', '._edit_duedate', function (){
-		alert('edit : element id = ' + $(this).attr('id'));
+		var elId = $(this).attr('id');
+		
+		//alert(JSON.stringify($('._btn-group-' + elId).data('dueDateList')));
+		//alert('edit : element id = ' + elId + ' : due-date = ' + $(this).attr('due-date'));
+		//controller.updateDueDate($(this).attr('id'));
+		dueDateForUpdate = $(this).attr('due-date');
+		
+		$('._due-date-text-' + elId).empty();
+		$('._due-date-text-' + elId).html('<div class="form-group form-group-sm" style="display: inline-block; margin-top: -9px"><input type="text" class="form-control" id="_due-date-for-update" value=""></div>');
+		
+		$('#_due-date-for-update').datepicker(
+				{
+					format: "yyyy-mm-dd",
+					language: "ko",
+					todayBtn: true,
+					todayHighlight: true,
+					toggleActive: true,
+					autoclose: true
+				}	
+		);
+		
+		$('._btn-group-' + elId).empty();
+		$('._btn-group-' + elId).html("<a class='btn btn-xs btn-danger _go-edit-duedate' id='" + $(this).attr('id') + "' due-date='" + $(this).attr('due-date') + "'>저장</a> <a class='btn btn-xs btn-default _edit-duedate-cancel' id='" + $(this).attr('id') + "' due-date='" + $(this).attr('due-date') + "'>취소</a>");
+	});
+	
+	$(document).on('click', '._edit-duedate-cancel', function() {
+		var elId = $(this).attr('id');
+		
+		$('._due-date-text-' + elId).empty();
+		$('._due-date-text-' + elId).text(dueDateForUpdate);
+		$('._btn-group-' + elId).empty();
+		$('._btn-group-' + elId).html("<a class='btn btn-xs btn-danger _edit_duedate' id='" + elId + "' due-date='" + dueDateForUpdate + "'>수정</a></div>");
+	});
+	
+	$(document).on('click', '._go-edit-duedate', function() {
+		//alert($('#_due-date-for-update').val());
+		var elId = $(this).attr('id');		
+		var paramObj = $('._btn-group-' + elId).data('dueDateList');
+		var updateDate = $('#_due-date-for-update').val();
+		
+		if (updateDate == undefined || updateDate == "") {
+			alert("수정할 날짜를 입력해주세요!");
+			
+			$('._due-date-text-' + elId).empty();
+			$('._due-date-text-' + elId).text(dueDateForUpdate);
+			$('._btn-group-' + elId).empty();
+			$('._btn-group-' + elId).html("<a class='btn btn-xs btn-danger _edit_duedate' id='" + elId + "' due-date='" + dueDateForUpdate + "'>수정</a></div>");
+			
+			return;
+		}
+		
+		paramObj.push(updateDate);
+		controller.updateDueDate(elId, paramObj);
+	});
+	
+	$(document).on('change', '#_complete', function() {
+		//alert(elementType);
+		var elId = $(this).attr('element-id')
+		
+		if ($(this).is(':checked')) {
+			if (confirm("이 할일을 완료하시겠습니까?")) {
+				controller.setComplete(elId);
+			}
+		}
 	});
 	
 	view.setProfile();
@@ -793,6 +858,17 @@ var view = function () {
 		controller.getElementListForType(elementType);
 	};
 	
+	var _setUpdateDueDate = function (dataObj) {
+		var dueDate = dataObj.dueDateList.sort().reverse()[0];
+		var urlArr = dataObj._links.self.href.split("/");
+		var _id = urlArr[urlArr.length - 1];
+		
+		$('._due-date-text-' + _id).empty();
+		$('._due-date-text-' + _id).text(dueDate);
+		$('._btn-group-' + _id).empty();
+		$('._btn-group-' + _id).html("<a class='btn btn-xs btn-danger _edit_duedate' id='" + _id + "' due-date='" + dueDate + "'>수정</a></div>");
+	};
+	
 	var _setElements = function (dataArr, flag) {
 		var appendToDoStr = "";
 		var appendStr = "";
@@ -820,10 +896,15 @@ var view = function () {
 		$('._action_todo_list_container').empty();
 		$('._action_complete_list_container').empty();
 		
+		$('._todo-list-div').empty();
+		
 		for (i = (cnt - 1); i >= 0; i--) {
+			//alert(JSON.stringify(dataArr[i]));
 			var status = dataArr[i].status;
-			var dueDate = dataArr[i].dueDateList.sort().reverse();
+			var dueDate = dataArr[i].dueDateList.sort().reverse()[0];
 			var complete = "";
+			var urlArr = dataArr[i]._links.self.href.split("/");
+			var _id = urlArr[urlArr.length - 1];
 			
 			if (dataArr[i].elementType == 'I') {
 				bgStyle = 'panel-primary';
@@ -880,19 +961,21 @@ var view = function () {
 				var date = new Date();
 				var todayStr = date.formattedDate("-");
 				if (todayStr > dueDate) {
-					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : <font color='#ff0000'>" + dueDate + "</font> <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + dataArr[i].elementId + "'></label></div>";
+					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : <span class='_due-date-text" + _id + "'><font color='#ff0000'>" + dueDate + "</font></span> <div class='_btn-group-" + _id + "' style='display: inline-block'><a class='btn btn-xs btn-danger _edit_duedate' id='" + _id + "' due-date='" + dueDate + "'>수정</a></div></div> <label class='complete pull-right' for='_complete'>완료 <input type='checkbox' id='_complete' element-id='" + _id + "'></label></div>";
 				} else {
-					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : " + dueDate + " <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + dataArr[i].elementId + "'></label></div>";
+					complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : <span class='_due-date-text-" + _id + "'>" + dueDate + "</span> <div class='_btn-group-" + _id + "' style='display: inline-block'><a class='btn btn-xs btn-danger _edit_duedate' id='" + _id + "' due-date='" + dueDate + "'>수정</a></div></div> <label class='complete pull-right' for='_complete'>완료 <input type='checkbox' id='_complete' element-id='" + _id + "'></label></div>";
 				}
 				
 				if (flag == "TD") {
-					appendToDoStr += "<div class='panel " + bgStyle + "'>" +
+					appendToDoStr = "<div class='panel " + bgStyle + "'>" +
 				  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
 				  	 "<div class='panel-body'>" +
 				  	 description +
 				  	 "</div>" +
 				  	 complete +
 				  	 "</div>";
+					
+					$('._todo-list-div').append(appendToDoStr);
 				} else {
 					appendToDoStr = "<div class='panel " + bgStyle + "'>" +
 				  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
@@ -901,25 +984,22 @@ var view = function () {
 				  	 "</div>" +
 				  	 complete +
 				  	 "</div>";
+					
+					elementsContainer.append(appendToDoStr);
 				}
-				
-				
-				elementsContainer.append(appendToDoStr);
+							
+				$('._btn-group-' + _id).data('dueDateList', dataArr[i].dueDateList);
 			} else {
 				appendStr = "<div class='panel " + bgStyle + "'>" +
 			  	 "<div class='panel-heading'>" + dataArr[i].title + "<small class='pull-right'>" + dataArr[i].createDate + "</small></div>" +
 			  	 "<div class='panel-body'>" +
 			  	 description +
 			  	 "</div>" +
+			  	 "<div class='panel-footer'>&nbsp;<small class='_duedate pull-right'>완료일 : <span class='_due-date-text-" + _id + "'>" + dataArr[i].endDate + "</span></small></div>" +
 			  	 "</div>";
 				
 				elementsContainer.append(appendStr);
 			}
-		}
-		
-		if (flag == "TD") {
-			$('._todo-list-div').empty();
-			$('._todo-list-div').append(appendToDoStr);
 		}
 	};
 	
@@ -929,7 +1009,9 @@ var view = function () {
 		var bgStyle;
 		var elCntObj;
 		var status = elementsObj.status;
-		var dueDate = dataObj.dueDateList.sort().reverse();
+		var dueDate = dataObj.dueDateList.sort().reverse()[0];
+		var urlArr = dataObj._links.self.href.split("/");
+		var _id = urlArr[urlArr.length - 1];
 		
 		if (elementType == 'I') {
 			if (status == "예정" || status == "연기") {
@@ -990,7 +1072,9 @@ var view = function () {
 		var complete = "";
 		
 		if (status == "예정" || status == "연기") {
-			complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : " + dueDate + " <a class='btn btn-xs btn-danger _edit_duedate' id='" + dataArr[i].elementId + "'>수정</a></div> <label class='complete pull-right' for=''>완료 <input type='checkbox' id='" + elementsObj.elementId + "'></label></div>";
+			complete = "<div class='panel-footer'>&nbsp;<div class='_duedate pull-left'>예정일 : <span class='_due-date-text-" + _id + "'>" + dueDate + "</span> <div class='_btn-group-" + _id + "' style='display: inline-block'><a class='btn btn-xs btn-danger _edit_duedate' id='" + _id + "' due-date='" + dueDate + "'>수정</a></div></div> <label class='complete pull-right' for='_complete'>완료 <input type='checkbox' id='_complete' element-id='" + _id + "'></label></div>";
+		} else {
+			complete = "<div class='panel-footer'>&nbsp;<small class='_duedate pull-right'>완료일 : <span class='_due-date-text-" + _id + "'>" + dataArr[i].endDate + "</span></small></div>";
 		}
 		
 		var description = elementsObj.description.replace(/\n/gi, '<br>')
@@ -1003,7 +1087,11 @@ var view = function () {
 					  	 "</div>";
 		
 		elementsContainer.prepend(prependStr);
-
+		
+		if (status == "예정" || status == "연기") {
+			$('._btn-group-' + _id).data('dueDateList', dataObj.dueDateList);
+		}
+	
 		var elCnt = Number(elCntObj.text()) + 1;
 		elCntObj.text(elCnt);
 		
@@ -1446,7 +1534,8 @@ var view = function () {
 		changeElements			: _changeElements,
 		setElements				: _setElements,
 		addElements				: _addElements,
-		setElementsCount		: _setElementsCount
+		setElementsCount		: _setElementsCount,
+		setUpdateDueDate		: _setUpdateDueDate
 	}
 }();
 view.init();
@@ -1562,7 +1651,7 @@ var controller = function () {
 		var goalId = goalInfo.goalId;
 		
 		$.ajax({
-			url : "/rest/elements/search/findByUserIdAndGoalIdAndStatusOrderByCreateDateAsc?userId=" + userId + "&goalId=" + goalId + "&status=예정",
+			url : "/rest/elements/search/findByUserIdAndGoalIdAndStatusInOrderByCreateDateAsc?userId=" + userId + "&goalId=" + goalId + "&status=예정&status=연기",
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			dataType : "json",
@@ -1576,6 +1665,51 @@ var controller = function () {
 		});
 	}
 
+	var _updateDueDate = function(elementId, paramObj) {
+		var paramStr = '{"dueDateList": ' + JSON.stringify(paramObj) + ', "status": "연기"}'
+		
+		$.ajax({
+			url : "/rest/elements/" + elementId,
+			type : "PATCH",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : paramStr,
+			success : function (data, status, jqXHR) {
+				//alert("_addProfileInfo : " + JSON.stringify(data));
+				view.setUpdateDueDate(data);
+			},
+			error : function (jqXHR, status) {
+				alert("error : Profile 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
+	};
+	
+	var _setComplete = function (elementId) {
+		var date = new Date();
+		var todayStr = date.formattedDate("-");
+		
+		var paramStr = '{"status": "완료","endDate": "' + todayStr + '"}'
+		
+		$.ajax({
+			url : "/rest/elements/" + elementId,
+			type : "PATCH",
+			contentType : "application/json; charset=utf-8",
+			dataType : "json",
+			data : paramStr,
+			success : function (data, status, jqXHR) {
+				//alert("_addProfileInfo : " + JSON.stringify(data));
+				if (elementType == "TD") {
+					_getTodoList();
+				} else {
+					_getElementListForType(elementType);
+				}
+			},
+			error : function (jqXHR, status) {
+				alert("error : Profile 등록에 실패하였습니다. 잠시 후 다시 시도해주세요. [" + status + "]");
+			}
+		});
+	};
+	
 	return {
 		init					: _init,
 		updateGoalInfo			: _updateGoalInfo,
@@ -1583,7 +1717,9 @@ var controller = function () {
 		addElementsInfo			: _addElementsInfo,
 		getElementsList			: _getElementsList,
 		getElementListForType	: _getElementListForType,
-		getTodoList				: _getTodoList
+		getTodoList				: _getTodoList,
+		updateDueDate			: _updateDueDate,
+		setComplete				: _setComplete
 	}
 }();
 controller.init();
