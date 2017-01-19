@@ -344,7 +344,7 @@ var controller = function () {
 			url = "/rest/elements/search/findByUserIdAndGoalId?userId=" + userId + "&goalId=" + goalId;
 		} else {
 			gElementType = "NA";
-			url = "/rest/elements/search/findByUserIdAndGoalIdAndElementType?userId=" + userId + "&goalId=" + goalId + "&elementType=" + type;
+			url = "/rest/elements/search/findByUserIdAndGoalIdAndElementTypeOrderByStatusDesc?userId=" + userId + "&goalId=" + goalId + "&elementType=" + type;
 		}
 		
 		$.ajax({
